@@ -13,6 +13,10 @@ author:
   url: https://www.linkedin.com/in/hari-krishna-b731601b1/
   email: harikrishna03902@gmail.com
 
+# Social media
+github_username: sugan0tech
+linkedin_username: https://www.linkedin.com/in/hari-krishna-b731601b1/
+
 # Gems
 plugins:
   - jekyll-paginate
@@ -20,3 +24,10 @@ plugins:
 # Custom vars
 version: 1.1.0
 google_analytics_id: #UA-XXXX-Y
+
+social:
+  name: Your Name
+  links:
+    - https://x.com/sugan0tech
+    - https://www.linkedin.com/in/sugan0tech
+    - https://github.com/sugan0tech

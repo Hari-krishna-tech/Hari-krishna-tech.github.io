@@ -1,0 +1,23 @@
+- year: 2018
+  title: Started My Computing Journey
+  description: Began exploration with Programming with C++ in 16
+
+- year: 2020
+  title: Started College
+  description: Enrolled in B.Tech. Computer Science at SRM Institute of Science and Technology
+
+- year: 2021
+  title: Web Development
+  description: Started learning Web Development with HTML, CSS, and JavaScript then Moved to React and Node.js, built multiple projects
+
+- year: 2022
+  title: DSA Journey
+  description: Started learning Data Structures and Algorithms, Solved 500+ problems on LeetCode, GeeksforGeeks, and HackerRank
+
+- year: 2024
+  title: Graduated College
+  description: Completed B.Tech. in Computer Science with 9.49 CGPA
+
+- year: 2024
+  title: First Professional Experience
+  description: Joined as a Junior Software Developer at Mindsprint, Working with Angular, React and Spring Boot, SQL Server, PostgreSQL, MySQL
