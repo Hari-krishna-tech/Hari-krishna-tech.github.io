@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Modern Authentication - Deep Dive into Token-Based Auth with Keycloak &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2025/02/28/better-auth-with-tokens-and-keycloak/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Modern Authentication - Deep Dive into Token-Based Auth with Keycloak</h1>
+  <span class="post-date">28 Feb 2025</span>
+  <div class="message">
+  A comprehensive exploration of modern authentication systems using access and refresh tokens, with a focus on implementing robust auth flows with Keycloak.
+</div>
+
+<p>Authentication is the cornerstone of application security, yet it remains one of the most complex and commonly misunderstood aspects of modern systems. In this post, I’ll dive deep into token-based authentication, explore the access/refresh token pattern, and demonstrate how Keycloak simplifies these implementations.</p>
+
+<h2 id="the-evolution-of-authentication">The Evolution of Authentication</h2>
+
+<p>Authentication has evolved significantly over time:</p>
+
+<blockquote>
+  <p>“Authentication mechanisms reflect the evolving balance between security needs and user experience requirements.”</p>
+</blockquote>
+
+<ul>
+  <li><strong>Password-based</strong>: Simple but vulnerable to numerous attack vectors</li>
+  <li><strong>Session-based</strong>: Server-side sessions with client cookies</li>
+  <li><strong>Token-based</strong>: Stateless authentication using cryptographically signed tokens</li>
+  <li><strong>Modern token-based</strong>: Combining short-lived access tokens with refresh tokens</li>
+</ul>
+
+<h2 id="understanding-the-jwt-token-architecture">Understanding the JWT Token Architecture</h2>
+
+<p>Modern token-based authentication typically uses JSON Web Tokens (JWTs) in two distinct roles:</p>
+
+<h3 id="access-tokens">Access Tokens</h3>
+
+<p>Access tokens are short-lived credentials that:</p>
+
+<ul>
+  <li>Contain encoded user identity and permissions (claims)</li>
+  <li>Are cryptographically signed to prevent tampering</li>
+  <li>Remain valid for a short period (typically 5-15 minutes)</li>
+  <li>Are presented with each API request</li>
+</ul>
+
+<p>An example decoded JWT access token:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+</span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sGu0-6lMk..."</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Payload:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+</span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1709136789</span><span class="p">,</span><span class="w">
+</span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1709136489</span><span class="p">,</span><span class="w">
+</span><span class="nl">"jti"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa5f8315-4e4c-4ae6-9ae1-fc98b9979129"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://auth.example.com/realms/demo"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8fb4e5a0-3c4d-40ce-b1d5-3f89cacf9d24"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"azp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"frontend-client"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"session_state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e70b1c18-c5ea-47b2-9e11-c6109d413515"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"acr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"allowed-origins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://app.example.com"</span><span class="p">],</span><span class="w">
+</span><span class="nl">"realm_access"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nl">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"user"</span><span class="p">,</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">]</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nl">"resource_access"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nl">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"manage-account"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile email"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e70b1c18-c5ea-47b2-9e11-c6109d413515"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"preferred_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane.doe"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"given_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane.doe@example.com"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h3 id="refresh-tokens">Refresh Tokens</h3>
+
+<p>Refresh tokens are longer-lived credentials that:</p>
+
+<ul>
+  <li>Allow obtaining new access tokens without re-authentication</li>
+  <li>Are typically valid for days or weeks</li>
+  <li>Must be securely stored client-side</li>
+  <li>Are invalidated if compromised</li>
+</ul>
+
+<h2 id="the-authentication-flow">The Authentication Flow</h2>
+
+<p>A complete token-based authentication flow works as follows:</p>
+
+<ol>
+  <li>
+    <p><strong>Initial Authentication</strong>:</p>
+
+    <ul>
+      <li>User provides credentials</li>
+      <li>Server validates credentials and issues access + refresh tokens</li>
+      <li>Tokens are returned to client</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Accessing Protected Resources</strong>:</p>
+
+    <ul>
+      <li>Client includes access token with each request</li>
+      <li>Server validates token signature and claims</li>
+      <li>Server authorizes the request based on token claims</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Token Renewal</strong>:</p>
+    <ul>
+      <li>When access token expires, client uses refresh token to obtain new tokens</li>
+      <li>If refresh token is valid, new access and refresh tokens are issued</li>
+      <li>If refresh token is expired or invalid, user must re-authenticate</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Implementing token-based authentication requires addressing several security concerns:</p>
+
+<h3 id="token-storage">Token Storage</h3>
+
+<ul>
+  <li><strong>Access tokens</strong>: Can be stored in memory or session storage</li>
+  <li><strong>Refresh tokens</strong>: Should be stored in secure HTTP-only cookies or secure storage</li>
+  <li><strong>Never</strong> store tokens in localStorage due to XSS vulnerabilities</li>
+</ul>
+
+<h3 id="token-validation">Token Validation</h3>
+
+<p>Backend services must:</p>
+
+<ol>
+  <li>Verify token signature using the correct public key</li>
+  <li>Validate the token’s expiration time</li>
+  <li>Check issuer and audience claims</li>
+  <li>Verify that the token hasn’t been revoked (if using token blacklisting)</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtTokenValidator</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kd">final</span> <span class="nc">RSAPublicKey</span> <span class="n">publicKey</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">JwtTokenValidator</span><span class="o">(</span><span class="nc">RSAPublicKey</span> <span class="n">publicKey</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">publicKey</span> <span class="o">=</span> <span class="n">publicKey</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Jws</span><span class="o">&lt;</span><span class="nc">Claims</span><span class="o">&gt;</span> <span class="nf">validateToken</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">parserBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">setSigningKey</span><span class="o">(</span><span class="n">publicKey</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">parseClaimsJws</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">JwtException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidTokenException</span><span class="o">(</span><span class="s">"Invalid JWT token: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="token-revocation">Token Revocation</h3>
+
+<p>Unlike stateless JWT validation, token revocation requires:</p>
+
+<ul>
+  <li>Maintaining a blacklist of revoked tokens</li>
+  <li>Checking against this blacklist during validation</li>
+  <li>Implementing refresh token rotation for better security</li>
+</ul>
+
+<h2 id="introducing-keycloak">Introducing Keycloak</h2>
+
+<p>Keycloak is an open-source identity and access management solution that implements all the patterns discussed above and provides:</p>
+
+<ul>
+  <li><strong>Complete OAuth2/OIDC implementation</strong>: Full support for modern authentication protocols</li>
+  <li><strong>Centralized auth management</strong>: Single place to manage users, roles, and permissions</li>
+  <li><strong>Customizable login flows</strong>: Support for MFA, social login, and custom authenticators</li>
+  <li><strong>Token customization</strong>: Ability to add custom claims and control token lifespans</li>
+  <li><strong>Session management</strong>: Tracking and managing user sessions across applications</li>
+</ul>
+
+<h2 id="setting-up-keycloak">Setting Up Keycloak</h2>
+
+<h3 id="docker-deployment">Docker Deployment</h3>
+
+<p>The quickest way to get started with Keycloak is using Docker:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker run <span class="nt">-p</span> 8080:8080 <span class="nt">-e</span> <span class="nv">KEYCLOAK_ADMIN</span><span class="o">=</span>admin <span class="nt">-e</span> <span class="nv">KEYCLOAK_ADMIN_PASSWORD</span><span class="o">=</span>admin quay.io/keycloak/keycloak:22.0.0 start-dev</code></pre></figure>
+
+<h3 id="basic-configuration">Basic Configuration</h3>
+
+<p>Once Keycloak is running:</p>
+
+<ol>
+  <li>Create a new realm (e.g., “app-realm”)</li>
+  <li>Create client(s) for your application(s)</li>
+  <li>Configure client settings:
+    <ul>
+      <li>Valid redirect URIs</li>
+      <li>Web origins (CORS)</li>
+      <li>Access type (confidential for server-side apps)</li>
+      <li>Scope and token settings</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="implementing-authentication-with-keycloak-and-spring-boot">Implementing Authentication with Keycloak and Spring Boot</h2>
+
+<h3 id="backend-integration">Backend Integration</h3>
+
+<p>For a Spring Boot application, integration is straightforward using Spring Security OAuth2:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@EnableWebSecurity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">SecurityFilterChain</span> <span class="nf">filterChain</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span>
+            <span class="o">.</span><span class="na">authorizeRequests</span><span class="o">(</span><span class="n">authorize</span> <span class="o">-&gt;</span> <span class="n">authorize</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/api/public/**"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/api/admin/**"</span><span class="o">).</span><span class="na">hasRole</span><span class="o">(</span><span class="s">"ADMIN"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/api/**"</span><span class="o">).</span><span class="na">authenticated</span><span class="o">()</span>
+            <span class="o">)</span>
+            <span class="o">.</span><span class="na">oauth2ResourceServer</span><span class="o">(</span><span class="n">oauth2</span> <span class="o">-&gt;</span> <span class="n">oauth2</span>
+                <span class="o">.</span><span class="na">jwt</span><span class="o">(</span><span class="n">jwt</span> <span class="o">-&gt;</span> <span class="n">jwt</span>
+                    <span class="o">.</span><span class="na">jwtAuthenticationConverter</span><span class="o">(</span><span class="n">jwtAuthenticationConverter</span><span class="o">())</span>
+                <span class="o">)</span>
+            <span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">JwtAuthenticationConverter</span> <span class="nf">jwtAuthenticationConverter</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">JwtGrantedAuthoritiesConverter</span> <span class="n">jwtGrantedAuthoritiesConverter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JwtGrantedAuthoritiesConverter</span><span class="o">();</span>
+        <span class="n">jwtGrantedAuthoritiesConverter</span><span class="o">.</span><span class="na">setAuthoritiesClaimName</span><span class="o">(</span><span class="s">"realm_access.roles"</span><span class="o">);</span>
+        <span class="n">jwtGrantedAuthoritiesConverter</span><span class="o">.</span><span class="na">setAuthorityPrefix</span><span class="o">(</span><span class="s">"ROLE_"</span><span class="o">);</span>
+
+        <span class="nc">JwtAuthenticationConverter</span> <span class="n">jwtAuthenticationConverter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JwtAuthenticationConverter</span><span class="o">();</span>
+        <span class="n">jwtAuthenticationConverter</span><span class="o">.</span><span class="na">setJwtGrantedAuthoritiesConverter</span><span class="o">(</span><span class="n">jwtGrantedAuthoritiesConverter</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">jwtAuthenticationConverter</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>Configure application properties:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+<span class="na">security</span><span class="pi">:</span>
+<span class="na">oauth2</span><span class="pi">:</span>
+<span class="na">resourceserver</span><span class="pi">:</span>
+<span class="na">jwt</span><span class="pi">:</span>
+<span class="na">issuer-uri</span><span class="pi">:</span> <span class="s">http://localhost:8080/realms/app-realm</span>
+<span class="na">jwk-set-uri</span><span class="pi">:</span> <span class="s">http://localhost:8080/realms/app-realm/protocol/openid-connect/certs</span></code></pre></figure>
+
+<h3 id="frontend-integration">Frontend Integration</h3>
+
+<p>On the frontend, you can use libraries like <code class="language-plaintext highlighter-rouge">keycloak-js</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">Keycloak</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">keycloak-js</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">keycloak</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Keycloak</span><span class="p">({</span>
+<span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://localhost:8080</span><span class="dl">'</span><span class="p">,</span>
+<span class="na">realm</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-realm</span><span class="dl">'</span><span class="p">,</span>
+<span class="na">clientId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">frontend-client</span><span class="dl">'</span>
+<span class="p">});</span>
+
+<span class="nx">keycloak</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+<span class="na">onLoad</span><span class="p">:</span> <span class="dl">'</span><span class="s1">check-sso</span><span class="dl">'</span><span class="p">,</span>
+<span class="na">silentCheckSsoRedirectUri</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/silent-check-sso.html</span><span class="dl">'</span><span class="p">,</span>
+<span class="na">pkceMethod</span><span class="p">:</span> <span class="dl">'</span><span class="s1">S256</span><span class="dl">'</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">authenticated</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">authenticated</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">initApp</span><span class="p">(</span><span class="nx">keycloak</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="nx">doLogin</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Keycloak init failed:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Automatic token refresh</span>
+<span class="nx">keycloak</span><span class="p">.</span><span class="nx">onTokenExpired</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Token expired, refreshing...</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">keycloak</span><span class="p">.</span><span class="nx">updateToken</span><span class="p">(</span><span class="mi">30</span><span class="p">).</span><span class="k">catch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Failed to refresh token, logging out...</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">keycloak</span><span class="p">.</span><span class="nx">logout</span><span class="p">();</span>
+<span class="p">});</span>
+<span class="p">};</span>
+
+<span class="c1">// Making authenticated requests</span>
+<span class="kd">function</span> <span class="nx">fetchProtectedResource</span><span class="p">()</span> <span class="p">{</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.example.com/protected</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+<span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+<span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">keycloak</span><span class="p">.</span><span class="nx">token</span>
+<span class="p">}</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="advanced-keycloak-features">Advanced Keycloak Features</h2>
+
+<h3 id="session-management">Session Management</h3>
+
+<p>Keycloak provides extensive session management capabilities:</p>
+
+<ul>
+  <li>View and manage active sessions in the admin console</li>
+  <li>Set session timeouts at realm and client levels</li>
+  <li>Implement single sign-out across applications</li>
+  <li>Track login history and detect suspicious activity</li>
+</ul>
+
+<h3 id="event-logging-and-auditing">Event Logging and Auditing</h3>
+
+<p>For security monitoring, Keycloak offers comprehensive event logging:</p>
+
+<ul>
+  <li>Authentication events (logins, logouts, failures)</li>
+  <li>Administrative events (configuration changes)</li>
+  <li>Custom event listeners for integration with external systems</li>
+</ul>
+
+<h3 id="user-federation">User Federation</h3>
+
+<p>Keycloak can integrate with existing user directories:</p>
+
+<ul>
+  <li>LDAP/Active Directory integration</li>
+  <li>Custom user storage providers</li>
+  <li>User attribute synchronization</li>
+</ul>
+
+<h2 id="real-world-considerations">Real-World Considerations</h2>
+
+<h3 id="multiple-client-types">Multiple Client Types</h3>
+
+<p>In a typical architecture, you might have:</p>
+
+<ul>
+  <li><strong>Public clients</strong>: Single-page applications or mobile apps</li>
+  <li><strong>Confidential clients</strong>: Backend services with client secrets</li>
+  <li><strong>Service accounts</strong>: Machine-to-machine communication</li>
+</ul>
+
+<p>Each requires different security configurations in Keycloak.</p>
+
+<h3 id="microservices-authorization">Microservices Authorization</h3>
+
+<p>For microservices architectures:</p>
+
+<ul>
+  <li>Use fine-grained role-based access control</li>
+  <li>Implement custom authorization policies</li>
+  <li>Consider using Keycloak Authorization Services for complex scenarios</li>
+</ul>
+
+<h3 id="performance-optimization">Performance Optimization</h3>
+
+<p>For high-traffic applications:</p>
+
+<ul>
+  <li>Implement token caching</li>
+  <li>Consider using offline tokens for mobile applications</li>
+  <li>Use token introspection judiciously (it adds network overhead)</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Token-based authentication with access and refresh tokens provides a robust security model for modern applications. Keycloak simplifies the implementation of these patterns while offering extensive customization options.</p>
+
+<p>By understanding the underlying concepts and security considerations, you can implement authentication systems that are both secure and user-friendly.</p>
+
+<p>In future posts, I’ll explore advanced Keycloak features such as custom authenticators, token exchange, and integrating with external identity providers.</p>
+
+<p>What authentication challenges are you facing in your projects? Share in the comments below.</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2025/02/03/jouney-into-android/">
+            My Journey into Kotlin and Android Development
+            <small>03 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/02/03/springboot-zero-to-production/">
+            Spring Boot - From Zero to Production
+            <small>03 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/jouney-into-backend-development/">
+            My Journey into Backend Development
+            <small>01 Mar 2024</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

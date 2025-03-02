@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      GatherSpace &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/projects/gather-space/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+  <h1 class="page-title">GatherSpace</h1>
+  <p class="message">
+  A cutting-edge virtual workspace that blends traditional collaboration tools with metaverse-like interaction, allowing teams to work, meet, and communicate naturally in a shared digital environment with proximity-based communication.
+</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>GatherSpace is an innovative virtual workspace platform designed to make remote collaboration feel natural and engaging. By combining the functionality of traditional workspaces with the interactive freedom of a metaverse-like environment, GatherSpace enables teams to work, meet, and interact as if they were physically together, fostering stronger team dynamics and more spontaneous collaboration.</p>
+
+<h2 id="technical-implementation">Technical Implementation</h2>
+
+<h3 id="core-architecture">Core Architecture</h3>
+
+<ul>
+  <li><strong>WebRTC</strong>: Implemented real-time communication with low-latency video and audio streaming</li>
+  <li><strong>Spatial Audio</strong>: Developed proximity-based audio system that adjusts volume based on virtual distance</li>
+  <li><strong>Interactive Canvas</strong>: Built with HTML5 Canvas and WebGL for smooth rendering of the virtual environment</li>
+  <li><strong>Socket.IO</strong>: Utilized for real-time synchronization of user positions and interactions</li>
+  <li><strong>Scalable Backend</strong>: Microservices architecture to handle thousands of concurrent users</li>
+  <li><strong>User Authentication</strong>: Secure OAuth2 implementation with role-based access control</li>
+</ul>
+
+<h3 id="code-quality--testing">Code Quality &amp; Testing</h3>
+
+<ul>
+  <li>End-to-end testing with Cypress for user interaction flows</li>
+  <li>Unit tests using Jest for core functionality</li>
+  <li>Performance optimization through efficient rendering techniques</li>
+  <li>Cross-browser compatibility testing</li>
+  <li>Load testing to ensure stability during peak usage</li>
+</ul>
+
+<h2 id="key-features">Key Features</h2>
+
+<ul>
+  <li><strong>Virtual Rooms</strong>: Custom-designed spaces for different purposes (meetings, casual hangouts, focused work)</li>
+  <li><strong>Proximity-Based Communication</strong>: Voice and video chat that activates based on virtual distance between users</li>
+  <li><strong>Spatial Awareness</strong>: Visual indicators of who is speaking and available for interaction</li>
+  <li><strong>Customizable Avatars</strong>: Personalized user representations with customization options</li>
+  <li><strong>Resource Sharing</strong>: Seamless document and screen sharing within the virtual environment</li>
+  <li><strong>Interactive Objects</strong>: Functional elements like whiteboards, sticky notes, and presentation screens</li>
+  <li><strong>Persistent Spaces</strong>: Rooms that maintain their state and content between sessions</li>
+  <li><strong>Privacy Controls</strong>: Configurable zones for private conversations and meetings</li>
+</ul>
+
+<h2 id="domain-model">Domain Model</h2>
+
+<p>The following entity relationships form the core of GatherSpace:</p>
+
+<ul>
+  <li><strong>User</strong> - Manages authentication, preferences, and appearance settings</li>
+  <li><strong>Room</strong> - Represents a virtual space with specific features and access controls</li>
+  <li><strong>Avatar</strong> - Visual representation of users with customization options</li>
+  <li><strong>Interaction</strong> - Tracks proximity-based communication and collaborations</li>
+  <li><strong>Resource</strong> - Manages shared documents, screens, and collaborative tools</li>
+  <li><strong>Activity</strong> - Logs user engagement and interaction metrics</li>
+  <li><strong>Workspace</strong> - Organizational container for related rooms and resources</li>
+</ul>
+
+<h2 id="innovative-proximity-communication-system">Innovative Proximity Communication System</h2>
+
+<p>GatherSpace implements a sophisticated audio mixing algorithm that creates the illusion of spatial awareness in virtual environments:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">ProximityAudioController</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">maxDistance</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="nx">minVolume</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">maxVolume</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">maxDistance</span> <span class="o">=</span> <span class="nx">maxDistance</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minVolume</span> <span class="o">=</span> <span class="nx">minVolume</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">maxVolume</span> <span class="o">=</span> <span class="nx">maxVolume</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">audioNodes</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Map</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">calculateVolume</span><span class="p">(</span><span class="nx">distance</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">distance</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">maxDistance</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">minVolume</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">distance</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">maxVolume</span><span class="p">;</span>
+
+    <span class="c1">// Linear volume falloff based on distance</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">maxVolume</span> <span class="o">-</span>
+      <span class="p">(</span><span class="nx">distance</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">maxDistance</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">maxVolume</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">minVolume</span><span class="p">)</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">updateAudioLevels</span><span class="p">(</span><span class="nx">currentUser</span><span class="p">,</span> <span class="nx">otherUsers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">otherUsers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">distance</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateDistance</span><span class="p">(</span>
+        <span class="nx">currentUser</span><span class="p">.</span><span class="nx">position</span><span class="p">,</span>
+        <span class="nx">user</span><span class="p">.</span><span class="nx">position</span>
+      <span class="p">);</span>
+      <span class="kd">const</span> <span class="nx">volume</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateVolume</span><span class="p">(</span><span class="nx">distance</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">audioNodes</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">audioNodes</span>
+          <span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">setValueAtTime</span><span class="p">(</span><span class="nx">volume</span><span class="p">,</span> <span class="nx">audioContext</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Set up new audio node for first-time connections</span>
+        <span class="kd">const</span> <span class="nx">gainNode</span> <span class="o">=</span> <span class="nx">audioContext</span><span class="p">.</span><span class="nx">createGain</span><span class="p">();</span>
+        <span class="nx">gainNode</span><span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">setValueAtTime</span><span class="p">(</span><span class="nx">volume</span><span class="p">,</span> <span class="nx">audioContext</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">audioNodes</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">gainNode</span><span class="p">);</span>
+        <span class="c1">// Connect to audio graph</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">connectUserAudio</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">gainNode</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Other methods for managing the audio graph...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="efficient-real-time-position-synchronization">Efficient Real-Time Position Synchronization</h2>
+
+<p>To ensure smooth movement and interaction between users, GatherSpace implements an optimized position update system:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Client-side movement calculation with interpolation</span>
+<span class="kd">function</span> <span class="nx">updateUserPosition</span><span class="p">(</span><span class="nx">deltaTime</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">movementVector</span><span class="p">.</span><span class="nx">isZero</span><span class="p">())</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">normalizedVector</span> <span class="o">=</span> <span class="nx">movementVector</span><span class="p">.</span><span class="nx">normalize</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">movementDistance</span> <span class="o">=</span> <span class="nx">MOVEMENT_SPEED</span> <span class="o">*</span> <span class="nx">deltaTime</span><span class="p">;</span>
+
+    <span class="kd">const</span> <span class="nx">newPosition</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">x</span><span class="p">:</span> <span class="nx">currentPosition</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">normalizedVector</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">movementDistance</span><span class="p">,</span>
+      <span class="na">y</span><span class="p">:</span> <span class="nx">currentPosition</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">normalizedVector</span><span class="p">.</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">movementDistance</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Check for collisions</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isColliding</span><span class="p">(</span><span class="nx">newPosition</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">currentPosition</span> <span class="o">=</span> <span class="nx">newPosition</span><span class="p">;</span>
+
+      <span class="c1">// Only send updates when movement exceeds threshold</span>
+      <span class="nx">positionUpdateAccumulator</span> <span class="o">+=</span> <span class="nx">movementDistance</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">positionUpdateAccumulator</span> <span class="o">&gt;</span> <span class="nx">POSITION_UPDATE_THRESHOLD</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">"</span><span class="s2">position_update</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+          <span class="na">roomId</span><span class="p">:</span> <span class="nx">currentRoom</span><span class="p">,</span>
+          <span class="na">position</span><span class="p">:</span> <span class="nx">currentPosition</span><span class="p">,</span>
+        <span class="p">});</span>
+        <span class="nx">positionUpdateAccumulator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Update avatar position with smooth interpolation</span>
+  <span class="nx">renderAvatar</span><span class="p">(</span><span class="nx">currentPosition</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="why-gatherspace-matters">Why GatherSpace Matters</h2>
+
+<p>Traditional remote collaboration tools often create rigid, scheduled interactions that lack the spontaneity and natural flow of in-person work. GatherSpace addresses this fundamental limitation by:</p>
+
+<ul>
+  <li>Enabling casual, unplanned conversations that drive innovation</li>
+  <li>Creating a sense of presence that reduces remote work isolation</li>
+  <li>Providing spatial context to conversations and collaborations</li>
+  <li>Supporting both structured meetings and impromptu interactions</li>
+  <li>Making remote work feel more human and engaging</li>
+</ul>
+
+<p>GatherSpace transforms remote collaboration from a series of scheduled meetings into a living, breathing workspace where teams can truly feel connected regardless of physical distance.</p>
+
+<h2 id="outcomes">Outcomes</h2>
+
+<p>GatherSpace has significantly impacted how distributed teams collaborate, with early adopters reporting:</p>
+
+<ul>
+  <li>47% increase in cross-team collaboration</li>
+  <li>32% reduction in formal meeting time</li>
+  <li>68% of users reporting stronger team connections</li>
+  <li>53% faster problem resolution through spontaneous discussions</li>
+</ul>
+
+<p>The platform continues to evolve based on user feedback, with new features focused on enhancing accessibility, improving resource integration, and expanding customization options.</p>
+
+<div class="project-links">
+  <a href="https://github.com/GatherSpacee" class="github-link">View on GitHub</a>
+  <a href="https://gatherspace.app" class="demo-link">Live Demo</a>
+</div>
+<div class="project-meta">
+  <span class="tech-badge">WebRTC</span>
+  <span class="tech-badge">JavaScript</span>
+  <span class="tech-badge">WebGL</span>
+  <span class="tech-badge">Socket.IO</span>
+  <span class="tech-badge">Node.js</span>
+  <span class="tech-badge">React</span>
+  <span class="date-badge">February 2025</span>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Habit Loop &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/projects/habit-loop/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+  <h1 class="page-title">Habit Loop</h1>
+  <p class="message">
+  A modern habit tracking Android application built with Kotlin and Jetpack Compose that helps users create, monitor, and maintain daily habits with customizable reminders, streaks tracking, and data visualization.
+</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Habit Loop is a sleek, user-friendly Android application designed to help users build and maintain positive habits. With features like daily streak tracking, personalized reminders, and comprehensive progress visualization, Habit Loop makes habit formation intuitive and rewarding. The app combines modern Android development practices with thoughtful UX design to create a seamless habit tracking experience.</p>
+
+<h2 id="technical-implementation">Technical Implementation</h2>
+
+<h3 id="core-architecture">Core Architecture</h3>
+
+<ul>
+  <li><strong>Kotlin</strong>: 100% Kotlin codebase with Coroutines for asynchronous operations</li>
+  <li><strong>Jetpack Compose</strong>: Modern declarative UI toolkit for responsive and dynamic interfaces</li>
+  <li><strong>MVVM Architecture</strong>: Clear separation of concerns with ViewModel, Repository, and UI layers</li>
+  <li><strong>Room Database</strong>: Efficient local data persistence with SQLite abstraction</li>
+  <li><strong>Dependency Injection</strong>: Hilt for clean, testable dependency management</li>
+  <li><strong>Material Design 3</strong>: Implementation of latest Material Design guidelines with dynamic theming</li>
+</ul>
+
+<h3 id="code-quality--testing">Code Quality &amp; Testing</h3>
+
+<ul>
+  <li>Unit tests with JUnit and Mockito for business logic</li>
+  <li>UI tests with Compose testing framework</li>
+  <li>Repository pattern for data access abstraction</li>
+  <li>Clean Architecture principles for maintainable, scalable code</li>
+  <li>Ktlint and Detekt for code style enforcement</li>
+</ul>
+
+<h2 id="key-features">Key Features</h2>
+
+<ul>
+  <li><strong>Habit Creation</strong>: Create custom habits or choose from pre-made templates</li>
+  <li><strong>Streak Tracking</strong>: Monitor continuous completion streaks with visual indicators</li>
+  <li><strong>Daily Check-ins</strong>: Simple interface for marking habits as complete</li>
+  <li><strong>Customizable Reminders</strong>: Set personalized notifications for habit completion</li>
+  <li><strong>Progress Analytics</strong>: Visualize habit adherence over time with intuitive charts</li>
+  <li><strong>Theme Customization</strong>: Toggle between light and dark themes with dynamic color support</li>
+  <li><strong>Data Export</strong>: Export habit data as JSON for backup or analysis</li>
+  <li><strong>Offline Support</strong>: Full functionality without internet connection</li>
+  <li><strong>Widget Integration</strong>: Home screen widgets for quick habit tracking</li>
+</ul>
+
+<h2 id="domain-model">Domain Model</h2>
+
+<p>The following entity relationships form the core of Habit Loop:</p>
+
+<ul>
+  <li><strong>Habit</strong> - Core entity representing a tracked habit with name, description, and frequency</li>
+  <li><strong>Completion</strong> - Records individual habit completion events</li>
+  <li><strong>Streak</strong> - Tracks consecutive completions for motivation</li>
+  <li><strong>Reminder</strong> - Manages notification settings for habit reminders</li>
+  <li><strong>Category</strong> - Organizes habits into logical groupings</li>
+  <li><strong>User Preference</strong> - Stores application settings and theme preferences</li>
+</ul>
+
+<h2 id="mvvm-implementation-with-jetpack-compose">MVVM Implementation with Jetpack Compose</h2>
+
+<p>Habit Loop implements the MVVM architecture pattern, using Jetpack Compose for the UI layer:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@HiltViewModel</span>
+<span class="kd">class</span> <span class="nc">HabitDetailViewModel</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">habitRepository</span><span class="p">:</span> <span class="nc">HabitRepository</span><span class="p">,</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">streakCalculator</span><span class="p">:</span> <span class="nc">StreakCalculator</span><span class="p">,</span>
+    <span class="n">savedStateHandle</span><span class="p">:</span> <span class="nc">SavedStateHandle</span>
+<span class="p">)</span> <span class="p">:</span> <span class="nc">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">habitId</span><span class="p">:</span> <span class="nc">Long</span> <span class="p">=</span> <span class="nf">checkNotNull</span><span class="p">(</span><span class="n">savedStateHandle</span><span class="p">[</span><span class="s">"habitId"</span><span class="p">])</span>
+
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">_uiState</span> <span class="p">=</span> <span class="nc">MutableStateFlow</span><span class="p">(</span><span class="nc">HabitDetailUiState</span><span class="p">())</span>
+    <span class="kd">val</span> <span class="py">uiState</span><span class="p">:</span> <span class="nc">StateFlow</span><span class="p">&lt;</span><span class="nc">HabitDetailUiState</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">_uiState</span><span class="p">.</span><span class="nf">asStateFlow</span><span class="p">()</span>
+
+    <span class="nf">init</span> <span class="p">{</span>
+        <span class="n">viewModelScope</span><span class="p">.</span><span class="nf">launch</span> <span class="p">{</span>
+            <span class="n">habitRepository</span><span class="p">.</span><span class="nf">getHabitWithCompletionsFlow</span><span class="p">(</span><span class="n">habitId</span><span class="p">).</span><span class="nf">collect</span> <span class="p">{</span> <span class="n">habitWithCompletions</span> <span class="p">-&gt;</span>
+                <span class="kd">val</span> <span class="py">currentStreak</span> <span class="p">=</span> <span class="n">streakCalculator</span><span class="p">.</span><span class="nf">calculateCurrentStreak</span><span class="p">(</span><span class="n">habitWithCompletions</span><span class="p">.</span><span class="n">completions</span><span class="p">)</span>
+                <span class="kd">val</span> <span class="py">longestStreak</span> <span class="p">=</span> <span class="n">streakCalculator</span><span class="p">.</span><span class="nf">calculateLongestStreak</span><span class="p">(</span><span class="n">habitWithCompletions</span><span class="p">.</span><span class="n">completions</span><span class="p">)</span>
+
+                <span class="n">_uiState</span><span class="p">.</span><span class="nf">update</span> <span class="p">{</span> <span class="n">state</span> <span class="p">-&gt;</span>
+                    <span class="n">state</span><span class="p">.</span><span class="nf">copy</span><span class="p">(</span>
+                        <span class="n">habit</span> <span class="p">=</span> <span class="n">habitWithCompletions</span><span class="p">.</span><span class="n">habit</span><span class="p">,</span>
+                        <span class="n">completions</span> <span class="p">=</span> <span class="n">habitWithCompletions</span><span class="p">.</span><span class="n">completions</span><span class="p">,</span>
+                        <span class="n">currentStreak</span> <span class="p">=</span> <span class="n">currentStreak</span><span class="p">,</span>
+                        <span class="n">longestStreak</span> <span class="p">=</span> <span class="n">longestStreak</span><span class="p">,</span>
+                        <span class="n">completionRate</span> <span class="p">=</span> <span class="nf">calculateCompletionRate</span><span class="p">(</span><span class="n">habitWithCompletions</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">toggleTodayCompletion</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">viewModelScope</span><span class="p">.</span><span class="nf">launch</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">today</span> <span class="p">=</span> <span class="nc">LocalDate</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="py">hasCompletedToday</span> <span class="p">=</span> <span class="n">uiState</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">completions</span><span class="p">.</span><span class="nf">any</span> <span class="p">{</span>
+                <span class="n">it</span><span class="p">.</span><span class="n">date</span> <span class="p">==</span> <span class="n">today</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">hasCompletedToday</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">habitRepository</span><span class="p">.</span><span class="nf">deleteCompletionForDate</span><span class="p">(</span><span class="n">habitId</span><span class="p">,</span> <span class="n">today</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">habitRepository</span><span class="p">.</span><span class="nf">addCompletion</span><span class="p">(</span>
+                    <span class="nc">HabitCompletion</span><span class="p">(</span>
+                        <span class="n">habitId</span> <span class="p">=</span> <span class="n">habitId</span><span class="p">,</span>
+                        <span class="n">date</span> <span class="p">=</span> <span class="n">today</span><span class="p">,</span>
+                        <span class="n">timestamp</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">currentTimeMillis</span><span class="p">()</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Additional methods for habit management...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="room-database-schema-for-habit-tracking">Room Database Schema for Habit Tracking</h2>
+
+<p>Habit Loop uses Room for efficient local data storage:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span><span class="p">(</span><span class="n">tableName</span> <span class="p">=</span> <span class="s">"habits"</span><span class="p">)</span>
+<span class="kd">data class</span> <span class="nc">HabitEntity</span><span class="p">(</span>
+    <span class="nd">@PrimaryKey</span><span class="p">(</span><span class="n">autoGenerate</span> <span class="p">=</span> <span class="k">true</span><span class="p">)</span> <span class="kd">val</span> <span class="py">id</span><span class="p">:</span> <span class="nc">Long</span> <span class="p">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">name</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">description</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">categoryId</span><span class="p">:</span> <span class="nc">Long</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">frequency</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="c1">// Days per week</span>
+    <span class="kd">val</span> <span class="py">reminderTime</span><span class="p">:</span> <span class="nc">Long</span><span class="p">?,</span> <span class="c1">// Epoch timestamp for reminder</span>
+    <span class="kd">val</span> <span class="py">createdAt</span><span class="p">:</span> <span class="nc">Long</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">color</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">iconId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">isArchived</span><span class="p">:</span> <span class="nc">Boolean</span> <span class="p">=</span> <span class="k">false</span>
+<span class="p">)</span>
+
+<span class="nd">@Entity</span><span class="p">(</span>
+    <span class="n">tableName</span> <span class="p">=</span> <span class="s">"habit_completions"</span><span class="p">,</span>
+    <span class="n">foreignKeys</span> <span class="p">=</span> <span class="p">[</span>
+        <span class="nc">ForeignKey</span><span class="p">(</span>
+            <span class="n">entity</span> <span class="p">=</span> <span class="nc">HabitEntity</span><span class="o">::</span><span class="k">class</span><span class="p">,</span>
+            <span class="n">parentColumns</span> <span class="p">=</span> <span class="p">[</span><span class="s">"id"</span><span class="p">],</span>
+            <span class="n">childColumns</span> <span class="p">=</span> <span class="p">[</span><span class="s">"habitId"</span><span class="p">],</span>
+            <span class="n">onDelete</span> <span class="p">=</span> <span class="nc">ForeignKey</span><span class="p">.</span><span class="nc">CASCADE</span>
+        <span class="p">)</span>
+    <span class="p">],</span>
+    <span class="n">indices</span> <span class="p">=</span> <span class="p">[</span><span class="nc">Index</span><span class="p">(</span><span class="s">"habitId"</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="kd">data class</span> <span class="nc">HabitCompletionEntity</span><span class="p">(</span>
+    <span class="nd">@PrimaryKey</span><span class="p">(</span><span class="n">autoGenerate</span> <span class="p">=</span> <span class="k">true</span><span class="p">)</span> <span class="kd">val</span> <span class="py">id</span><span class="p">:</span> <span class="nc">Long</span> <span class="p">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">habitId</span><span class="p">:</span> <span class="nc">Long</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">date</span><span class="p">:</span> <span class="nc">LocalDate</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">timestamp</span><span class="p">:</span> <span class="nc">Long</span>
+<span class="p">)</span>
+
+<span class="nd">@Dao</span>
+<span class="kd">interface</span> <span class="nc">HabitDao</span> <span class="p">{</span>
+    <span class="nd">@Transaction</span>
+    <span class="nd">@Query</span><span class="p">(</span><span class="s">"SELECT * FROM habits WHERE isArchived = 0 ORDER BY name ASC"</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">getActiveHabitsWithCompletionsFlow</span><span class="p">():</span> <span class="nc">Flow</span><span class="p">&lt;</span><span class="nc">List</span><span class="p">&lt;</span><span class="nc">HabitWithCompletions</span><span class="p">&gt;&gt;</span>
+
+    <span class="nd">@Query</span><span class="p">(</span><span class="s">"SELECT * FROM habits WHERE id = :habitId"</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">getHabitFlow</span><span class="p">(</span><span class="n">habitId</span><span class="p">:</span> <span class="nc">Long</span><span class="p">):</span> <span class="nc">Flow</span><span class="p">&lt;</span><span class="nc">HabitEntity</span><span class="p">&gt;</span>
+
+    <span class="nd">@Insert</span>
+    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">insertHabit</span><span class="p">(</span><span class="n">habit</span><span class="p">:</span> <span class="nc">HabitEntity</span><span class="p">):</span> <span class="nc">Long</span>
+
+    <span class="nd">@Update</span>
+    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">updateHabit</span><span class="p">(</span><span class="n">habit</span><span class="p">:</span> <span class="nc">HabitEntity</span><span class="p">)</span>
+
+    <span class="nd">@Query</span><span class="p">(</span><span class="s">"UPDATE habits SET isArchived = 1 WHERE id = :habitId"</span><span class="p">)</span>
+    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">archiveHabit</span><span class="p">(</span><span class="n">habitId</span><span class="p">:</span> <span class="nc">Long</span><span class="p">)</span>
+
+    <span class="c1">// Additional queries for habit management...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="jetpack-compose-ui-implementation">Jetpack Compose UI Implementation</h2>
+
+<p>Habit Loop uses Jetpack Compose for a modern, responsive UI:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Composable</span>
+<span class="k">fun</span> <span class="nf">HabitCard</span><span class="p">(</span>
+    <span class="n">habit</span><span class="p">:</span> <span class="nc">Habit</span><span class="p">,</span>
+    <span class="n">currentStreak</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
+    <span class="n">onCheckClick</span><span class="p">:</span> <span class="p">()</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">,</span>
+    <span class="n">onCardClick</span><span class="p">:</span> <span class="p">()</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="nc">Modifier</span> <span class="p">=</span> <span class="nc">Modifier</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">habitColor</span> <span class="p">=</span> <span class="nc">Color</span><span class="p">(</span><span class="n">habit</span><span class="p">.</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="nc">Card</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="p">=</span> <span class="n">modifier</span>
+            <span class="p">.</span><span class="nf">fillMaxWidth</span><span class="p">()</span>
+            <span class="p">.</span><span class="nf">clickable</span> <span class="p">{</span> <span class="nf">onCardClick</span><span class="p">()</span> <span class="p">},</span>
+        <span class="n">elevation</span> <span class="p">=</span> <span class="nc">CardDefaults</span><span class="p">.</span><span class="nf">cardElevation</span><span class="p">(</span><span class="n">defaultElevation</span> <span class="p">=</span> <span class="mi">2</span><span class="p">.</span><span class="n">dp</span><span class="p">),</span>
+        <span class="n">colors</span> <span class="p">=</span> <span class="nc">CardDefaults</span><span class="p">.</span><span class="nf">cardColors</span><span class="p">(</span>
+            <span class="n">containerColor</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">colorScheme</span><span class="p">.</span><span class="n">surface</span>
+        <span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="nc">Row</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span>
+                <span class="p">.</span><span class="nf">padding</span><span class="p">(</span><span class="mi">16</span><span class="p">.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">fillMaxWidth</span><span class="p">(),</span>
+            <span class="n">verticalAlignment</span> <span class="p">=</span> <span class="nc">Alignment</span><span class="p">.</span><span class="nc">CenterVertically</span><span class="p">,</span>
+            <span class="n">horizontalArrangement</span> <span class="p">=</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="nc">SpaceBetween</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="nc">Row</span><span class="p">(</span><span class="n">verticalAlignment</span> <span class="p">=</span> <span class="nc">Alignment</span><span class="p">.</span><span class="nc">CenterVertically</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nc">Box</span><span class="p">(</span>
+                    <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span>
+                        <span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="mi">48</span><span class="p">.</span><span class="n">dp</span><span class="p">)</span>
+                        <span class="p">.</span><span class="nf">background</span><span class="p">(</span>
+                            <span class="n">color</span> <span class="p">=</span> <span class="n">habitColor</span><span class="p">.</span><span class="nf">copy</span><span class="p">(</span><span class="n">alpha</span> <span class="p">=</span> <span class="mf">0.2f</span><span class="p">),</span>
+                            <span class="n">shape</span> <span class="p">=</span> <span class="nc">CircleShape</span>
+                        <span class="p">),</span>
+                    <span class="n">contentAlignment</span> <span class="p">=</span> <span class="nc">Alignment</span><span class="p">.</span><span class="nc">Center</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="nc">Icon</span><span class="p">(</span>
+                        <span class="n">painter</span> <span class="p">=</span> <span class="nf">painterResource</span><span class="p">(</span><span class="n">id</span> <span class="p">=</span> <span class="n">habit</span><span class="p">.</span><span class="n">iconResId</span><span class="p">),</span>
+                        <span class="n">contentDescription</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+                        <span class="n">tint</span> <span class="p">=</span> <span class="n">habitColor</span><span class="p">,</span>
+                        <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="mi">24</span><span class="p">.</span><span class="n">dp</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">}</span>
+
+                <span class="nc">Spacer</span><span class="p">(</span><span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="nf">width</span><span class="p">(</span><span class="mi">16</span><span class="p">.</span><span class="n">dp</span><span class="p">))</span>
+
+                <span class="nc">Column</span> <span class="p">{</span>
+                    <span class="nc">Text</span><span class="p">(</span>
+                        <span class="n">text</span> <span class="p">=</span> <span class="n">habit</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">style</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">typography</span><span class="p">.</span><span class="n">titleMedium</span>
+                    <span class="p">)</span>
+                    <span class="nc">Spacer</span><span class="p">(</span><span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="nf">height</span><span class="p">(</span><span class="mi">4</span><span class="p">.</span><span class="n">dp</span><span class="p">))</span>
+                    <span class="nc">Row</span><span class="p">(</span><span class="n">verticalAlignment</span> <span class="p">=</span> <span class="nc">Alignment</span><span class="p">.</span><span class="nc">CenterVertically</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nc">Icon</span><span class="p">(</span>
+                            <span class="n">imageVector</span> <span class="p">=</span> <span class="nc">Icons</span><span class="p">.</span><span class="nc">Filled</span><span class="p">.</span><span class="nc">LocalFire</span><span class="p">,</span>
+                            <span class="n">contentDescription</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+                            <span class="n">tint</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">colorScheme</span><span class="p">.</span><span class="n">primary</span><span class="p">,</span>
+                            <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="mi">16</span><span class="p">.</span><span class="n">dp</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="nc">Spacer</span><span class="p">(</span><span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="nf">width</span><span class="p">(</span><span class="mi">4</span><span class="p">.</span><span class="n">dp</span><span class="p">))</span>
+                        <span class="nc">Text</span><span class="p">(</span>
+                            <span class="n">text</span> <span class="p">=</span> <span class="s">"$currentStreak day streak"</span><span class="p">,</span>
+                            <span class="n">style</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">typography</span><span class="p">.</span><span class="n">bodySmall</span><span class="p">,</span>
+                            <span class="n">color</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">colorScheme</span><span class="p">.</span><span class="n">onSurfaceVariant</span>
+                        <span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nc">Checkbox</span><span class="p">(</span>
+                <span class="n">checked</span> <span class="p">=</span> <span class="n">habit</span><span class="p">.</span><span class="n">completedToday</span><span class="p">,</span>
+                <span class="n">onCheckedChange</span> <span class="p">=</span> <span class="p">{</span> <span class="nf">onCheckClick</span><span class="p">()</span> <span class="p">},</span>
+                <span class="n">colors</span> <span class="p">=</span> <span class="nc">CheckboxDefaults</span><span class="p">.</span><span class="nf">colors</span><span class="p">(</span>
+                    <span class="n">checkedColor</span> <span class="p">=</span> <span class="n">habitColor</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="theme-toggle-implementation">Theme Toggle Implementation</h2>
+
+<p>The app supports seamless theme switching with Material 3 dynamic colors:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Composable</span>
+<span class="k">fun</span> <span class="nf">HabitLoopTheme</span><span class="p">(</span>
+    <span class="n">darkTheme</span><span class="p">:</span> <span class="nc">Boolean</span> <span class="p">=</span> <span class="nf">isSystemInDarkTheme</span><span class="p">(),</span>
+    <span class="n">dynamicColor</span><span class="p">:</span> <span class="nc">Boolean</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="p">-&gt;</span> <span class="nc">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">colorScheme</span> <span class="p">=</span> <span class="k">when</span> <span class="p">{</span>
+        <span class="n">dynamicColor</span> <span class="p">&amp;&amp;</span> <span class="nc">Build</span><span class="p">.</span><span class="nc">VERSION</span><span class="p">.</span><span class="nc">SDK_INT</span> <span class="p">&gt;=</span> <span class="nc">Build</span><span class="p">.</span><span class="nc">VERSION_CODES</span><span class="p">.</span><span class="nc">S</span> <span class="p">-&gt;</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">context</span> <span class="p">=</span> <span class="nc">LocalContext</span><span class="p">.</span><span class="n">current</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">darkTheme</span><span class="p">)</span> <span class="nf">dynamicDarkColorScheme</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="k">else</span> <span class="nf">dynamicLightColorScheme</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">darkTheme</span> <span class="p">-&gt;</span> <span class="nc">DarkColorScheme</span>
+        <span class="k">else</span> <span class="p">-&gt;</span> <span class="nc">LightColorScheme</span>
+    <span class="p">}</span>
+
+    <span class="nc">MaterialTheme</span><span class="p">(</span>
+        <span class="n">colorScheme</span> <span class="p">=</span> <span class="n">colorScheme</span><span class="p">,</span>
+        <span class="n">typography</span> <span class="p">=</span> <span class="nc">Typography</span><span class="p">,</span>
+        <span class="n">shapes</span> <span class="p">=</span> <span class="nc">Shapes</span><span class="p">,</span>
+        <span class="n">content</span> <span class="p">=</span> <span class="n">content</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="data-export-feature">Data Export Feature</h2>
+
+<p>Habit Loop enables users to export their habit data as JSON:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">HabitDataExporter</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">habitRepository</span><span class="p">:</span> <span class="nc">HabitRepository</span><span class="p">,</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">context</span><span class="p">:</span> <span class="nc">Context</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">exportHabitsToJson</span><span class="p">(</span><span class="n">uri</span><span class="p">:</span> <span class="nc">Uri</span><span class="p">):</span> <span class="nc">Result</span><span class="p">&lt;</span><span class="nc">Unit</span><span class="p">&gt;</span> <span class="p">=</span> <span class="nf">withContext</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">habits</span> <span class="p">=</span> <span class="n">habitRepository</span><span class="p">.</span><span class="nf">getAllHabitsWithCompletions</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="py">habitDtos</span> <span class="p">=</span> <span class="n">habits</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="nf">toHabitDto</span><span class="p">()</span> <span class="p">}</span>
+
+            <span class="kd">val</span> <span class="py">exportData</span> <span class="p">=</span> <span class="nc">ExportData</span><span class="p">(</span>
+                <span class="n">version</span> <span class="p">=</span> <span class="nc">BuildConfig</span><span class="p">.</span><span class="nc">VERSION_CODE</span><span class="p">,</span>
+                <span class="n">exportDate</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">currentTimeMillis</span><span class="p">(),</span>
+                <span class="n">habits</span> <span class="p">=</span> <span class="n">habitDtos</span>
+            <span class="p">)</span>
+
+            <span class="kd">val</span> <span class="py">json</span> <span class="p">=</span> <span class="nc">Json</span> <span class="p">{</span>
+                <span class="n">prettyPrint</span> <span class="p">=</span> <span class="k">true</span>
+                <span class="n">ignoreUnknownKeys</span> <span class="p">=</span> <span class="k">true</span>
+            <span class="p">}</span>
+
+            <span class="kd">val</span> <span class="py">jsonString</span> <span class="p">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">encodeToString</span><span class="p">(</span><span class="n">exportData</span><span class="p">)</span>
+
+            <span class="n">context</span><span class="p">.</span><span class="n">contentResolver</span><span class="p">.</span><span class="nf">openOutputStream</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span><span class="o">?.</span><span class="nf">use</span> <span class="p">{</span> <span class="n">outputStream</span> <span class="p">-&gt;</span>
+                <span class="n">outputStream</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">jsonString</span><span class="p">.</span><span class="nf">toByteArray</span><span class="p">())</span>
+            <span class="p">}</span> <span class="o">?:</span> <span class="k">throw</span> <span class="nc">IOException</span><span class="p">(</span><span class="s">"Could not open output stream"</span><span class="p">)</span>
+
+            <span class="nc">Result</span><span class="p">.</span><span class="nf">success</span><span class="p">(</span><span class="nc">Unit</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="nc">Exception</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nc">Result</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="why-habit-loop-matters">Why Habit Loop Matters</h2>
+
+<p>Building consistent habits is challenging, especially in today’s distraction-filled world. Habit Loop addresses this challenge by:</p>
+
+<ul>
+  <li>Making habit tracking frictionless with a clean, intuitive interface</li>
+  <li>Providing motivational elements like streaks to encourage consistency</li>
+  <li>Offering visual feedback on progress to reinforce positive behavior</li>
+  <li>Creating a flexible system that works for various habit types and schedules</li>
+  <li>Respecting user privacy with a fully offline, on-device solution</li>
+</ul>
+
+<p>Habit Loop transforms the often difficult process of habit formation into an engaging, rewarding experience that helps users make lasting positive changes in their lives.</p>
+
+<h2 id="outcomes">Outcomes</h2>
+
+<p>Habit Loop has received positive feedback from early users, with particular praise for:</p>
+
+<ul>
+  <li>Intuitive user interface that makes daily check-ins effortless</li>
+  <li>Motivational streak system that encourages consistency</li>
+  <li>Customization options that adapt to different habit-forming needs</li>
+  <li>Privacy-focused approach without requiring online accounts</li>
+  <li>Battery-efficient implementation with minimal resource usage</li>
+</ul>
+
+<p>The app continues to evolve based on user feedback, with planned enhancements including habit challenges, social sharing options, and advanced analytics.</p>
+
+<div class="project-links">
+  <a href="https://github.com/Hari-krishna-tech/Habit-Loop" class="github-link">View on GitHub</a>
+  <a href="https://www.dropbox.com/scl/fi/e82xf9g9wccflrpq8a5k3/Habit-Streak.apk?rlkey=d40olwmf2o9s34bacebqbzk5k&amp;e=1&amp;st=demxwtiz&amp;dl=0" class="playstore-link">Download Link</a>
+</div>
+<div class="project-meta">
+  <span class="tech-badge">Kotlin</span>
+  <span class="tech-badge">Jetpack Compose</span>
+  <span class="tech-badge">Room</span>
+  <span class="tech-badge">MVVM</span>
+  <span class="tech-badge">Material 3</span>
+  <span class="tech-badge">Coroutines</span>
+  <span class="date-badge">January 2025</span>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

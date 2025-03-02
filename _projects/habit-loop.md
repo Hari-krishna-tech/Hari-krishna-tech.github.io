@@ -3,7 +3,7 @@ layout: project
 title: Habit Loop
 date: 2025-01-10
 description: A modern habit tracking Android application built with Kotlin and Jetpack Compose that helps users create, monitor, and maintain daily habits with customizable reminders, streaks tracking, and data visualization.
-github_link: https://github.com/yourusername/habit-loop
+github_link: https://github.com/Hari-krishna-tech/Habit-Loop
 ---
 
 <p class="message">
@@ -356,8 +356,8 @@ Habit Loop has received positive feedback from early users, with particular prai
 The app continues to evolve based on user feedback, with planned enhancements including habit challenges, social sharing options, and advanced analytics.
 
 <div class="project-links">
-  <a href="https://github.com/yourusername/habit-loop" class="github-link">View on GitHub</a>
-  <a href="https://play.google.com/store/apps/details?id=com.yourusername.habitloop" class="playstore-link">Get on Google Play</a>
+  <a href="https://github.com/Hari-krishna-tech/Habit-Loop" class="github-link">View on GitHub</a>
+  <a href="https://www.dropbox.com/scl/fi/e82xf9g9wccflrpq8a5k3/Habit-Streak.apk?rlkey=d40olwmf2o9s34bacebqbzk5k&e=1&st=demxwtiz&dl=0" class="playstore-link">Download Link</a>
 </div>
 <div class="project-meta">
   <span class="tech-badge">Kotlin</span>

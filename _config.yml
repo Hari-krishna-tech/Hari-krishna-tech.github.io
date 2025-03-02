@@ -31,3 +31,15 @@ social:
     - https://x.com/sugan0tech
     - https://www.linkedin.com/in/sugan0tech
     - https://github.com/sugan0tech
+collections:
+  projects:
+    output: true
+
+# Default front matter
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"

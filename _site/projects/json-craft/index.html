@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      JSON Craft &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/projects/json-craft/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+  <h1 class="page-title">JSON Craft</h1>
+  <p class="message">
+  JSON Craft is a powerful and intuitive utility application designed to help developers visualize, convert, and generate structured data formats like JSON, XML, YAML, and CSV.
+</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>JSON Craft simplifies working with structured data by offering tools for real-time visualization, seamless format conversion, and type generation. Whether you need to convert JSON to XML, generate TypeScript interfaces, or create a JSON schema, JSON Craft provides a comprehensive solution in a single app.</p>
+
+<h2 id="technical-implementation">Technical Implementation</h2>
+
+<h3 id="core-architecture">Core Architecture</h3>
+
+<ul>
+  <li><strong>React (Next.js)</strong>: Modern web application framework for a fast and responsive UI</li>
+  <li><strong>WebAssembly (WASM) with Rust</strong>: Performance optimization for conversions and parsing</li>
+  <li><strong>Monaco Editor</strong>: Integrated code editor with syntax highlighting and validation</li>
+  <li><strong>Tailwind CSS</strong>: Clean and modern styling for a seamless user experience</li>
+  <li><strong>State Management</strong>: Context API for efficient data flow and UI updates</li>
+  <li><strong>File Handling</strong>: Support for importing/exporting structured data files</li>
+</ul>
+
+<h3 id="code-quality--testing">Code Quality &amp; Testing</h3>
+
+<ul>
+  <li>Unit tests with Jest for core conversion functions</li>
+  <li>Integration tests for format compatibility and accuracy</li>
+  <li>ESLint and Prettier for consistent coding style enforcement</li>
+  <li>WebAssembly benchmarks to ensure high-performance parsing and conversion</li>
+</ul>
+
+<h2 id="key-features">Key Features</h2>
+
+<ul>
+  <li><strong>Data Visualization</strong>: Real-time tree and text views for JSON, XML, YAML, and CSV</li>
+  <li><strong>Format Conversion</strong>: Seamlessly convert between JSON, XML, YAML, and CSV</li>
+  <li><strong>Type Generation</strong>: Generate TypeScript types, Python classes, Go structs, and Java interfaces from JSON</li>
+  <li><strong>JSON Schema Generator</strong>: Automatically create JSON Schema from JSON data</li>
+  <li><strong>Syntax Highlighting &amp; Validation</strong>: Ensure data correctness with built-in error detection</li>
+  <li><strong>Export &amp; Import</strong>: Save and load structured data in multiple formats</li>
+  <li><strong>Offline Support</strong>: Fully functional without an internet connection</li>
+  <li><strong>Dark &amp; Light Themes</strong>: User-friendly interface with theme customization</li>
+</ul>
+
+<h2 id="core-conversion-functions">Core Conversion Functions</h2>
+
+<p>JSON Craft provides efficient and accurate conversion algorithms, leveraging WebAssembly for optimized performance:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">#[wasm_bindgen]</span>
+<span class="k">pub</span> <span class="k">fn</span> <span class="nf">json_to_yaml</span><span class="p">(</span><span class="n">json_str</span><span class="p">:</span> <span class="o">&amp;</span><span class="nb">str</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span> <span class="n">JsValue</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">json_value</span><span class="p">:</span> <span class="nn">serde_json</span><span class="p">::</span><span class="n">Value</span> <span class="o">=</span> <span class="nn">serde_json</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+        <span class="nf">.map_err</span><span class="p">(|</span><span class="n">e</span><span class="p">|</span> <span class="nn">JsValue</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="nd">format!</span><span class="p">(</span><span class="s">"JSON Parse Error: {}"</span><span class="p">,</span> <span class="n">e</span><span class="p">)))</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="k">let</span> <span class="n">yaml_str</span> <span class="o">=</span> <span class="nn">serde_yaml</span><span class="p">::</span><span class="nf">to_string</span><span class="p">(</span><span class="o">&amp;</span><span class="n">json_value</span><span class="p">)</span>
+        <span class="nf">.map_err</span><span class="p">(|</span><span class="n">e</span><span class="p">|</span> <span class="nn">JsValue</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="nd">format!</span><span class="p">(</span><span class="s">"YAML Conversion Error: {}"</span><span class="p">,</span> <span class="n">e</span><span class="p">)))</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="nf">Ok</span><span class="p">(</span><span class="n">yaml_str</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="type-generation">Type Generation</h2>
+
+<p>JSON Craft automates type generation from JSON structures:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">isActive</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The app supports generating equivalent types in Python, Go, Java, and TypeScript.</p>
+
+<h2 id="json-schema-generator">JSON Schema Generator</h2>
+
+<p>Generate schemas from raw JSON data:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="s2">"email"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="user-experience--interface">User Experience &amp; Interface</h2>
+
+<p>The UI is built for efficiency and ease of use:</p>
+
+<ul>
+  <li><strong>Monaco Editor Integration</strong>: Rich editing experience with autocomplete and error checking</li>
+  <li><strong>Drag &amp; Drop Support</strong>: Easily load files for conversion and visualization</li>
+  <li><strong>Dark Mode &amp; Custom Themes</strong>: Enhanced readability and customization options</li>
+  <li><strong>One-Click Copy &amp; Export</strong>: Quickly copy results or save them in desired formats</li>
+</ul>
+
+<h2 id="future-enhancements">Future Enhancements</h2>
+
+<p>Planned features to improve JSON Craft:</p>
+
+<ul>
+  <li><strong>GraphQL Support</strong>: Convert JSON to GraphQL schemas</li>
+  <li><strong>Code Snippet Generator</strong>: Auto-generate API request code in various programming languages</li>
+  <li><strong>Batch Processing</strong>: Convert multiple files simultaneously</li>
+  <li><strong>Browser Extension</strong>: Quick data conversion directly from the browser</li>
+</ul>
+
+<h2 id="why-json-craft-matters">Why JSON Craft Matters</h2>
+
+<p>Working with structured data is essential for developers, but switching between multiple tools can be cumbersome. JSON Craft centralizes the most common data processing needs in a single, efficient, and high-performance tool, making it invaluable for developers working with APIs, databases, and configuration files.</p>
+
+<h2 id="outcomes">Outcomes</h2>
+
+<p>Developers using JSON Craft benefit from:</p>
+
+<ul>
+  <li>Faster and more accurate data format transformations</li>
+  <li>Improved code quality with automatic type generation</li>
+  <li>Enhanced productivity through a streamlined, user-friendly interface</li>
+  <li>Cross-platform accessibility with a web-based, offline-capable application</li>
+</ul>
+
+<div class="project-links">
+  <a href="https://github.com/Hari-krishna-tech/JSON-Craft" class="github-link">View on GitHub</a>
+</div>
+
+<div class="project-meta">
+  <span class="tech-badge">React</span>
+  <span class="tech-badge">WebAssembly</span>
+  <span class="tech-badge">Rust</span>
+  <span class="tech-badge">Monaco Editor</span>
+  <span class="tech-badge">Tailwind CSS</span>
+  <span class="tech-badge">Jest</span>
+  <span class="date-badge">March 2025</span>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

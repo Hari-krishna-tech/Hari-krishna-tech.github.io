@@ -4,49 +4,74 @@ title: Work
 permalink: /work/
 ---
 
-## Full Stack Software Engineer 
+## Full Stack Software Engineer
 
-I am a Backend Developer specializing in robust, secure, and scalable systems. With experience across multiple technology stacks, I focus on building high-performance applications that efficiently utilize available resources.
+I am a Full Stack Developer with a strong focus on building efficient, scalable applications across diverse technology stacks. With hands-on experience in production support and custom application development, I specialize in identifying and resolving complex technical issues while creating intuitive user experiences.
 
 ## Work Experience
 
 **Mindsprint, Chennai, India**  
-**Junior Engineer** (Jun 2024 - Present)
-* Working exclusively with AWS cloud infrastructure and IaC tools to architect robust solutions for microservices and data-intensive applications
-* Implementing migration strategies using AWS MGN for enterprise workloads
-* Contributing to application development with ASP.NET Core and React for client-facing projects
-* Learned: Advanced AWS resource optimization, IaC best practices, efficient cloud migration strategies
+**Junior Engineer - Digital Support** (Jun 2024 - Present)
 
+- Supporting 2 major applications serving thousands of users across multiple countries, maintaining high service availability and performance
+- Analyzing and troubleshooting complex technical issues across diverse tech stacks including React, Angular, Spring Boot, React Native, and Android Native
+- Utilizing monitoring tools like Kibana and Dynatrace to identify root causes and performance bottlenecks
+- Implementing immediate fixes for minor issues and providing comprehensive analysis to development teams for major resolution requirements
+- Working with database systems including MySQL and PostgreSQL for data-related investigations and optimizations
+- Contributing to CI/CD pipeline management with Jenkins to ensure smooth deployment cycles
+- Learned: Advanced debugging techniques, cross-platform troubleshooting, performance optimization, and multi-technology integration patterns
 
-## Projects 
+## Projects
 
-**TmuxCraft** (Creator and Maintainer)
-* Built a Go-based alternative to tmuxifier with enhanced session templating and YAML configuration
-* Implemented cross-platform support for Linux, macOS (Intel/ARM), and Windows
-* Learning: Go system programming, CLI application architecture, cross-platform development challenges
+**GatherSpace** (Creator)
 
-**Wildfly Elytron** [wildfly-security/wildfly-elytron]
-* Contributed to security framework improvements
-* Learning: Enterprise security patterns, authentication protocols, JBoss architecture
+- Developed a cutting-edge virtual workspace platform that blends traditional collaboration tools with metaverse-like interaction
+- Implemented WebRTC for real-time audio/video communication with proximity-based interactions
+- Created an intuitive virtual environment where users can move freely and interact with colleagues naturally
+- Built with a focus on creating spontaneous collaboration opportunities in remote work environments
+- Learning: Real-time communication systems, spatial audio implementation, interactive canvas development
 
-**Crowdin SDKs** [crowdin-api-client-ruby & crowdin-api-client-java]
-* Enhanced localization API clients for multiple language ecosystems
-* Learning: API client design patterns, multi-language library maintenance
+**Habit Loop** (Creator)
 
-**Java Design Patterns** [iluwatar/java-design-patterns]
-* Contributed pattern implementations and documentation
-* Learning: Advanced OOP principles, design pattern application, code quality standards
+- Built a complete habit tracking Android application using Kotlin and Jetpack Compose
+- Implemented MVVM architecture pattern with Room database for efficient local-first data storage
+- Created features for habit creation, streak tracking, detailed monitoring, and customizable themes
+- Developed data import/export functionality using JSON for seamless backup and portability
+- Learning: Modern Android development with Compose, local-first application architecture, data persistence strategies
+
+**JsonCraft** (Creator)
+
+- Created a comprehensive utility application for data format manipulation and visualization
+- Built tools for converting between JSON, XML, YAML, and CSV with intuitive visualization
+- Implemented type generation features to convert JSON into TypeScript types, Python classes, Go structs, and Java interfaces
+- Developed JSON schema generator for API documentation and validation
+- Learning: Cross-format data manipulation, abstract syntax tree processing, code generation techniques
+
+**AI Application** (In Progress)
+
+- Currently developing an application leveraging AI capabilities (details to be updated)
+- Learning: AI integration patterns, machine learning implementation, practical AI application development
+
+## Technical Skills
+
+**Frontend**: React, Angular, Jetpack Compose, React Native
+**Backend**: Spring Boot, Node.js
+**Mobile**: Android (Kotlin), React Native
+**Databases**: MySQL, PostgreSQL, Room (Android)
+**DevOps**: Jenkins, CI/CD pipelines
+**Monitoring**: Kibana, Dynatrace
+**Languages**: Java, Kotlin, JavaScript, TypeScript
 
 ## Professional Philosophy
 
-I believe in building systems that maximize scalability and efficiency with minimal resources. My approach focuses on:
+I believe in building systems that balance user experience with technical excellence. My approach focuses on:
 
-* **Resource Optimization**: Designing systems that perform efficiently under constrained environments
-* **Scalable Architecture**: Implementing patterns that allow for horizontal growth without refactoring
-* **Performance-First Mindset**: Identifying and eliminating bottlenecks before they impact users
-* **Pragmatic Solutions**: Balancing architectural purity with practical implementation constraints
+- **Problem-Solving Efficiency**: Quickly identifying root causes and implementing appropriate solutions
+- **Cross-Platform Fluency**: Leveraging knowledge across technology stacks to solve complex integration challenges
+- **User-Centered Design**: Creating applications that prioritize intuitive experiences while maintaining technical integrity
+- **Continuous Learning**: Consistently expanding my knowledge across the full technology stack to become a more effective developer
 
-Throughout my projects, I've demonstrated this philosophy by implementing bit-manipulation techniques for storage optimization (achieving 98% reduction), designing modular systems with clear boundaries, and creating efficient data processing pipelines that minimize resource consumption.
+Throughout my projects and work experience, I've demonstrated this philosophy by developing applications that address real user needs while maintaining high technical standards. I aspire to strengthen my fundamentals across the full stack to create more valuable, efficient, and scalable solutions.
 
 ## Contact
 
