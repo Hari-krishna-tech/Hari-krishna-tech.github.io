@@ -4,13 +4,338 @@
  <title>Hari Krishna</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2025-03-03T00:28:31+05:30</updated>
+ <updated>2025-03-29T12:53:09+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Hari Krishna T</name>
    <email>harikrishna03902@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Top 30 System Design Concepts</title>
+   <link href="http://localhost:4000/2025/03/29/system-design-concepts-to-master/"/>
+   <updated>2025-03-29T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2025/03/29/system-design-concepts-to-master</id>
+   <content type="html">&lt;div class=&quot;message&quot;&gt;
+  Intro to 30 must know concepts in System Design 
+&lt;/div&gt;
+
+&lt;h1 id=&quot;client-server-architecture-the-backbone-of-modern-web-applications&quot;&gt;Client-Server Architecture: The Backbone of Modern Web Applications&lt;/h1&gt;
+
+&lt;p&gt;Ever wondered how your favorite apps and websites actually work behind the scenes? Let’s dive into the fascinating world of client-server architecture, the foundation that powers virtually all modern web and mobile applications.&lt;/p&gt;
+
+&lt;h2 id=&quot;ip-address-the-digital-street-address&quot;&gt;IP Address: The Digital Street Address&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Every server deployed on the public internet has its own unique IP address&lt;/li&gt;
+  &lt;li&gt;Clients use these IP addresses to communicate with servers over the internet&lt;/li&gt;
+  &lt;li&gt;Think of IP addresses as the postal addresses of the digital world—without them, your data wouldn’t know where to go!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;domain-names-because-who-remembers-numbers&quot;&gt;Domain Names: Because Who Remembers Numbers?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;IP addresses (like 172.217.168.238) are about as memorable as your tax ID number&lt;/li&gt;
+  &lt;li&gt;Domain names (like google.com) provide a human-friendly alternative&lt;/li&gt;
+  &lt;li&gt;When you type a domain name, your Internet Service Provider (ISP) connects to a Domain Name System (DNS) to resolve it to the correct IP address&lt;/li&gt;
+  &lt;li&gt;It’s like having a contact list in your phone instead of memorizing everyone’s number!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;proxy--reverse-proxy-the-digital-middlemen&quot;&gt;Proxy &amp;amp; Reverse Proxy: The Digital Middlemen&lt;/h2&gt;
+
+&lt;h3 id=&quot;proxy&quot;&gt;Proxy&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Acts as a middleman between you and the internet&lt;/li&gt;
+  &lt;li&gt;Makes requests on your behalf, hiding your IP address from the websites you visit&lt;/li&gt;
+  &lt;li&gt;Like having a friend buy concert tickets for you so the venue doesn’t know who’s coming&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;reverse-proxy&quot;&gt;Reverse Proxy&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Works in the opposite direction, intercepting client requests before they reach the server&lt;/li&gt;
+  &lt;li&gt;Forwards requests to the appropriate backend servers&lt;/li&gt;
+  &lt;li&gt;Think of it as a receptionist who directs visitors to the right department&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;latency-the-digital-distance-tax&quot;&gt;Latency: The Digital Distance Tax&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Latency is the delay caused by the physical distance between client and server&lt;/li&gt;
+  &lt;li&gt;The farther away the server, the longer it takes for data to travel&lt;/li&gt;
+  &lt;li&gt;One solution? Deploy multiple servers across the world&lt;/li&gt;
+  &lt;li&gt;Because nobody likes waiting for a page to load while their coffee gets cold!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;httphttps-the-communication-protocol&quot;&gt;HTTP/HTTPS: The Communication Protocol&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HTTP (Hypertext Transfer Protocol) is how clients and servers talk to each other&lt;/li&gt;
+  &lt;li&gt;HTTPS is the secure, encrypted version of HTTP&lt;/li&gt;
+  &lt;li&gt;Without HTTPS, your data travels naked across the internet—not a good look!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;api-the-digital-translator&quot;&gt;API: The Digital Translator&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;APIs (Application Programming Interfaces) act as intermediaries between clients and servers&lt;/li&gt;
+  &lt;li&gt;Clients send requests via HTTP to the API in a specific format&lt;/li&gt;
+  &lt;li&gt;The API processes these requests and returns responses&lt;/li&gt;
+  &lt;li&gt;It’s like a waiter taking your order, delivering it to the kitchen, and bringing back your food&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;rest-rules-of-engagement&quot;&gt;REST: Rules of Engagement&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;REST (Representational State Transfer) defines a structured way for clients and servers to communicate&lt;/li&gt;
+  &lt;li&gt;Key characteristics:
+    &lt;ul&gt;
+      &lt;li&gt;Stateless: Every request is independent (the server has no memory of previous requests)&lt;/li&gt;
+      &lt;li&gt;Resource-oriented: Everything is treated as a resource&lt;/li&gt;
+      &lt;li&gt;Standard methods: GET, POST, PUT, DELETE&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;It’s like having a standardized language so everyone can understand each other&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;graphql-the-picky-eater&quot;&gt;GraphQL: The Picky Eater&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;REST can be inefficient, often returning unwanted data or requiring multiple requests&lt;/li&gt;
+  &lt;li&gt;GraphQL lets you specify exactly what data you need—no more, no less&lt;/li&gt;
+  &lt;li&gt;Comes with trade-offs: requires more backend processing and is harder to cache&lt;/li&gt;
+  &lt;li&gt;Like ordering a custom sandwich instead of taking whatever’s on the menu&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;databases-the-digital-filing-cabinet&quot;&gt;Databases: The Digital Filing Cabinet&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Databases ensure data is stored, retrieved, and managed efficiently&lt;/li&gt;
+  &lt;li&gt;They keep your data secure, consistent, and durable&lt;/li&gt;
+  &lt;li&gt;Without them, your favorite apps would have amnesia!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sql-vs-nosql-different-strokes-for-different-folks&quot;&gt;SQL vs NoSQL: Different Strokes for Different Folks&lt;/h2&gt;
+
+&lt;h3 id=&quot;sql-relational-databases&quot;&gt;SQL (Relational Databases)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Uses tables with rows and columns&lt;/li&gt;
+  &lt;li&gt;Follows ACID properties (Atomicity, Consistency, Isolation, Durability)&lt;/li&gt;
+  &lt;li&gt;Provides strong consistency&lt;/li&gt;
+  &lt;li&gt;Perfect for structured data with clear relationships&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;nosql&quot;&gt;NoSQL&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Comes in various flavors: key-value stores, document stores, graph databases, wide-column stores&lt;/li&gt;
+  &lt;li&gt;Offers high scalability and performance&lt;/li&gt;
+  &lt;li&gt;Features flexible schemas&lt;/li&gt;
+  &lt;li&gt;Ideal for unstructured or semi-structured data&lt;/li&gt;
+  &lt;li&gt;When your data doesn’t fit neatly into tables, NoSQL is your friend&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;scaling-growing-pains&quot;&gt;Scaling: Growing Pains&lt;/h2&gt;
+
+&lt;h3 id=&quot;vertical-scaling&quot;&gt;Vertical Scaling&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Adding more resources (storage, compute, RAM) to a single machine&lt;/li&gt;
+  &lt;li&gt;Quick fix but not a long-term solution&lt;/li&gt;
+  &lt;li&gt;Every machine has its limits&lt;/li&gt;
+  &lt;li&gt;Like trying to make your car faster by adding a bigger engine—eventually, you hit physical constraints&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;horizontal-scaling&quot;&gt;Horizontal Scaling&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Distributing requests among multiple servers&lt;/li&gt;
+  &lt;li&gt;Reduces demand on any single system&lt;/li&gt;
+  &lt;li&gt;Eliminates single points of failure&lt;/li&gt;
+  &lt;li&gt;Like adding more lanes to a highway instead of making one lane wider&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;load-balancer-the-traffic-director&quot;&gt;Load Balancer: The Traffic Director&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When scaling horizontally, how does a client know which server to talk to?&lt;/li&gt;
+  &lt;li&gt;Load balancers take in all requests and distribute them to the appropriate servers&lt;/li&gt;
+  &lt;li&gt;Distribution can be based on various strategies (round-robin, least connections, etc.)&lt;/li&gt;
+  &lt;li&gt;They also collect responses from servers and return them to clients&lt;/li&gt;
+  &lt;li&gt;Think of them as air traffic controllers for your data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;indexing-the-digital-shortcut&quot;&gt;Indexing: The Digital Shortcut&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;As data grows, retrieval and updates become slower&lt;/li&gt;
+  &lt;li&gt;Indexing creates efficient lookup tables to find values without scanning entire tables&lt;/li&gt;
+  &lt;li&gt;Like the index in a book—it helps you find specific topics quickly&lt;/li&gt;
+  &lt;li&gt;Speeds up reads but slows down writes (since indexes need updating)&lt;/li&gt;
+  &lt;li&gt;No free lunch in computer science!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;replication-copy-that&quot;&gt;Replication: Copy That&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When requests are very high, indexing alone isn’t enough&lt;/li&gt;
+  &lt;li&gt;Creating copies of the database allows load distribution&lt;/li&gt;
+  &lt;li&gt;Write operations happen on the primary replica and get copied to others&lt;/li&gt;
+  &lt;li&gt;Improves availability and is great for read-heavy databases&lt;/li&gt;
+  &lt;li&gt;It’s like having multiple copies of a popular book in a library&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sharding-divide-and-conquer&quot;&gt;Sharding: Divide and Conquer&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When data grows to terabytes, even replicated databases struggle&lt;/li&gt;
+  &lt;li&gt;Sharding splits the main database into multiple shards, each containing a subset of data&lt;/li&gt;
+  &lt;li&gt;Data is divided based on a sharding key (e.g., primary key)&lt;/li&gt;
+  &lt;li&gt;Queries are distributed, improving both read and write performance&lt;/li&gt;
+  &lt;li&gt;Like splitting a massive encyclopedia into multiple volumes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;vertical-partitioning-column-control&quot;&gt;Vertical Partitioning: Column Control&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Sometimes the issue isn’t the number of rows but the number of columns&lt;/li&gt;
+  &lt;li&gt;Vertical partitioning splits tables into smaller ones (normalization)&lt;/li&gt;
+  &lt;li&gt;Separates chunks of data that can be split from the primary table&lt;/li&gt;
+  &lt;li&gt;Like organizing your closet by type of clothing instead of throwing everything together&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;caching-the-speed-demon&quot;&gt;Caching: The Speed Demon&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Retrieving data from disk is always slower than from memory&lt;/li&gt;
+  &lt;li&gt;Caching stores frequently accessed data in memory for faster retrieval&lt;/li&gt;
+  &lt;li&gt;The cache-aside pattern checks the cache first before going to the database&lt;/li&gt;
+  &lt;li&gt;Time-to-live (TTL) values prevent serving outdated data&lt;/li&gt;
+  &lt;li&gt;It’s like keeping your most-used cooking ingredients on the counter instead of in the pantry&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;denormalization-breaking-the-rules&quot;&gt;Denormalization: Breaking the Rules&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Normalized databases reduce redundancy but can require many joins&lt;/li&gt;
+  &lt;li&gt;Joins slow down as datasets grow&lt;/li&gt;
+  &lt;li&gt;Denormalization reduces joins by combining related data into a single table&lt;/li&gt;
+  &lt;li&gt;Accepts some data duplication for performance gains&lt;/li&gt;
+  &lt;li&gt;Used primarily in read-heavy applications&lt;/li&gt;
+  &lt;li&gt;Sometimes you have to break the rules to win the game!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cap-theorem-pick-two-not-three&quot;&gt;CAP Theorem: Pick Two, Not Three&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No distributed database system can simultaneously guarantee all three:
+    &lt;ul&gt;
+      &lt;li&gt;Consistency: All nodes see the same data at the same time&lt;/li&gt;
+      &lt;li&gt;Availability: Every request receives a response&lt;/li&gt;
+      &lt;li&gt;Partition Tolerance: System continues to function despite network failures&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;In real-world scenarios, network partitions are inevitable, so we choose between CP and AP&lt;/li&gt;
+  &lt;li&gt;CP systems prioritize consistency over availability&lt;/li&gt;
+  &lt;li&gt;AP systems prioritize availability over consistency (think social media likes, view counts)&lt;/li&gt;
+  &lt;li&gt;It’s the “good, fast, cheap—pick two” of database design&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;blob-storage-the-digital-warehouse&quot;&gt;Blob Storage: The Digital Warehouse&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Services like Amazon S3 store large structured files (images, videos, documents)&lt;/li&gt;
+  &lt;li&gt;Related data is stored in buckets with unique URLs for easy access&lt;/li&gt;
+  &lt;li&gt;Advantages: scalability, pay-as-you-go model, automatic replication&lt;/li&gt;
+  &lt;li&gt;Streaming directly from blob storage can be slow for distant users&lt;/li&gt;
+  &lt;li&gt;Great for storing your cat videos, not so great for serving them quickly worldwide&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;content-delivery-network-cdn-the-global-express&quot;&gt;Content Delivery Network (CDN): The Global Express&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CDNs are distributed servers across the world&lt;/li&gt;
+  &lt;li&gt;They deliver HTML, JavaScript, images, and videos based on geographical location&lt;/li&gt;
+  &lt;li&gt;Solves the problem of slow loading from distant servers&lt;/li&gt;
+  &lt;li&gt;Like having local warehouses for Amazon instead of shipping everything from headquarters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;real-time-applications-the-instant-gratification&quot;&gt;Real-time Applications: The Instant Gratification&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Live chat, stock markets, and online games need real-time updates&lt;/li&gt;
+  &lt;li&gt;Frequent polling is inefficient and increases server load&lt;/li&gt;
+  &lt;li&gt;WebSockets provide continuous two-way communication between client and server&lt;/li&gt;
+  &lt;li&gt;Like having a phone call instead of repeatedly asking “Any news?”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;webhooks-the-notification-system&quot;&gt;Webhooks: The Notification System&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Instead of constantly checking for updates, webhooks notify you when events occur&lt;/li&gt;
+  &lt;li&gt;Applications register a webhook URL with a server&lt;/li&gt;
+  &lt;li&gt;When an event occurs, the server sends an HTTP request to that URL&lt;/li&gt;
+  &lt;li&gt;Like having someone call you when your package arrives instead of checking the mailbox every hour&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;microservices-the-modular-approach&quot;&gt;Microservices: The Modular Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Traditional monolithic applications have all services in one application&lt;/li&gt;
+  &lt;li&gt;This creates single points of failure and makes code hard to manage&lt;/li&gt;
+  &lt;li&gt;Microservices split applications into separate servers that scale independently&lt;/li&gt;
+  &lt;li&gt;They communicate via HTTP or message queues&lt;/li&gt;
+  &lt;li&gt;Like having specialized teams instead of everyone trying to do everything&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;message-queues-the-asynchronous-communicator&quot;&gt;Message Queues: The Asynchronous Communicator&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Synchronous communication (HTTP) doesn’t scale well for inter-server communication&lt;/li&gt;
+  &lt;li&gt;Message queues enable asynchronous communication&lt;/li&gt;
+  &lt;li&gt;Producers place messages in the queue and forget about them&lt;/li&gt;
+  &lt;li&gt;Consumers retrieve messages when they’re ready to process them&lt;/li&gt;
+  &lt;li&gt;Example: Payment service queues notification requests instead of waiting for notifications to send&lt;/li&gt;
+  &lt;li&gt;It’s like dropping off your dry cleaning and coming back later, instead of waiting there&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;rate-limiting-the-bouncer&quot;&gt;Rate Limiting: The Bouncer&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Public services need protection from bots and abusive users&lt;/li&gt;
+  &lt;li&gt;Rate limiting assigns quotas per user/IP address&lt;/li&gt;
+  &lt;li&gt;Exceeding quotas results in blocked requests&lt;/li&gt;
+  &lt;li&gt;Common algorithms: fixed window, sliding window, token bucket&lt;/li&gt;
+  &lt;li&gt;Like a nightclub that only lets in a certain number of people per hour&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;api-gateway-the-swiss-army-knife&quot;&gt;API Gateway: The Swiss Army Knife&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Handles rate limiting, authentication, logging, monitoring, and request routing&lt;/li&gt;
+  &lt;li&gt;Acts as a single entry point to your microservices&lt;/li&gt;
+  &lt;li&gt;Simplifies the client interface to your complex backend&lt;/li&gt;
+  &lt;li&gt;Like having a concierge desk at a large hotel&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idempotency-the-safety-net&quot;&gt;Idempotency: The Safety Net&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In distributed networks, service failures and retries are common&lt;/li&gt;
+  &lt;li&gt;Accidental refreshes during payments could result in double charges&lt;/li&gt;
+  &lt;li&gt;Idempotency ensures repeated requests produce the same result as a single request&lt;/li&gt;
+  &lt;li&gt;Each request gets a unique ID; the server checks if it’s already been handled&lt;/li&gt;
+  &lt;li&gt;Like having a system that recognizes you’ve already paid, even if you accidentally hit “Pay” twice&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;There you have it—the essential components that power the digital experiences we take for granted every day. Next time you’re scrolling through social media or ordering food online, you’ll have a better appreciation for the complex architecture working behind the scenes!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Modern Authentication - Deep Dive into Token-Based Auth with Keycloak</title>

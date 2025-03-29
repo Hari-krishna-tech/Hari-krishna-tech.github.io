@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Top 30 System Design Concepts &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2025/03/29/system-design-concepts-to-master/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Top 30 System Design Concepts</h1>
+  <span class="post-date">29 Mar 2025</span>
+  <div class="message">
+  Intro to 30 must know concepts in System Design 
+</div>
+
+<h1 id="client-server-architecture-the-backbone-of-modern-web-applications">Client-Server Architecture: The Backbone of Modern Web Applications</h1>
+
+<p>Ever wondered how your favorite apps and websites actually work behind the scenes? Let’s dive into the fascinating world of client-server architecture, the foundation that powers virtually all modern web and mobile applications.</p>
+
+<h2 id="ip-address-the-digital-street-address">IP Address: The Digital Street Address</h2>
+
+<ul>
+  <li>Every server deployed on the public internet has its own unique IP address</li>
+  <li>Clients use these IP addresses to communicate with servers over the internet</li>
+  <li>Think of IP addresses as the postal addresses of the digital world—without them, your data wouldn’t know where to go!</li>
+</ul>
+
+<h2 id="domain-names-because-who-remembers-numbers">Domain Names: Because Who Remembers Numbers?</h2>
+
+<ul>
+  <li>IP addresses (like 172.217.168.238) are about as memorable as your tax ID number</li>
+  <li>Domain names (like google.com) provide a human-friendly alternative</li>
+  <li>When you type a domain name, your Internet Service Provider (ISP) connects to a Domain Name System (DNS) to resolve it to the correct IP address</li>
+  <li>It’s like having a contact list in your phone instead of memorizing everyone’s number!</li>
+</ul>
+
+<h2 id="proxy--reverse-proxy-the-digital-middlemen">Proxy &amp; Reverse Proxy: The Digital Middlemen</h2>
+
+<h3 id="proxy">Proxy</h3>
+
+<ul>
+  <li>Acts as a middleman between you and the internet</li>
+  <li>Makes requests on your behalf, hiding your IP address from the websites you visit</li>
+  <li>Like having a friend buy concert tickets for you so the venue doesn’t know who’s coming</li>
+</ul>
+
+<h3 id="reverse-proxy">Reverse Proxy</h3>
+
+<ul>
+  <li>Works in the opposite direction, intercepting client requests before they reach the server</li>
+  <li>Forwards requests to the appropriate backend servers</li>
+  <li>Think of it as a receptionist who directs visitors to the right department</li>
+</ul>
+
+<h2 id="latency-the-digital-distance-tax">Latency: The Digital Distance Tax</h2>
+
+<ul>
+  <li>Latency is the delay caused by the physical distance between client and server</li>
+  <li>The farther away the server, the longer it takes for data to travel</li>
+  <li>One solution? Deploy multiple servers across the world</li>
+  <li>Because nobody likes waiting for a page to load while their coffee gets cold!</li>
+</ul>
+
+<h2 id="httphttps-the-communication-protocol">HTTP/HTTPS: The Communication Protocol</h2>
+
+<ul>
+  <li>HTTP (Hypertext Transfer Protocol) is how clients and servers talk to each other</li>
+  <li>HTTPS is the secure, encrypted version of HTTP</li>
+  <li>Without HTTPS, your data travels naked across the internet—not a good look!</li>
+</ul>
+
+<h2 id="api-the-digital-translator">API: The Digital Translator</h2>
+
+<ul>
+  <li>APIs (Application Programming Interfaces) act as intermediaries between clients and servers</li>
+  <li>Clients send requests via HTTP to the API in a specific format</li>
+  <li>The API processes these requests and returns responses</li>
+  <li>It’s like a waiter taking your order, delivering it to the kitchen, and bringing back your food</li>
+</ul>
+
+<h2 id="rest-rules-of-engagement">REST: Rules of Engagement</h2>
+
+<ul>
+  <li>REST (Representational State Transfer) defines a structured way for clients and servers to communicate</li>
+  <li>Key characteristics:
+    <ul>
+      <li>Stateless: Every request is independent (the server has no memory of previous requests)</li>
+      <li>Resource-oriented: Everything is treated as a resource</li>
+      <li>Standard methods: GET, POST, PUT, DELETE</li>
+    </ul>
+  </li>
+  <li>It’s like having a standardized language so everyone can understand each other</li>
+</ul>
+
+<h2 id="graphql-the-picky-eater">GraphQL: The Picky Eater</h2>
+
+<ul>
+  <li>REST can be inefficient, often returning unwanted data or requiring multiple requests</li>
+  <li>GraphQL lets you specify exactly what data you need—no more, no less</li>
+  <li>Comes with trade-offs: requires more backend processing and is harder to cache</li>
+  <li>Like ordering a custom sandwich instead of taking whatever’s on the menu</li>
+</ul>
+
+<h2 id="databases-the-digital-filing-cabinet">Databases: The Digital Filing Cabinet</h2>
+
+<ul>
+  <li>Databases ensure data is stored, retrieved, and managed efficiently</li>
+  <li>They keep your data secure, consistent, and durable</li>
+  <li>Without them, your favorite apps would have amnesia!</li>
+</ul>
+
+<h2 id="sql-vs-nosql-different-strokes-for-different-folks">SQL vs NoSQL: Different Strokes for Different Folks</h2>
+
+<h3 id="sql-relational-databases">SQL (Relational Databases)</h3>
+
+<ul>
+  <li>Uses tables with rows and columns</li>
+  <li>Follows ACID properties (Atomicity, Consistency, Isolation, Durability)</li>
+  <li>Provides strong consistency</li>
+  <li>Perfect for structured data with clear relationships</li>
+</ul>
+
+<h3 id="nosql">NoSQL</h3>
+
+<ul>
+  <li>Comes in various flavors: key-value stores, document stores, graph databases, wide-column stores</li>
+  <li>Offers high scalability and performance</li>
+  <li>Features flexible schemas</li>
+  <li>Ideal for unstructured or semi-structured data</li>
+  <li>When your data doesn’t fit neatly into tables, NoSQL is your friend</li>
+</ul>
+
+<h2 id="scaling-growing-pains">Scaling: Growing Pains</h2>
+
+<h3 id="vertical-scaling">Vertical Scaling</h3>
+
+<ul>
+  <li>Adding more resources (storage, compute, RAM) to a single machine</li>
+  <li>Quick fix but not a long-term solution</li>
+  <li>Every machine has its limits</li>
+  <li>Like trying to make your car faster by adding a bigger engine—eventually, you hit physical constraints</li>
+</ul>
+
+<h3 id="horizontal-scaling">Horizontal Scaling</h3>
+
+<ul>
+  <li>Distributing requests among multiple servers</li>
+  <li>Reduces demand on any single system</li>
+  <li>Eliminates single points of failure</li>
+  <li>Like adding more lanes to a highway instead of making one lane wider</li>
+</ul>
+
+<h2 id="load-balancer-the-traffic-director">Load Balancer: The Traffic Director</h2>
+
+<ul>
+  <li>When scaling horizontally, how does a client know which server to talk to?</li>
+  <li>Load balancers take in all requests and distribute them to the appropriate servers</li>
+  <li>Distribution can be based on various strategies (round-robin, least connections, etc.)</li>
+  <li>They also collect responses from servers and return them to clients</li>
+  <li>Think of them as air traffic controllers for your data</li>
+</ul>
+
+<h2 id="indexing-the-digital-shortcut">Indexing: The Digital Shortcut</h2>
+
+<ul>
+  <li>As data grows, retrieval and updates become slower</li>
+  <li>Indexing creates efficient lookup tables to find values without scanning entire tables</li>
+  <li>Like the index in a book—it helps you find specific topics quickly</li>
+  <li>Speeds up reads but slows down writes (since indexes need updating)</li>
+  <li>No free lunch in computer science!</li>
+</ul>
+
+<h2 id="replication-copy-that">Replication: Copy That</h2>
+
+<ul>
+  <li>When requests are very high, indexing alone isn’t enough</li>
+  <li>Creating copies of the database allows load distribution</li>
+  <li>Write operations happen on the primary replica and get copied to others</li>
+  <li>Improves availability and is great for read-heavy databases</li>
+  <li>It’s like having multiple copies of a popular book in a library</li>
+</ul>
+
+<h2 id="sharding-divide-and-conquer">Sharding: Divide and Conquer</h2>
+
+<ul>
+  <li>When data grows to terabytes, even replicated databases struggle</li>
+  <li>Sharding splits the main database into multiple shards, each containing a subset of data</li>
+  <li>Data is divided based on a sharding key (e.g., primary key)</li>
+  <li>Queries are distributed, improving both read and write performance</li>
+  <li>Like splitting a massive encyclopedia into multiple volumes</li>
+</ul>
+
+<h2 id="vertical-partitioning-column-control">Vertical Partitioning: Column Control</h2>
+
+<ul>
+  <li>Sometimes the issue isn’t the number of rows but the number of columns</li>
+  <li>Vertical partitioning splits tables into smaller ones (normalization)</li>
+  <li>Separates chunks of data that can be split from the primary table</li>
+  <li>Like organizing your closet by type of clothing instead of throwing everything together</li>
+</ul>
+
+<h2 id="caching-the-speed-demon">Caching: The Speed Demon</h2>
+
+<ul>
+  <li>Retrieving data from disk is always slower than from memory</li>
+  <li>Caching stores frequently accessed data in memory for faster retrieval</li>
+  <li>The cache-aside pattern checks the cache first before going to the database</li>
+  <li>Time-to-live (TTL) values prevent serving outdated data</li>
+  <li>It’s like keeping your most-used cooking ingredients on the counter instead of in the pantry</li>
+</ul>
+
+<h2 id="denormalization-breaking-the-rules">Denormalization: Breaking the Rules</h2>
+
+<ul>
+  <li>Normalized databases reduce redundancy but can require many joins</li>
+  <li>Joins slow down as datasets grow</li>
+  <li>Denormalization reduces joins by combining related data into a single table</li>
+  <li>Accepts some data duplication for performance gains</li>
+  <li>Used primarily in read-heavy applications</li>
+  <li>Sometimes you have to break the rules to win the game!</li>
+</ul>
+
+<h2 id="cap-theorem-pick-two-not-three">CAP Theorem: Pick Two, Not Three</h2>
+
+<ul>
+  <li>No distributed database system can simultaneously guarantee all three:
+    <ul>
+      <li>Consistency: All nodes see the same data at the same time</li>
+      <li>Availability: Every request receives a response</li>
+      <li>Partition Tolerance: System continues to function despite network failures</li>
+    </ul>
+  </li>
+  <li>In real-world scenarios, network partitions are inevitable, so we choose between CP and AP</li>
+  <li>CP systems prioritize consistency over availability</li>
+  <li>AP systems prioritize availability over consistency (think social media likes, view counts)</li>
+  <li>It’s the “good, fast, cheap—pick two” of database design</li>
+</ul>
+
+<h2 id="blob-storage-the-digital-warehouse">Blob Storage: The Digital Warehouse</h2>
+
+<ul>
+  <li>Services like Amazon S3 store large structured files (images, videos, documents)</li>
+  <li>Related data is stored in buckets with unique URLs for easy access</li>
+  <li>Advantages: scalability, pay-as-you-go model, automatic replication</li>
+  <li>Streaming directly from blob storage can be slow for distant users</li>
+  <li>Great for storing your cat videos, not so great for serving them quickly worldwide</li>
+</ul>
+
+<h2 id="content-delivery-network-cdn-the-global-express">Content Delivery Network (CDN): The Global Express</h2>
+
+<ul>
+  <li>CDNs are distributed servers across the world</li>
+  <li>They deliver HTML, JavaScript, images, and videos based on geographical location</li>
+  <li>Solves the problem of slow loading from distant servers</li>
+  <li>Like having local warehouses for Amazon instead of shipping everything from headquarters</li>
+</ul>
+
+<h2 id="real-time-applications-the-instant-gratification">Real-time Applications: The Instant Gratification</h2>
+
+<ul>
+  <li>Live chat, stock markets, and online games need real-time updates</li>
+  <li>Frequent polling is inefficient and increases server load</li>
+  <li>WebSockets provide continuous two-way communication between client and server</li>
+  <li>Like having a phone call instead of repeatedly asking “Any news?”</li>
+</ul>
+
+<h2 id="webhooks-the-notification-system">Webhooks: The Notification System</h2>
+
+<ul>
+  <li>Instead of constantly checking for updates, webhooks notify you when events occur</li>
+  <li>Applications register a webhook URL with a server</li>
+  <li>When an event occurs, the server sends an HTTP request to that URL</li>
+  <li>Like having someone call you when your package arrives instead of checking the mailbox every hour</li>
+</ul>
+
+<h2 id="microservices-the-modular-approach">Microservices: The Modular Approach</h2>
+
+<ul>
+  <li>Traditional monolithic applications have all services in one application</li>
+  <li>This creates single points of failure and makes code hard to manage</li>
+  <li>Microservices split applications into separate servers that scale independently</li>
+  <li>They communicate via HTTP or message queues</li>
+  <li>Like having specialized teams instead of everyone trying to do everything</li>
+</ul>
+
+<h2 id="message-queues-the-asynchronous-communicator">Message Queues: The Asynchronous Communicator</h2>
+
+<ul>
+  <li>Synchronous communication (HTTP) doesn’t scale well for inter-server communication</li>
+  <li>Message queues enable asynchronous communication</li>
+  <li>Producers place messages in the queue and forget about them</li>
+  <li>Consumers retrieve messages when they’re ready to process them</li>
+  <li>Example: Payment service queues notification requests instead of waiting for notifications to send</li>
+  <li>It’s like dropping off your dry cleaning and coming back later, instead of waiting there</li>
+</ul>
+
+<h2 id="rate-limiting-the-bouncer">Rate Limiting: The Bouncer</h2>
+
+<ul>
+  <li>Public services need protection from bots and abusive users</li>
+  <li>Rate limiting assigns quotas per user/IP address</li>
+  <li>Exceeding quotas results in blocked requests</li>
+  <li>Common algorithms: fixed window, sliding window, token bucket</li>
+  <li>Like a nightclub that only lets in a certain number of people per hour</li>
+</ul>
+
+<h2 id="api-gateway-the-swiss-army-knife">API Gateway: The Swiss Army Knife</h2>
+
+<ul>
+  <li>Handles rate limiting, authentication, logging, monitoring, and request routing</li>
+  <li>Acts as a single entry point to your microservices</li>
+  <li>Simplifies the client interface to your complex backend</li>
+  <li>Like having a concierge desk at a large hotel</li>
+</ul>
+
+<h2 id="idempotency-the-safety-net">Idempotency: The Safety Net</h2>
+
+<ul>
+  <li>In distributed networks, service failures and retries are common</li>
+  <li>Accidental refreshes during payments could result in double charges</li>
+  <li>Idempotency ensures repeated requests produce the same result as a single request</li>
+  <li>Each request gets a unique ID; the server checks if it’s already been handled</li>
+  <li>Like having a system that recognizes you’ve already paid, even if you accidentally hit “Pay” twice</li>
+</ul>
+
+<hr />
+
+<p>There you have it—the essential components that power the digital experiences we take for granted every day. Next time you’re scrolling through social media or ordering food online, you’ll have a better appreciation for the complex architecture working behind the scenes!</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2025/02/28/better-auth-with-tokens-and-keycloak/">
+            Modern Authentication - Deep Dive into Token-Based Auth with Keycloak
+            <small>28 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/02/03/jouney-into-android/">
+            My Journey into Kotlin and Android Development
+            <small>03 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/02/03/springboot-zero-to-production/">
+            Spring Boot - From Zero to Production
+            <small>03 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>
