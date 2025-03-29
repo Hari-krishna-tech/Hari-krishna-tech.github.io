@@ -17,9 +17,13 @@ tags:
   Intro to 30 must know concepts in System Design 
 </div>
 
-# Client-Server Architecture: The Backbone of Modern Web Applications
+## Client-Server Architecture: The Backbone of Modern Web Applications
 
-Ever wondered how your favorite apps and websites actually work behind the scenes? Let's dive into the fascinating world of client-server architecture, the foundation that powers virtually all modern web and mobile applications.
+- Ever wondered how your favorite apps and websites actually work behind the scenes? 
+- The fascinating world of client-server architecture
+- The foundation that powers virtually all modern web and mobile applications.
+- Client sends request to the server over the internet, server response back with the data from the database, the is rendered in the screen by the client
+- This 3 tier architecture is used in most modern web and mobile application
 
 ## IP Address: The Digital Street Address
 

@@ -62,6 +62,9 @@ cd your-repo
 
 ```sh
 bundle exec jekyll serve
+
+# if you want to add future blogs
+bundle exec jekyll serve --future
 ```
 
 Your site will be available at `http://localhost:4000`.

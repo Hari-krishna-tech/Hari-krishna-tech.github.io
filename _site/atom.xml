@@ -4,7 +4,7 @@
  <title>Hari Krishna</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2025-03-29T12:53:09+05:30</updated>
+ <updated>2025-03-29T13:22:57+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Hari Krishna T</name>
@@ -21,9 +21,15 @@
   Intro to 30 must know concepts in System Design 
 &lt;/div&gt;
 
-&lt;h1 id=&quot;client-server-architecture-the-backbone-of-modern-web-applications&quot;&gt;Client-Server Architecture: The Backbone of Modern Web Applications&lt;/h1&gt;
+&lt;h2 id=&quot;client-server-architecture-the-backbone-of-modern-web-applications&quot;&gt;Client-Server Architecture: The Backbone of Modern Web Applications&lt;/h2&gt;
 
-&lt;p&gt;Ever wondered how your favorite apps and websites actually work behind the scenes? Let’s dive into the fascinating world of client-server architecture, the foundation that powers virtually all modern web and mobile applications.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ever wondered how your favorite apps and websites actually work behind the scenes?&lt;/li&gt;
+  &lt;li&gt;The fascinating world of client-server architecture&lt;/li&gt;
+  &lt;li&gt;The foundation that powers virtually all modern web and mobile applications.&lt;/li&gt;
+  &lt;li&gt;Client sends request to the server over the internet, server response back with the data from the database, the is rendered in the screen by the client&lt;/li&gt;
+  &lt;li&gt;This 3 tier architecture is used in most modern web and mobile application&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;ip-address-the-digital-street-address&quot;&gt;IP Address: The Digital Street Address&lt;/h2&gt;
 
