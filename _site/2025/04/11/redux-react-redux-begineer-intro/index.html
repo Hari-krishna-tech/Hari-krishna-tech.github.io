@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Redux Simplified - From Core Concepts to Modern Toolkit &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2025/04/11/redux-react-redux-begineer-intro/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+            
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Redux Simplified - From Core Concepts to Modern Toolkit</h1>
+  <span class="post-date">11 Apr 2025</span>
+  <h1 id="understanding-redux-a-beginners-guide-to-state-management">Understanding Redux: A Beginner’s Guide to State Management</h1>
+
+<p>Redux is a powerful state management library that can be integrated with any UI framework, though it’s most commonly used with React. Let’s break down the core concepts and see how Redux has evolved to become more developer-friendly.</p>
+
+<h2 id="core-redux-concepts">Core Redux Concepts</h2>
+
+<h3 id="1-store">1. Store</h3>
+<p>The store is the central repository that holds your application’s state. Think of it as a single source of truth for your entire application’s data.</p>
+
+<h3 id="2-state">2. State</h3>
+<p>This is the actual data stored in your application. In Redux, state is immutable, meaning it cannot be directly modified.</p>
+
+<h3 id="3-actions">3. Actions</h3>
+<p>Actions are plain JavaScript objects that describe what happened in your application. They always have:</p>
+<ul>
+  <li>A <code class="language-plaintext highlighter-rouge">type</code> property (describing what kind of change is needed)</li>
+  <li>An optional <code class="language-plaintext highlighter-rouge">payload</code> property (containing the data for the change)</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example action</span>
+<span class="p">{</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INCREMENT_COUNTER</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">payload</span><span class="p">:</span> <span class="mi">5</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="4-reducers">4. Reducers</h3>
+<p>Reducers are pure functions that take the current state and an action, then return a new state. They define how your state transforms in response to actions.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">counterReducer</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="dl">'</span><span class="s1">INCREMENT</span><span class="dl">'</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">state</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+    <span class="k">case</span> <span class="dl">'</span><span class="s1">DECREMENT</span><span class="dl">'</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">state</span> <span class="o">-</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="5-dispatch">5. Dispatch</h3>
+<p>This is the method used to send actions to the store, triggering state updates:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">INCREMENT</span><span class="dl">'</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="mi">10</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="6-selectors">6. Selectors</h3>
+<p>Selectors are functions that extract specific pieces of data from the store:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">selectCount</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="react-redux">React Redux</h2>
+
+<p>React Redux provides bindings to connect Redux with React components. It introduces:</p>
+
+<h3 id="provider">Provider</h3>
+<p>The <code class="language-plaintext highlighter-rouge">Provider</code> component wraps your React application and makes the Redux store available to all components:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">store</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">YourApp</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="hooks-for-component-integration">Hooks for Component Integration</h3>
+
+<p>Before hooks, connecting components to Redux required using the <code class="language-plaintext highlighter-rouge">connect</code> function with <code class="language-plaintext highlighter-rouge">mapStateToProps</code> and <code class="language-plaintext highlighter-rouge">mapDispatchToProps</code>:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Counter</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Count: <span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">count</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">increment</span><span class="si">}</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">decrement</span><span class="si">}</span><span class="p">&gt;</span>Decrement<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">.</span><span class="nx">count</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">mapDispatchToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">increment</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">increment</span><span class="p">()),</span>
+  <span class="na">decrement</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">decrement</span><span class="p">())</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">,</span> <span class="nx">mapDispatchToProps</span><span class="p">)(</span><span class="nx">Counter</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>With hooks, this becomes much simpler:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useSelector</span><span class="p">,</span> <span class="nx">useDispatch</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">increment</span><span class="p">,</span> <span class="nx">decrement</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./counterSlice</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Counter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">useSelector</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">dispatch</span> <span class="o">=</span> <span class="nx">useDispatch</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Count: <span class="si">{</span><span class="nx">count</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">increment</span><span class="p">())</span><span class="si">}</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">decrement</span><span class="p">())</span><span class="si">}</span><span class="p">&gt;</span>Decrement<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="redux-toolkit">Redux Toolkit</h2>
+
+<p>Redux Toolkit simplifies Redux development by reducing boilerplate code and providing helpful utilities.</p>
+
+<h3 id="createslice">CreateSlice</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">createSlice</code> function generates action creators and action types automatically:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createSlice</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@reduxjs/toolkit</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">counterSlice</span> <span class="o">=</span> <span class="nx">createSlice</span><span class="p">({</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">counter</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">initialState</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">value</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">reducers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">increment</span><span class="p">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// Redux Toolkit uses Immer to allow "mutating" syntax</span>
+      <span class="c1">// while actually producing immutable updates</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">value</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="na">decrement</span><span class="p">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">value</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="na">incrementByAmount</span><span class="p">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">value</span> <span class="o">+=</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="c1">// Action creators are generated automatically</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="p">{</span> <span class="nx">increment</span><span class="p">,</span> <span class="nx">decrement</span><span class="p">,</span> <span class="nx">incrementByAmount</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">counterSlice</span><span class="p">.</span><span class="nx">actions</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">counterSlice</span><span class="p">.</span><span class="nx">reducer</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="configurestore">ConfigureStore</h3>
+
+<p>Setting up the store is simplified with <code class="language-plaintext highlighter-rouge">configureStore</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">configureStore</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@reduxjs/toolkit</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">counterReducer</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../features/counter/counterSlice</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">configureStore</span><span class="p">({</span>
+  <span class="na">reducer</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">counter</span><span class="p">:</span> <span class="nx">counterReducer</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="the-redux-data-flow">The Redux Data Flow</h2>
+
+<ol>
+  <li>User interacts with the UI (clicks a button)</li>
+  <li>The component dispatches an action</li>
+  <li>The store runs the reducers with the current state and action</li>
+  <li>Reducers create a new state based on the action</li>
+  <li>The store notifies all connected components about the state change</li>
+  <li>Components re-render with the new state</li>
+</ol>
+
+<h2 id="when-to-use-redux">When to Use Redux</h2>
+
+<p>Redux is most beneficial when:</p>
+<ul>
+  <li>Your application has complex state that’s shared across many components</li>
+  <li>You need to track how state changes over time</li>
+  <li>You have a medium to large-sized application with a team of developers</li>
+  <li>You want predictable state management with clear patterns</li>
+</ul>
+
+<p>For smaller applications, React’s built-in state management (useState, useContext) might be sufficient.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Redux provides a structured approach to managing state in your applications. While it has a learning curve, tools like React Redux hooks and Redux Toolkit have made it much more approachable for beginners. As your applications grow in complexity, the benefits of Redux’s predictable state container become increasingly valuable.</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2025/03/29/system-design-concepts-to-master/">
+            Top 30 System Design Concepts
+            <small>29 Mar 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/02/28/better-auth-with-tokens-and-keycloak/">
+            Modern Authentication - Deep Dive into Token-Based Auth with Keycloak
+            <small>28 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/02/03/jouney-into-android/">
+            My Journey into Kotlin and Android Development
+            <small>03 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>
