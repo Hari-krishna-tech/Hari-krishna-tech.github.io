@@ -4,7 +4,7 @@
  <title>Hari Krishna</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2025-04-11T00:16:23+05:30</updated>
+ <updated>2025-04-11T00:33:14+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Hari Krishna T</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Redux Simplified - From Core Concepts to Modern Toolkit</title>
-   <link href="http://localhost:4000/2025/04/11/redux-react-redux-begineer-intro/"/>
-   <updated>2025-04-11T00:00:00+05:30</updated>
-   <id>http://localhost:4000/2025/04/11/redux-react-redux-begineer-intro</id>
+   <link href="http://localhost:4000/2025/04/10/redux-react-redux-begineer-intro/"/>
+   <updated>2025-04-10T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2025/04/10/redux-react-redux-begineer-intro</id>
    <content type="html">&lt;h1 id=&quot;understanding-redux-a-beginners-guide-to-state-management&quot;&gt;Understanding Redux: A Beginner’s Guide to State Management&lt;/h1&gt;
 
 &lt;p&gt;Redux is a powerful state management library that can be integrated with any UI framework, though it’s most commonly used with React. Let’s break down the core concepts and see how Redux has evolved to become more developer-friendly.&lt;/p&gt;

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Redux Simplified - From Core Concepts to Modern Toolkit
-date: 2025-04-11
+date: 2025-04-10
 tags:
   [
     redux,
