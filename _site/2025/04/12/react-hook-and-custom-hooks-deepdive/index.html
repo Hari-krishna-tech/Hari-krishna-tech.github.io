@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      React Hooks Unleashed - From Built-in Magic to Custom Superpowers &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2025/04/12/react-hook-and-custom-hooks-deepdive/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+            
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">React Hooks Unleashed - From Built-in Magic to Custom Superpowers</h1>
+  <span class="post-date">12 Apr 2025</span>
+  <h1 id="understanding-react-hooks">Understanding React Hooks</h1>
+
+<p>React Hooks are special functions introduced in React 16.8 that allow you to “hook into” React state and lifecycle features from functional components. Before Hooks, state management and lifecycle methods (like <code class="language-plaintext highlighter-rouge">componentDidMount</code> or <code class="language-plaintext highlighter-rouge">componentDidUpdate</code>) were only available in class components. Hooks enable functional components to have state, side effects, and other React features, making code more concise, reusable, and easier to understand.</p>
+
+<h2 id="how-do-hooks-work">How do Hooks Work?</h2>
+
+<p>Hooks are just JavaScript functions, but there are two important rules:</p>
+
+<ol>
+  <li>
+    <p><strong>Only call Hooks at the top level.</strong>
+This means you should never call a Hook inside loops, conditions, or nested functions. This rule ensures that React can consistently preserve the state between renders.</p>
+  </li>
+  <li>
+    <p><strong>Only call Hooks from React functions.</strong>
+Use Hooks only in functional components or in custom Hooks - not in regular JavaScript functions.</p>
+  </li>
+</ol>
+
+<p>When you call a Hook like <code class="language-plaintext highlighter-rouge">useState</code>, React internally associates that piece of state with the specific component instance and keeps track of the order in which Hooks are called. This internal tracking is why following the two rules above is so important.</p>
+
+<p>If you want to dive deeper, I highly recommend watching <a href="https://youtu.be/KJP1E-Y-xyo?si=KtgtbLY7Snbsu5dm">this video</a> where swyx recreates hooks from scratch at a JSConf. It’s really insightful, and if you have time, try coding it yourself. Remember the concept of “closures” - it’s key to understanding how hooks work internally.</p>
+
+<h2 id="common-react-hooks-and-their-examples">Common React Hooks and Their Examples</h2>
+
+<p>Let’s explore some of the most common Hooks with examples and understand their usage scenarios.</p>
+
+<h3 id="1-usestate--managing-state">1. <code class="language-plaintext highlighter-rouge">useState</code> — Managing State</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">useState</code> Hook lets you add state to your functional components.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Counter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Declare a state variable "count" with an initial value of 0</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You clicked <span class="si">{</span><span class="nx">count</span><span class="si">}</span> times<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Counter</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong><br />
+Call the <code class="language-plaintext highlighter-rouge">useState</code> function from the React module and provide an initial value. It returns a pair (array with 2 values) that we typically destructure using JavaScript syntax. The first value is our state variable, and the second is the function to update that state. By convention, we name the state with a descriptive word and the modifier function with <code class="language-plaintext highlighter-rouge">setThatWord</code>. When updating state, you should provide a new value rather than modifying the original state directly.</p>
+
+<h3 id="2-useeffect--handling-side-effects">2. <code class="language-plaintext highlighter-rouge">useEffect</code> — Handling Side Effects</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">useEffect</code> Hook lets you perform side effects such as data fetching, subscriptions, or manually manipulating the DOM.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Timer</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">setSeconds</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">interval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setSeconds</span><span class="p">((</span><span class="nx">prev</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">prev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+    <span class="c1">// Cleanup function to clear the interval when the component unmounts</span>
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">interval</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[]);</span> <span class="c1">// Empty dependency array: effect runs only once after the first render</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Seconds: <span class="si">{</span><span class="nx">seconds</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Timer</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong><br />
+<code class="language-plaintext highlighter-rouge">useEffect</code> is more complex than <code class="language-plaintext highlighter-rouge">useState</code> as it involves multiple parameters. The first parameter is a callback function, and the second is a dependency array.</p>
+
+<p>The callback function runs whenever any element in the dependency array changes. If you provide an empty array, the effect will run only once when the component mounts. If you omit the dependency array entirely, the callback will run after every render.</p>
+
+<p>The callback can optionally return a cleanup function that runs before the component unmounts or before the effect runs again.</p>
+
+<h3 id="3-usememo--memoizing-expensive-calculations">3. <code class="language-plaintext highlighter-rouge">useMemo</code> — Memoizing Expensive Calculations</h3>
+
+<p><code class="language-plaintext highlighter-rouge">useMemo</code> helps you optimize performance by memoizing (caching) an expensive calculation so that it’s only recomputed if its dependencies change.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useMemo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">ExpensiveCalculation</span><span class="p">({</span> <span class="nx">number</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">multiplier</span><span class="p">,</span> <span class="nx">setMultiplier</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Calculating...</span><span class="dl">"</span><span class="p">);</span>
+    <span class="c1">// Imagine this calculation to be very expensive</span>
+    <span class="k">return</span> <span class="nx">number</span> <span class="o">*</span> <span class="nx">multiplier</span><span class="p">;</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">number</span><span class="p">,</span> <span class="nx">multiplier</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Result: <span class="si">{</span><span class="nx">result</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setMultiplier</span><span class="p">(</span><span class="nx">multiplier</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>
+        Increase Multiplier
+      <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ExpensiveCalculation</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong><br />
+<code class="language-plaintext highlighter-rouge">useMemo</code> is straightforward to understand. When you have a function that might be computationally expensive to run on every render, <code class="language-plaintext highlighter-rouge">useMemo</code> ensures recalculation only happens if the dependencies change. Otherwise, it returns the previously memoized value, saving processing time.</p>
+
+<h3 id="4-useref--accessing-dom-elements-or-holding-mutable-values">4. <code class="language-plaintext highlighter-rouge">useRef</code> — Accessing DOM Elements or Holding Mutable Values</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">useRef</code> Hook returns a mutable ref object whose <code class="language-plaintext highlighter-rouge">.current</code> property is initialized to the passed argument. This reference persists for the full lifetime of the component.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useRef</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">FocusInput</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">inputRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">renderCount</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Directly access the DOM node to focus the input element</span>
+    <span class="nx">inputRef</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Counting number of rerenders without causing the component to rerender</span>
+    <span class="nx">renderCount</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">renderCount</span><span class="p">.</span><span class="nx">current</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">inputRef</span><span class="si">}</span> <span class="na">type</span><span class="p">=</span><span class="s">"text"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span><span class="p">&gt;</span>Focus Input<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">FocusInput</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong><br />
+Use <code class="language-plaintext highlighter-rouge">useRef</code> when you need to store a mutable value that persists across renders without causing a re-render. This is common for storing references to DOM elements, timers, previous state or props, and any value that should be retained through the component’s lifecycle without triggering re-rendering.</p>
+
+<p>If we stored the input element’s DOM reference in state, updating that reference could cause rerenders and potentially trigger infinite loops.</p>
+
+<h3 id="5-usecallback--memoizing-functions">5. <code class="language-plaintext highlighter-rouge">useCallback</code> — Memoizing Functions</h3>
+
+<p><code class="language-plaintext highlighter-rouge">useCallback</code> is similar to <code class="language-plaintext highlighter-rouge">useMemo</code> but is specifically for memoizing functions. This is useful to prevent unnecessary re-renders when passing functions to child components via props.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useCallback</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">CounterButton</span><span class="p">({</span> <span class="nx">onIncrement</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CounterButton rendered</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">onIncrement</span><span class="si">}</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ParentComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="c1">// Memoize the callback so it doesn't change unless its dependencies change</span>
+  <span class="kd">const</span> <span class="nx">handleIncrement</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setCount</span><span class="p">((</span><span class="nx">prev</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">prev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Count: <span class="si">{</span><span class="nx">count</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">CounterButton</span> <span class="na">onIncrement</span><span class="p">=</span><span class="si">{</span><span class="nx">handleIncrement</span><span class="si">}</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ParentComponent</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Here’s another example showing dependency usage:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useCallback</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ProductPage</span><span class="p">({</span> <span class="nx">productId</span><span class="p">,</span> <span class="nx">referrer</span><span class="p">,</span> <span class="nx">theme</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">handleSubmit</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">((</span><span class="nx">orderDetails</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/product/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">productId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/buy</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">referrer</span><span class="p">,</span>
+      <span class="nx">orderDetails</span><span class="p">,</span>
+    <span class="p">});</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">productId</span><span class="p">,</span> <span class="nx">referrer</span><span class="p">]);</span>
+  
+  <span class="c1">// Component code...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong><br />
+<code class="language-plaintext highlighter-rouge">useCallback</code> is useful for:</p>
+<ul>
+  <li>Skipping re-rendering of components when function references would otherwise change</li>
+  <li>Updating state from a memoized callback</li>
+  <li>Preventing an Effect from firing too often</li>
+</ul>
+
+<p>Similar to how <code class="language-plaintext highlighter-rouge">useMemo</code> memoizes a result, <code class="language-plaintext highlighter-rouge">useCallback</code> memoizes the function itself. The function will only be recreated when the dependencies change.</p>
+
+<h3 id="6-usereducer--managing-complex-state">6. <code class="language-plaintext highlighter-rouge">useReducer</code> — Managing Complex State</h3>
+
+<p>Sometimes state logic becomes complex, involving multiple sub-values or tight relationships between state updates. <code class="language-plaintext highlighter-rouge">useReducer</code> is a good alternative to <code class="language-plaintext highlighter-rouge">useState</code> for managing such state.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">reducer</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="dl">"</span><span class="s2">increment</span><span class="dl">"</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">};</span>
+    <span class="k">case</span> <span class="dl">"</span><span class="s2">decrement</span><span class="dl">"</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">};</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Unknown action</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">Counter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="p">{</span> <span class="na">count</span><span class="p">:</span> <span class="mi">0</span> <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Count: <span class="si">{</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">increment</span><span class="dl">"</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">decrement</span><span class="dl">"</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>-<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Counter</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong><br />
+If your component has multiple related states that you need to manage together, or if you prefer the reducer pattern from Redux, then <code class="language-plaintext highlighter-rouge">useReducer</code> might be the right choice. It centralizes state update logic and makes complex state transitions more predictable.</p>
+
+<h3 id="7-usecontext--consuming-context">7. <code class="language-plaintext highlighter-rouge">useContext</code> — Consuming Context</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">useContext</code> Hook lets you subscribe to React context without introducing nesting in the component tree. It is useful for passing data through the component tree without having to pass props down manually at every level.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// Create a Context with a default value</span>
+<span class="kd">const</span> <span class="nx">ThemeContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">light</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">ThemeButton</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">theme</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">ThemeContext</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`btn </span><span class="p">${</span><span class="nx">theme</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span><span class="p">&gt;</span>
+      Current theme: <span class="si">{</span><span class="nx">theme</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">ThemeContext</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="s">"dark"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">ThemeButton</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">ThemeContext</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Here’s a more complete example showing how to create and use a context with state:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. Create a context provider</span>
+<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">createContext</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Create a context</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">MyContext</span> <span class="o">=</span> <span class="nx">createContext</span><span class="p">();</span>
+
+<span class="c1">// Create a provider component</span>
+<span class="kd">function</span> <span class="nx">MyProvider</span><span class="p">({</span> <span class="nx">children</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">myState</span><span class="p">,</span> <span class="nx">setMyState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="dl">'</span><span class="s1">Initial Value</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="c1">// Function to update the state</span>
+  <span class="kd">const</span> <span class="nx">updateMyState</span> <span class="o">=</span> <span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setMyState</span><span class="p">(</span><span class="nx">newValue</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="c1">// Pass the state and update function to the context</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MyContext</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=&gt;</span>
+      <span class="si">{</span><span class="nx">children</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">MyContext</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">MyProvider</span><span class="p">;</span>
+
+<span class="c1">// 2. Use the Context in Child Components:</span>
+<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MyContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./MyProvider</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// Import the context</span>
+
+<span class="kd">function</span> <span class="nx">ChildComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">myState</span><span class="p">,</span> <span class="nx">updateMyState</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">MyContext</span><span class="p">);</span> <span class="c1">// Access the context value and update function</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Current Value: <span class="si">{</span><span class="nx">myState</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">updateMyState</span><span class="p">(</span><span class="dl">'</span><span class="s1">New Value</span><span class="dl">'</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>Update Context<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ChildComponent</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+
+<p>Each of these Hooks plays a vital role in modern React development:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">useState</code></strong> for managing simple state</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">useEffect</code></strong> for managing side effects</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">useMemo</code></strong> and <strong><code class="language-plaintext highlighter-rouge">useCallback</code></strong> for performance optimizations</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">useRef</code></strong> for accessing DOM nodes or holding mutable values</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">useReducer</code></strong> for managing complex state logic</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">useContext</code></strong> for accessing and providing context values across your application</li>
+</ul>
+
+<p>Congratulations! You’ve now learned about the most frequently used React Hooks. The true power of hooks will be fully realized when you start creating custom hooks that encapsulate and reuse stateful logic across your components.</p>
+
+<h1 id="custom-hooks-in-react">Custom Hooks in React</h1>
+
+<p>In React, we’ve seen a significant evolution in how we structure components. While we once relied heavily on class-based components, the introduction of hooks has transformed the landscape, bringing state management and lifecycle functionality to functional components.</p>
+
+<p>Beyond the built-in hooks we’ve already explored, React allows us to create custom hooks - a powerful pattern for extracting and reusing stateful logic across components.</p>
+
+<h2 id="what-are-custom-hooks">What Are Custom Hooks?</h2>
+
+<p>A custom hook is simply a JavaScript function that:</p>
+<ul>
+  <li>Starts with the word “use” (by convention)</li>
+  <li>Can call other hooks (built-in or custom)</li>
+  <li>Extracts reusable logic from components</li>
+</ul>
+
+<p>Custom hooks create a clear separation of concerns:</p>
+<ul>
+  <li><strong>Components</strong> = user interface</li>
+  <li><strong>Hooks</strong> = business logic</li>
+</ul>
+
+<p>This separation offers several advantages:</p>
+<ul>
+  <li>Portable and shareable logic</li>
+  <li>Component-aware abstractions</li>
+  <li>Rapid iteration</li>
+  <li>Cleaner, more focused components</li>
+</ul>
+
+<h2 id="common-use-cases-for-custom-hooks">Common Use Cases for Custom Hooks</h2>
+
+<h3 id="1-portable-ui-utilities">1. Portable UI Utilities</h3>
+
+<h4 id="example-dark-mode-implementation">Example: Dark Mode Implementation</h4>
+
+<p>Many applications need a dark mode feature. Let’s see how we can implement this with a custom hook:</p>
+
+<p>First, here’s how we might implement dark mode directly in a component:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">isDark</span><span class="p">,</span> <span class="nx">setIsDark</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">theme</span> <span class="o">=</span> <span class="nx">isDark</span> <span class="p">?</span> <span class="nx">themes</span><span class="p">.</span><span class="nx">dark</span> <span class="p">:</span> <span class="nx">themes</span><span class="p">.</span><span class="nx">light</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">ThemeProvider</span> <span class="na">theme</span><span class="p">=</span><span class="si">{</span><span class="nx">theme</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="cm">/* App content */</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">ThemeProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To detect the user’s system preference, we could enhance this:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">matchDark</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(prefers-color-scheme: dark)</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">isDark</span><span class="p">,</span> <span class="nx">setIsDark</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span>
+    <span class="p">()</span> <span class="o">=&gt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="nx">matchDark</span><span class="p">).</span><span class="nx">matches</span>
+  <span class="p">);</span>
+  
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">matcher</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="nx">matchDark</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">onChange</span> <span class="o">=</span> <span class="p">({</span><span class="nx">matches</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">setIsDark</span><span class="p">(</span><span class="nx">matches</span><span class="p">);</span>
+
+    <span class="nx">matcher</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">onChange</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">matcher</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="nx">onChange</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">setIsDark</span><span class="p">]);</span>
+  
+  <span class="kd">const</span> <span class="nx">theme</span> <span class="o">=</span> <span class="nx">isDark</span> <span class="p">?</span> <span class="nx">themes</span><span class="p">.</span><span class="nx">dark</span> <span class="p">:</span> <span class="nx">themes</span><span class="p">.</span><span class="nx">light</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nc">ThemeProvider</span> <span class="na">theme</span><span class="p">=</span><span class="si">{</span><span class="nx">theme</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="cm">/* App content */</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">ThemeProvider</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This works, but the logic takes up significant space in our component. Let’s extract it into a custom hook:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">useDarkMode</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">matchDark</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(prefers-color-scheme: dark)</span><span class="dl">'</span><span class="p">;</span>
+  
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">isDark</span><span class="p">,</span> <span class="nx">setIsDark</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span>
+    <span class="p">()</span> <span class="o">=&gt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="nx">matchDark</span><span class="p">).</span><span class="nx">matches</span>
+  <span class="p">);</span>
+  
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">matcher</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="nx">matchDark</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">onChange</span> <span class="o">=</span> <span class="p">({</span><span class="nx">matches</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">setIsDark</span><span class="p">(</span><span class="nx">matches</span><span class="p">);</span>
+
+    <span class="nx">matcher</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">onChange</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">matcher</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="nx">onChange</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">setIsDark</span><span class="p">]);</span>
+  
+  <span class="k">return</span> <span class="nx">isDark</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now our component becomes much cleaner:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">useDarkMode</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./useDarkMode</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isDark</span> <span class="o">=</span> <span class="nx">useDarkMode</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">theme</span> <span class="o">=</span> <span class="nx">isDark</span> <span class="p">?</span> <span class="nx">themes</span><span class="p">.</span><span class="nx">dark</span> <span class="p">:</span> <span class="nx">themes</span><span class="p">.</span><span class="nx">light</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nc">ThemeProvider</span> <span class="na">theme</span><span class="p">=</span><span class="si">{</span><span class="nx">theme</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="cm">/* App content */</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">ThemeProvider</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="example-detecting-clicks-outside-an-element">Example: Detecting Clicks Outside an Element</h4>
+
+<p>Another common UI pattern is detecting when a user clicks outside a specific element (useful for dropdowns, modals, etc.):</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">useClickOutside</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./useClickOutside</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Menu</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">menuRef</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useRef</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">onClickOutside</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clicked outside</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// Close menu, modal, etc.</span>
+    <span class="c1">// e.g., setModalOpen(false);</span>
+  <span class="p">};</span>
+  
+  <span class="nx">useClickOutside</span><span class="p">(</span><span class="nx">menuRef</span><span class="p">,</span> <span class="nx">onClickOutside</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">menuRef</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="cm">/* Menu content */</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here’s how we might implement the <code class="language-plaintext highlighter-rouge">useClickOutside</code> hook:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">useClickOutside</span><span class="p">(</span><span class="nx">elRef</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">callbackRef</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useRef</span><span class="p">();</span>
+  <span class="nx">callbackRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span> <span class="c1">// Store the latest callback</span>
+  
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">handleClickOutside</span> <span class="o">=</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// If click is outside the element and callback exists</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">elRef</span><span class="p">.</span><span class="nx">current</span><span class="p">?.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">callbackRef</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callbackRef</span><span class="p">.</span><span class="nx">current</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+    
+    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="nx">handleClickOutside</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="nx">handleClickOutside</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">elRef</span><span class="p">]);</span> <span class="c1">// Only re-run if the ref changes</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notice how we use <code class="language-plaintext highlighter-rouge">useRef</code> for the callback to avoid unnecessary effect re-runs while still having access to the latest callback function.</p>
+
+<h3 id="2-global-state-management">2. Global State Management</h3>
+
+<p>Custom hooks can create elegant state management solutions. Let’s build a simple global store:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">StoreProvider</span> <span class="o">=</span> <span class="p">({</span><span class="nx">children</span><span class="p">,</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">setStore</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">initialState</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">contextValue</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">setStore</span><span class="p">],</span> <span class="p">[</span><span class="nx">store</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">context</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">contextValue</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">children</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">context</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">useStore</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useContext</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Using this in an application:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">StoreProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./useStore</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">todos</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">StoreProvider</span> <span class="na">initialState</span><span class="p">=</span><span class="si">{</span><span class="nx">initialState</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Todos</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">StoreProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Consuming the store:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">useStore</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./useStore</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Todos</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[{</span> <span class="nx">todos</span> <span class="p">},</span> <span class="nx">setStore</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useStore</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">addTodo</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setStore</span><span class="p">(</span><span class="nx">oldStore</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="p">...</span><span class="nx">oldStore</span><span class="p">,</span>
+      <span class="na">todos</span><span class="p">:</span> <span class="p">[...</span><span class="nx">oldStore</span><span class="p">.</span><span class="nx">todos</span><span class="p">,</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">New todo</span><span class="dl">'</span> <span class="p">}]</span>
+    <span class="p">}));</span>
+  <span class="p">};</span>
+  
+  <span class="c1">// Component JSX</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="enhancing-with-usereducer">Enhancing with useReducer</h4>
+
+<p>Directly manipulating the whole store from components can lead to bugs. Let’s improve our implementation with <code class="language-plaintext highlighter-rouge">useReducer</code>:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">StoreProvider</span> <span class="o">=</span> <span class="p">({</span><span class="nx">children</span><span class="p">,</span> <span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">contextValue</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">],</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">context</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">contextValue</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">children</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">context</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Using it with a reducer:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">reducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="dl">'</span><span class="s1">addTodo</span><span class="dl">'</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+        <span class="na">todos</span><span class="p">:</span> <span class="p">[...</span><span class="nx">state</span><span class="p">.</span><span class="nx">todos</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">todo</span><span class="p">]</span>
+      <span class="p">};</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Unknown action: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">StoreProvider</span> <span class="na">reducer</span><span class="p">=</span><span class="si">{</span><span class="nx">reducer</span><span class="si">}</span> <span class="na">initialState</span><span class="p">=</span><span class="si">{</span><span class="nx">initialState</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Todos</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">StoreProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Consuming with dispatch:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Todos</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[{</span> <span class="nx">todos</span> <span class="p">},</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useStore</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">addTodo</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">addTodo</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">todo</span><span class="p">:</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">New todo</span><span class="dl">'</span> <span class="p">}</span>
+  <span class="p">});</span>
+  
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">todos</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="o">=&gt;</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nc">Todo</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span> <span class="na">todo</span><span class="p">=</span><span class="si">{</span><span class="nx">todo</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">))</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="optimizing-with-multiple-contexts">Optimizing with Multiple Contexts</h4>
+
+<p>To prevent unnecessary re-renders, we can separate store and dispatch into different contexts:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">storeContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">dispatchContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">StoreProvider</span> <span class="o">=</span> <span class="p">({</span><span class="nx">children</span><span class="p">,</span> <span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">dispatchContext</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">dispatch</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">storeContext</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">children</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">storeContext</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">dispatchContext</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">useStore</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useContext</span><span class="p">(</span><span class="nx">storeContext</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">useDispatch</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useContext</span><span class="p">(</span><span class="nx">dispatchContext</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This way, components that only need to dispatch actions won’t re-render when the store changes.</p>
+
+<h4 id="creating-reusable-store-factories">Creating Reusable Store Factories</h4>
+
+<p>We can take this a step further by creating a factory function for stores:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">storeContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">dispatchContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">StoreProvider</span> <span class="o">=</span> <span class="p">({</span><span class="nx">children</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">[</span><span class="nx">store</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+    
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">dispatchContext</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">dispatch</span><span class="si">}</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">storeContext</span><span class="p">.</span><span class="nc">Provider</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="nx">children</span><span class="si">}</span>
+        <span class="p">&lt;/</span><span class="nt">storeContext</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">dispatchContext</span><span class="p">.</span><span class="nc">Provider</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">useStore</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useContext</span><span class="p">(</span><span class="nx">storeContext</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">useDispatch</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useContext</span><span class="p">(</span><span class="nx">dispatchContext</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">[</span><span class="nx">StoreProvider</span><span class="p">,</span> <span class="nx">useStore</span><span class="p">,</span> <span class="nx">useDispatch</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Creating a specific store:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">makeStore</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./makeStore</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">todosReducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="cm">/* reducer logic */</span><span class="p">};</span>
+
+<span class="kd">const</span> <span class="p">[</span>
+  <span class="nx">TodosProvider</span><span class="p">,</span>
+  <span class="nx">useTodos</span><span class="p">,</span>
+  <span class="nx">useTodosDispatch</span>
+<span class="p">]</span> <span class="o">=</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">todosReducer</span><span class="p">,</span> <span class="p">[]);</span>
+
+<span class="k">export</span> <span class="p">{</span> <span class="nx">TodosProvider</span><span class="p">,</span> <span class="nx">useTodos</span><span class="p">,</span> <span class="nx">useTodosDispatch</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<h4 id="adding-local-storage-persistence">Adding Local Storage Persistence</h4>
+
+<p>We can enhance our store with persistence:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">userReducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">storeContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">dispatchContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">();</span>
+
+  <span class="c1">// Try to load initial state from localStorage</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="nx">initialState</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="o">||</span> <span class="nx">initialState</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">{}</span>
+
+  <span class="c1">// Wrap the reducer to save to localStorage</span>
+  <span class="kd">const</span> <span class="nx">reducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">userReducer</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">newState</span><span class="p">));</span>
+    <span class="k">return</span> <span class="nx">newState</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="c1">// Provider and hooks implementation...</span>
+  
+  <span class="k">return</span> <span class="p">[</span><span class="nx">StoreProvider</span><span class="p">,</span> <span class="nx">useStore</span><span class="p">,</span> <span class="nx">useDispatch</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="3-server-state-management">3. Server State Management</h3>
+
+<p>Custom hooks are excellent for managing server state (remote data):</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">useTodos</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">todos</span><span class="p">,</span> <span class="nx">setTodos</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">([]);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">isLoading</span><span class="p">,</span> <span class="nx">setIsLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">error</span><span class="p">,</span> <span class="nx">setError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">fetchTodos</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useCallback</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">todos</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/todos</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">setTodos</span><span class="p">(</span><span class="nx">todos</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">setError</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">fetchTodos</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">fetchTodos</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">todos</span><span class="p">,</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">error</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Using this hook in a component:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Todos</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">todos</span><span class="p">,</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useTodos</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isLoading</span><span class="p">)</span> <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Loading...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Error: <span class="si">{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">todos</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="o">=&gt;</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nc">Todo</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span> <span class="na">todo</span><span class="p">=</span><span class="si">{</span><span class="nx">todo</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">))</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can also create hooks for mutations:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">useToggleTodo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">isLoading</span><span class="p">,</span> <span class="nx">setIsLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">error</span><span class="p">,</span> <span class="nx">setError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">toggleTodo</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useCallback</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">`/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">/toggle`</span><span class="p">);</span>
+      <span class="c1">// Optionally update local state or trigger a refetch</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">setError</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="p">[</span><span class="nx">toggleTodo</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">error</span> <span class="p">}];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Using the mutation hook:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Todo</span><span class="p">({</span> <span class="nx">todo</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">toggleTodo</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">error</span> <span class="p">}]</span> <span class="o">=</span> <span class="nx">useToggleTodo</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">toggleTodo</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">isLoading</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">Updating...</span><span class="dl">'</span> <span class="p">:</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>
+      <span class="si">{</span><span class="nx">error</span> <span class="o">&amp;&amp;</span> <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Error: <span class="si">{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Custom hooks represent one of React’s most powerful patterns for code organization and reuse. By extracting business logic from UI components, we create:</p>
+
+<ol>
+  <li>More focused, readable components</li>
+  <li>Reusable logic that can be shared across components</li>
+  <li>Better separation of concerns</li>
+  <li>Easier testing and maintenance</li>
+</ol>
+
+<p>The pattern of “make components dumber to make them smarter” is a powerful one - by moving complex logic into custom hooks, our components become simpler, more declarative, and easier to understand, while gaining powerful capabilities through composition.</p>
+
+<p>As you build React applications, look for opportunities to extract repeated logic into custom hooks. This approach will help your codebase scale more effectively and make your components more maintainable over time.</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2025/04/10/redux-react-redux-begineer-intro/">
+            Redux Simplified - From Core Concepts to Modern Toolkit
+            <small>10 Apr 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/03/29/system-design-concepts-to-master/">
+            Top 30 System Design Concepts
+            <small>29 Mar 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/02/28/better-auth-with-tokens-and-keycloak/">
+            Modern Authentication - Deep Dive into Token-Based Auth with Keycloak
+            <small>28 Feb 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>
