@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      The Complete TypeScript Learning Roadmap &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2025/04/23/the-complete-typescript-learning-roadmap/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+            
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">The Complete TypeScript Learning Roadmap</h1>
+  <span class="post-date">23 Apr 2025</span>
+  <div class="message">
+This comprehensive TypeScript learning roadmap breaks down the journey from fundamentals to advanced concepts in three strategic phases. Let's explore each topic in detail to help you master TypeScript effectively.
+</div>
+
+<h2 id="phase-1--foundation-high-confidence">PHASE 1 — FOUNDATION (High Confidence)</h2>
+
+<h3 id="static-typing--type-inference">Static Typing &amp; Type Inference</h3>
+<p>TypeScript’s core strength lies in its static typing system. Unlike JavaScript, TypeScript allows you to define types for variables, parameters, and return values. The compiler then checks these types during development, catching potential errors before runtime.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Static typing examples</span>
+<span class="kd">let</span> <span class="nx">name</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Alice</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">age</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">isActive</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="c1">// Type inference</span>
+<span class="kd">let</span> <span class="nx">inferred</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">TypeScript infers this as a string</span><span class="dl">"</span><span class="p">;</span>
+<span class="c1">// No need to explicitly type as `: string` - TypeScript figures it out</span>
+</code></pre></div></div>
+
+<p>TypeScript’s type inference is particularly powerful - it can often determine types automatically based on initialization values or usage context, reducing the need for explicit type annotations while maintaining type safety.</p>
+
+<h3 id="interfaces--type-aliases">Interfaces &amp; Type Aliases</h3>
+<p>Interfaces and type aliases provide ways to name and reuse complex types.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Interface example</span>
+<span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">isAdmin</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span> <span class="c1">// Optional property</span>
+<span class="p">}</span>
+
+<span class="c1">// Type alias example</span>
+<span class="kd">type</span> <span class="nx">Point</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// Using them</span>
+<span class="kd">const</span> <span class="nx">newUser</span><span class="p">:</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">john@example.com</span><span class="dl">"</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">position</span><span class="p">:</span> <span class="nx">Point</span> <span class="o">=</span> <span class="p">{</span> <span class="na">x</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">20</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<p>Interfaces can be extended and implemented by classes, while type aliases can represent more complex types including unions and intersections.</p>
+
+<h3 id="union--intersection-types">Union &amp; Intersection Types</h3>
+<p>Union types allow a value to be one of several types, while intersection types combine multiple types into one.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Union type</span>
+<span class="kd">type</span> <span class="nx">StringOrNumber</span> <span class="o">=</span> <span class="kr">string</span> <span class="o">|</span> <span class="kr">number</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">flexible</span><span class="p">:</span> <span class="nx">StringOrNumber</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">flexible</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span> <span class="c1">// Also valid</span>
+
+<span class="c1">// Intersection type</span>
+<span class="kd">type</span> <span class="nx">Employee</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">type</span> <span class="nx">Manager</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">department</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">reports</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">type</span> <span class="nx">ManagerEmployee</span> <span class="o">=</span> <span class="nx">Employee</span> <span class="o">&amp;</span> <span class="nx">Manager</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">director</span><span class="p">:</span> <span class="nx">ManagerEmployee</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Sarah</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">department</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Engineering</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">reports</span><span class="p">:</span> <span class="mi">5</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="any-vs-unknown-vs-never">any vs unknown vs never</h3>
+<p>These special types serve different purposes in TypeScript’s type system:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// any - opt out of type checking (avoid when possible)</span>
+<span class="kd">let</span> <span class="nx">anyValue</span><span class="p">:</span> <span class="kr">any</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">anyValue</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// OK</span>
+<span class="nx">anyValue</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>     <span class="c1">// OK</span>
+<span class="nx">anyValue</span><span class="p">.</span><span class="nx">nonExistentMethod</span><span class="p">();</span> <span class="c1">// No error during compilation</span>
+
+<span class="c1">// unknown - type-safe alternative to any</span>
+<span class="kd">let</span> <span class="nx">unknownValue</span><span class="p">:</span> <span class="nx">unknown</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">unknownValue</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// OK</span>
+<span class="nx">unknownValue</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>     <span class="c1">// OK</span>
+<span class="c1">// unknownValue.toString(); // Error: Object is of type 'unknown'</span>
+
+<span class="c1">// Type checking required before using unknown values</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">unknownValue</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">unknownValue</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span> <span class="c1">// Now OK</span>
+<span class="p">}</span>
+
+<span class="c1">// never - represents values that never occur</span>
+<span class="kd">function</span> <span class="nx">throwError</span><span class="p">():</span> <span class="nx">never</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">"</span><span class="s2">This function never returns</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="understanding-typescripts-thinking">Understanding TypeScript’s “Thinking”</h3>
+<p>TypeScript uses structural typing (duck typing) rather than nominal typing. This means types are compatible if their structures match, regardless of their declared names.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Duck</span> <span class="p">{</span>
+  <span class="nx">quack</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">swim</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Mallard</span> <span class="p">{</span>
+  <span class="nx">quack</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Quack!</span><span class="dl">"</span><span class="p">);</span> <span class="p">}</span>
+  <span class="nx">swim</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Swimming...</span><span class="dl">"</span><span class="p">);</span> <span class="p">}</span>
+  <span class="nx">fly</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Flying...</span><span class="dl">"</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// This works even though Mallard doesn't explicitly implement Duck</span>
+<span class="kd">const</span> <span class="nx">duck</span><span class="p">:</span> <span class="nx">Duck</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mallard</span><span class="p">();</span> <span class="c1">// Valid!</span>
+</code></pre></div></div>
+
+<h3 id="describing-what-is-vs-what-could-be">Describing What Is vs What Could Be</h3>
+<p>TypeScript distinguishes between describing concrete implementations and potential shapes:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// What is - concrete implementation</span>
+<span class="kd">class</span> <span class="nx">Car</span> <span class="p">{</span>
+  <span class="nx">drive</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Driving...</span><span class="dl">"</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// What could be - potential shape</span>
+<span class="kr">interface</span> <span class="nx">Vehicle</span> <span class="p">{</span>
+  <span class="nx">drive</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// A function accepting anything that matches the shape</span>
+<span class="kd">function</span> <span class="nx">travel</span><span class="p">(</span><span class="nx">vehicle</span><span class="p">:</span> <span class="nx">Vehicle</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">vehicle</span><span class="p">.</span><span class="nx">drive</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// Works with any object that has a drive method</span>
+<span class="nx">travel</span><span class="p">(</span><span class="k">new</span> <span class="nx">Car</span><span class="p">());</span>
+<span class="nx">travel</span><span class="p">({</span> <span class="na">drive</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Moving...</span><span class="dl">"</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="phase-2--structure-better-code">PHASE 2 — STRUCTURE (Better Code)</h2>
+
+<h3 id="generics">Generics</h3>
+<p>Generics allow you to create reusable components that work with a variety of types rather than a single one.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Generic function</span>
+<span class="kd">function</span> <span class="nx">identity</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">arg</span><span class="p">:</span> <span class="nx">T</span><span class="p">):</span> <span class="nx">T</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">arg</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">num</span> <span class="o">=</span> <span class="nx">identity</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>    <span class="c1">// Returns number</span>
+<span class="kd">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">identity</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// Returns string</span>
+
+<span class="c1">// Generic interface</span>
+<span class="kr">interface</span> <span class="nx">Box</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="na">value</span><span class="p">:</span> <span class="nx">T</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">numberBox</span><span class="p">:</span> <span class="nx">Box</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="mi">123</span> <span class="p">};</span>
+<span class="kd">const</span> <span class="nx">stringBox</span><span class="p">:</span> <span class="nx">Box</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span> <span class="p">};</span>
+
+<span class="c1">// Generic class</span>
+<span class="kd">class</span> <span class="nx">Queue</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="na">data</span><span class="p">:</span> <span class="nx">T</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+  
+  <span class="nx">push</span><span class="p">(</span><span class="na">item</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="nx">pop</span><span class="p">():</span> <span class="nx">T</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">numberQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Queue</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="type-guards--discriminated-unions">Type Guards &amp; Discriminated Unions</h3>
+<p>Type guards help narrow down types within conditional blocks, while discriminated unions use a common property to distinguish between union members.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Type guard using typeof</span>
+<span class="kd">function</span> <span class="nx">process</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="kr">string</span> <span class="o">|</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// TypeScript knows value is a string here</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// TypeScript knows value is a number here</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Type guard using instanceof</span>
+<span class="kd">class</span> <span class="nx">Dog</span> <span class="p">{</span>
+  <span class="nx">bark</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="dl">"</span><span class="s2">Woof!</span><span class="dl">"</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Cat</span> <span class="p">{</span>
+  <span class="nx">meow</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="dl">"</span><span class="s2">Meow!</span><span class="dl">"</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">makeSound</span><span class="p">(</span><span class="nx">animal</span><span class="p">:</span> <span class="nx">Dog</span> <span class="o">|</span> <span class="nx">Cat</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">animal</span> <span class="k">instanceof</span> <span class="nx">Dog</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">animal</span><span class="p">.</span><span class="nx">bark</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">animal</span><span class="p">.</span><span class="nx">meow</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Discriminated union</span>
+<span class="kd">type</span> <span class="nx">Shape</span> <span class="o">=</span> 
+  <span class="o">|</span> <span class="p">{</span> <span class="na">kind</span><span class="p">:</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">;</span> <span class="nl">radius</span><span class="p">:</span> <span class="kr">number</span> <span class="p">}</span>
+  <span class="o">|</span> <span class="p">{</span> <span class="na">kind</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rectangle</span><span class="dl">"</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span> <span class="kr">number</span> <span class="p">}</span>
+  <span class="o">|</span> <span class="p">{</span> <span class="na">kind</span><span class="p">:</span> <span class="dl">"</span><span class="s2">square</span><span class="dl">"</span><span class="p">;</span> <span class="nl">size</span><span class="p">:</span> <span class="kr">number</span> <span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">calculateArea</span><span class="p">(</span><span class="nx">shape</span><span class="p">:</span> <span class="nx">Shape</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">shape</span><span class="p">.</span><span class="nx">kind</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">case</span> <span class="dl">"</span><span class="s2">rectangle</span><span class="dl">"</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+    <span class="k">case</span> <span class="dl">"</span><span class="s2">square</span><span class="dl">"</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">size</span> <span class="o">**</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="enums">Enums</h3>
+<p>Enums allow you to define a set of named constants.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Numeric enum</span>
+<span class="kr">enum</span> <span class="nx">Direction</span> <span class="p">{</span>
+  <span class="nx">Up</span><span class="p">,</span>    <span class="c1">// 0</span>
+  <span class="nx">Down</span><span class="p">,</span>  <span class="c1">// 1</span>
+  <span class="nx">Left</span><span class="p">,</span>  <span class="c1">// 2</span>
+  <span class="nx">Right</span>  <span class="c1">// 3</span>
+<span class="p">}</span>
+
+<span class="c1">// String enum</span>
+<span class="kr">enum</span> <span class="nx">HttpStatus</span> <span class="p">{</span>
+  <span class="nx">OK</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">OK</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">NotFound</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">NOT_FOUND</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">InternalServerError</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">INTERNAL_SERVER_ERROR</span><span class="dl">"</span>
+<span class="p">}</span>
+
+<span class="c1">// Usage</span>
+<span class="kd">function</span> <span class="nx">move</span><span class="p">(</span><span class="nx">direction</span><span class="p">:</span> <span class="nx">Direction</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Moving up</span><span class="dl">"</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Down</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Moving down</span><span class="dl">"</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="c1">// etc.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Const enum (inlined at compile time)</span>
+<span class="kd">const</span> <span class="kr">enum</span> <span class="nx">Animal</span> <span class="p">{</span>
+  <span class="nx">Dog</span><span class="p">,</span>
+  <span class="nx">Cat</span><span class="p">,</span>
+  <span class="nx">Bird</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="type-assertions--the-unknown-type">Type Assertions &amp; the unknown type</h3>
+<p>Type assertions tell the compiler to treat a value as a specific type, while the unknown type requires explicit checking before use.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Type assertion</span>
+<span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">)</span> <span class="k">as</span> <span class="nx">HTMLCanvasElement</span><span class="p">;</span>
+<span class="c1">// Alternative syntax</span>
+<span class="kd">const</span> <span class="nx">canvas2</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">HTMLCanvasElement</span><span class="o">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">// Working with unknown</span>
+<span class="kd">function</span> <span class="nx">processValue</span><span class="p">(</span><span class="nx">val</span><span class="p">:</span> <span class="nx">unknown</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Need to check type before using methods</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">val</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">val</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">val</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">val</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span> <span class="o">&amp;&amp;</span> <span class="nx">val</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">val</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="function-overloads--optional-params">Function Overloads &amp; Optional Params</h3>
+<p>Function overloads allow you to define multiple function signatures for the same function, while optional parameters make arguments optional.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Function overloads</span>
+<span class="kd">function</span> <span class="nx">process</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">process</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">process</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span> <span class="o">|</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">number</span> <span class="o">|</span> <span class="kr">string</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">number</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">num</span> <span class="o">=</span> <span class="nx">process</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>    <span class="c1">// Returns 20</span>
+<span class="kd">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">process</span><span class="p">(</span><span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">);</span>  <span class="c1">// Returns "hihi"</span>
+
+<span class="c1">// Optional parameters</span>
+<span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">greeting</span><span class="p">?:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">greeting</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="nx">greeting</span><span class="p">}</span><span class="s2">, </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">!`</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">!`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">greet</span><span class="p">(</span><span class="dl">"</span><span class="s2">Alice</span><span class="dl">"</span><span class="p">);</span>             <span class="c1">// "Hello, Alice!"</span>
+<span class="nx">greet</span><span class="p">(</span><span class="dl">"</span><span class="s2">Bob</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Welcome</span><span class="dl">"</span><span class="p">);</span>    <span class="c1">// "Welcome, Bob!"</span>
+</code></pre></div></div>
+
+<h2 id="phase-3--advanced-power-pro-level">PHASE 3 — ADVANCED POWER (Pro-Level)</h2>
+
+<h3 id="mapped--conditional-types">Mapped &amp; Conditional Types</h3>
+<p>Mapped types create new types by transforming properties of existing ones, while conditional types select types based on conditions.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mapped type</span>
+<span class="kd">type</span> <span class="nb">Readonly</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="p">[</span><span class="nx">P</span> <span class="k">in</span> <span class="kr">keyof</span> <span class="nx">T</span><span class="p">]:</span> <span class="nx">T</span><span class="p">[</span><span class="nx">P</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">readonlyUser</span><span class="p">:</span> <span class="nb">Readonly</span><span class="o">&lt;</span><span class="nx">User</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span>
+<span class="p">};</span>
+<span class="c1">// readonlyUser.id = 2; // Error: Cannot assign to 'id' because it is a read-only property</span>
+
+<span class="c1">// Conditional type</span>
+<span class="kd">type</span> <span class="nx">ExtractType</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kd">extends</span> <span class="kr">string</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">other</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">type</span> <span class="nx">Str</span> <span class="o">=</span> <span class="nx">ExtractType</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>  <span class="c1">// "string"</span>
+<span class="kd">type</span> <span class="nx">Num</span> <span class="o">=</span> <span class="nx">ExtractType</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">;</span>  <span class="c1">// "other"</span>
+
+<span class="c1">// More complex conditional type</span>
+<span class="kd">type</span> <span class="nx">NonNullable</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kd">extends</span> <span class="kc">null</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="p">?</span> <span class="nx">never</span> <span class="p">:</span> <span class="nx">T</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="utility-types">Utility Types</h3>
+<p>TypeScript provides built-in utility types for common type transformations.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">admin</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">user</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Partial - makes all properties optional</span>
+<span class="kd">type</span> <span class="nx">PartialUser</span> <span class="o">=</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">User</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="c1">// { id?: number; name?: string; email?: string; role?: "admin" | "user"; }</span>
+
+<span class="c1">// Pick - selects specific properties</span>
+<span class="kd">type</span> <span class="nx">UserCredentials</span> <span class="o">=</span> <span class="nb">Pick</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span> <span class="dl">"</span><span class="s2">email</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="c1">// { email: string; id: number; }</span>
+
+<span class="c1">// Omit - removes specific properties</span>
+<span class="kd">type</span> <span class="nx">PublicUser</span> <span class="o">=</span> <span class="nx">Omit</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span> <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="c1">// { name: string; role: "admin" | "user"; }</span>
+
+<span class="c1">// Record - creates a type with specified properties</span>
+<span class="kd">type</span> <span class="nx">Roles</span> <span class="o">=</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="kr">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userRoles</span><span class="p">:</span> <span class="nx">Roles</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">admin</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">read</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">write</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">delete</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">user</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">read</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="decorators">Decorators</h3>
+<p>Decorators provide a way to add annotations and metadata to classes, methods, properties, and parameters.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Method decorator</span>
+<span class="kd">function</span> <span class="nx">log</span><span class="p">(</span><span class="nx">target</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">descriptor</span><span class="p">:</span> <span class="nx">PropertyDescriptor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">original</span> <span class="o">=</span> <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+  
+  <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">args</span><span class="p">:</span> <span class="kr">any</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Calling </span><span class="p">${</span><span class="nx">key</span><span class="p">}</span><span class="s2"> with:`</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">original</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Result:`</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="p">};</span>
+  
+  <span class="k">return</span> <span class="nx">descriptor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Calculator</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">log</span>
+  <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">calc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Calculator</span><span class="p">();</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// Logs method call and result</span>
+</code></pre></div></div>
+
+<h3 id="declaration-files--ambient-modules">Declaration Files &amp; Ambient Modules</h3>
+<p>Declaration files (.d.ts) define types for JavaScript libraries, while ambient modules declare modules that might not exist in TypeScript.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example declaration file (jquery.d.ts)</span>
+<span class="kr">declare</span> <span class="k">namespace</span> <span class="nx">$</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">ajax</span><span class="p">(</span><span class="nx">settings</span><span class="p">:</span> <span class="nx">AjaxSettings</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  
+  <span class="kr">interface</span> <span class="nx">AjaxSettings</span> <span class="p">{</span>
+    <span class="nl">url</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">method</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">data</span><span class="p">?:</span> <span class="kr">any</span><span class="p">;</span>
+    <span class="nl">success</span><span class="p">?:</span> <span class="p">(</span><span class="nx">response</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+    <span class="nl">error</span><span class="p">?:</span> <span class="p">(</span><span class="nx">error</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Using the declared types</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/api/data</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="c1">// Ambient module declaration</span>
+<span class="kr">declare</span> <span class="kr">module</span> <span class="dl">"</span><span class="s2">external-library</span><span class="dl">"</span> <span class="p">{</span>
+  <span class="k">export</span> <span class="kd">function</span> <span class="nx">doSomething</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="k">export</span> <span class="kd">class</span> <span class="nx">Helper</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="nx">assist</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="bonus--best-practices">BONUS — Best Practices</h2>
+
+<h3 id="tsconfigjson-tuning">tsconfig.json Tuning</h3>
+<p>Properly configuring your TypeScript project is crucial for maintaining code quality and catching errors.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES2020"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ESNext"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strict"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"esModuleInterop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceConsistentCasingInFileNames"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"noImplicitAny"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strictNullChecks"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"noImplicitReturns"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"noUncheckedIndexedAccess"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src/**/*"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"exclude"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"node_modules"</span><span class="p">,</span><span class="w"> </span><span class="s2">"**/*.spec.ts"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="oop-in-typescript">OOP in TypeScript</h3>
+<p>TypeScript supports object-oriented programming with classes, inheritance, and abstract classes.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Abstract class</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nx">Animal</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">protected</span> <span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{}</span>
+  
+  <span class="kd">abstract</span> <span class="nx">makeSound</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
+  
+  <span class="nx">move</span><span class="p">(</span><span class="nx">distance</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2"> moved </span><span class="p">${</span><span class="nx">distance</span><span class="p">}</span><span class="s2">m.`</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Dog</span> <span class="kd">extends</span> <span class="nx">Animal</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="k">private</span> <span class="nx">breed</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="nx">makeSound</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="dl">"</span><span class="s2">Woof!</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="nx">getBreed</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">breed</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">(</span><span class="dl">"</span><span class="s2">Rex</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">German Shepherd</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dog</span><span class="p">.</span><span class="nx">makeSound</span><span class="p">());</span>  <span class="c1">// "Woof!"</span>
+<span class="nx">dog</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>                  <span class="c1">// "Rex moved 10m."</span>
+</code></pre></div></div>
+
+<h3 id="type-safe-testing">Type-safe Testing</h3>
+<p>Leveraging TypeScript’s type system in tests ensures your tests are as robust as your application code.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Jest with TypeScript</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">sum</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./math</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">sum function</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">adds two numbers correctly</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// TypeScript ensures we're passing numbers</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    
+    <span class="c1">// This would cause a type error</span>
+    <span class="c1">// expect(sum('1', '2')).toBe('12');</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="js-interoperability">JS Interoperability</h3>
+<p>TypeScript is designed to work seamlessly with JavaScript, allowing gradual adoption and integration with existing JS codebases.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Importing JS into TS</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">someFunction</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./legacy.js</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Type definitions for JS code</span>
+<span class="c1">// @ts-check in JS files</span>
+<span class="c1">// JSDoc annotations</span>
+
+<span class="cm">/**
+ * @param {string} name - The name to greet
+ * @returns {string} A greeting message
+ */</span>
+<span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">!`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Gradually converting JS to TS</span>
+<span class="c1">// 1. Rename .js to .ts</span>
+<span class="c1">// 2. Add // @ts-check to JS files</span>
+<span class="c1">// 3. Configure allowJs in tsconfig.json</span>
+</code></pre></div></div>
+
+<h1 id="typescript-setup-and-configuration-guide">TypeScript Setup and Configuration Guide</h1>
+
+<h2 id="setting-up-typescript-in-your-project">Setting Up TypeScript in Your Project</h2>
+
+<p>Setting up TypeScript involves several steps, from installation to configuration. Let’s walk through the process step by step.</p>
+
+<h3 id="basic-installation">Basic Installation</h3>
+
+<p>First, you need to install TypeScript in your project:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using npm</span>
+npm <span class="nb">install </span>typescript <span class="nt">--save-dev</span>
+
+<span class="c"># Using yarn</span>
+yarn add typescript <span class="nt">--dev</span>
+
+<span class="c"># Using pnpm</span>
+pnpm add typescript <span class="nt">-D</span>
+</code></pre></div></div>
+
+<p>After installation, you can initialize a TypeScript configuration file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Initialize with default settings</span>
+npx tsc <span class="nt">--init</span>
+</code></pre></div></div>
+
+<p>This creates a <code class="language-plaintext highlighter-rouge">tsconfig.json</code> file with default settings and helpful comments.</p>
+
+<h3 id="project-structure">Project Structure</h3>
+
+<p>A typical TypeScript project structure might look like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-project/
+├── src/           # Source TypeScript files
+│   ├── index.ts
+│   └── components/
+├── dist/          # Compiled JavaScript output
+├── node_modules/
+├── package.json
+└── tsconfig.json  # TypeScript configuration
+</code></pre></div></div>
+
+<h2 id="understanding-tsconfigjson">Understanding tsconfig.json</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">tsconfig.json</code> file is the heart of your TypeScript project configuration. Let’s break down the important options:</p>
+
+<h3 id="core-compiler-options">Core Compiler Options</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// JavaScript target version</span>
+    <span class="dl">"</span><span class="s2">target</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ES2020</span><span class="dl">"</span><span class="p">,</span>
+    
+    <span class="c1">// Module system (CommonJS, ESNext, etc.)</span>
+    <span class="dl">"</span><span class="s2">module</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ESNext</span><span class="dl">"</span><span class="p">,</span>
+    
+    <span class="c1">// Output directory for compiled files</span>
+    <span class="dl">"</span><span class="s2">outDir</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./dist</span><span class="dl">"</span><span class="p">,</span>
+    
+    <span class="c1">// Root directory of input files</span>
+    <span class="dl">"</span><span class="s2">rootDir</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src</span><span class="dl">"</span><span class="p">,</span>
+    
+    <span class="c1">// Generate source maps for debugging</span>
+    <span class="dl">"</span><span class="s2">sourceMap</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Enable all strict type checking options</span>
+    <span class="dl">"</span><span class="s2">strict</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Specify library files to include</span>
+    <span class="dl">"</span><span class="s2">lib</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">DOM</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">ES2020</span><span class="dl">"</span><span class="p">]</span>
+  <span class="p">},</span>
+  
+  <span class="c1">// Files/patterns to include</span>
+  <span class="dl">"</span><span class="s2">include</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">src/**/*</span><span class="dl">"</span><span class="p">],</span>
+  
+  <span class="c1">// Files/patterns to exclude</span>
+  <span class="dl">"</span><span class="s2">exclude</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">node_modules</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">**/*.spec.ts</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="type-checking-options">Type Checking Options</h3>
+
+<p>These options control how strictly TypeScript checks your code:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Raise error on expressions and declarations with an implied 'any' type</span>
+    <span class="dl">"</span><span class="s2">noImplicitAny</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Enable strict null checks</span>
+    <span class="dl">"</span><span class="s2">strictNullChecks</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Ensure functions with return types always return a value</span>
+    <span class="dl">"</span><span class="s2">noImplicitReturns</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Disallow falling through from one case to another in switch statements</span>
+    <span class="dl">"</span><span class="s2">noFallthroughCasesInSwitch</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Add undefined to any index signature results</span>
+    <span class="dl">"</span><span class="s2">noUncheckedIndexedAccess</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Report errors for unused locals</span>
+    <span class="dl">"</span><span class="s2">noUnusedLocals</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Report errors for unused parameters</span>
+    <span class="dl">"</span><span class="s2">noUnusedParameters</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="module-resolution-options">Module Resolution Options</h3>
+
+<p>These options control how TypeScript resolves module imports:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Module resolution strategy</span>
+    <span class="dl">"</span><span class="s2">moduleResolution</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span>
+    
+    <span class="c1">// Base directory to resolve non-relative module names</span>
+    <span class="dl">"</span><span class="s2">baseUrl</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src</span><span class="dl">"</span><span class="p">,</span>
+    
+    <span class="c1">// Path mapping for module imports</span>
+    <span class="dl">"</span><span class="s2">paths</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">@components/*</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">components/*</span><span class="dl">"</span><span class="p">],</span>
+      <span class="dl">"</span><span class="s2">@utils/*</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">utils/*</span><span class="dl">"</span><span class="p">]</span>
+    <span class="p">},</span>
+    
+    <span class="c1">// Allow importing .json files</span>
+    <span class="dl">"</span><span class="s2">resolveJsonModule</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Allow default imports from modules with no default export</span>
+    <span class="dl">"</span><span class="s2">allowSyntheticDefaultImports</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Emit helpers for runtime module format conversions</span>
+    <span class="dl">"</span><span class="s2">esModuleInterop</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="advanced-options">Advanced Options</h3>
+
+<p>For more complex projects, you might need these options:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Enable incremental compilation</span>
+    <span class="dl">"</span><span class="s2">incremental</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Enable project references</span>
+    <span class="dl">"</span><span class="s2">composite</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Skip type checking of declaration files</span>
+    <span class="dl">"</span><span class="s2">skipLibCheck</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Force consistent casing in file names</span>
+    <span class="dl">"</span><span class="s2">forceConsistentCasingInFileNames</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Generate .d.ts declaration files</span>
+    <span class="dl">"</span><span class="s2">declaration</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Emit design-type metadata for decorated declarations</span>
+    <span class="dl">"</span><span class="s2">emitDecoratorMetadata</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    
+    <span class="c1">// Enable experimental decorators</span>
+    <span class="dl">"</span><span class="s2">experimentalDecorators</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="recommended-configurations-for-different-project-types">Recommended Configurations for Different Project Types</h2>
+
+<h3 id="for-frontend-projects-react-vue-etc">For Frontend Projects (React, Vue, etc.)</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES2020"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ESNext"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"moduleResolution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"jsx"</span><span class="p">:</span><span class="w"> </span><span class="s2">"react"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strict"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"esModuleInterop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceConsistentCasingInFileNames"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lib"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DOM"</span><span class="p">,</span><span class="w"> </span><span class="s2">"DOM.Iterable"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ESNext"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"allowJs"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"noEmit"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"exclude"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"node_modules"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="for-nodejs-backend-projects">For Node.js Backend Projects</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES2020"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CommonJS"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./dist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./src"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strict"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"esModuleInterop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceConsistentCasingInFileNames"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"resolveJsonModule"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"sourceMap"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src/**/*"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"exclude"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"node_modules"</span><span class="p">,</span><span class="w"> </span><span class="s2">"**/*.spec.ts"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="for-library-projects">For Library Projects</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES2018"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ESNext"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"declaration"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./dist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./src"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strict"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"moduleResolution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"esModuleInterop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceConsistentCasingInFileNames"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"exclude"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"node_modules"</span><span class="p">,</span><span class="w"> </span><span class="s2">"**/*.test.ts"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="installing-types-for-npm-packages">Installing Types for NPM Packages</h2>
+
+<p>Many JavaScript libraries don’t include TypeScript definitions by default. Fortunately, the DefinitelyTyped project provides type definitions for thousands of JavaScript libraries.</p>
+
+<h3 id="finding-and-installing-type-definitions">Finding and Installing Type Definitions</h3>
+
+<p>Type definitions for npm packages are usually published under the <code class="language-plaintext highlighter-rouge">@types</code> namespace. You can install them as dev dependencies:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># For a single package</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/lodash
+
+<span class="c"># For multiple packages</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/react @types/node @types/express
+</code></pre></div></div>
+
+<h3 id="common-type-packages">Common Type Packages</h3>
+
+<p>Here are some commonly used type packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Node.js</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/node
+
+<span class="c"># React</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/react @types/react-dom
+
+<span class="c"># Express</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/express
+
+<span class="c"># Jest</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/jest
+
+<span class="c"># jQuery</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> @types/jquery
+</code></pre></div></div>
+
+<h3 id="automatic-type-discovery">Automatic Type Discovery</h3>
+
+<p>TypeScript automatically looks for type definitions in:</p>
+
+<ol>
+  <li>The package itself (if it includes types)</li>
+  <li>The <code class="language-plaintext highlighter-rouge">@types/package-name</code> package</li>
+  <li>Type declarations in your project</li>
+</ol>
+
+<h3 id="when-types-arent-available">When Types Aren’t Available</h3>
+
+<p>If type definitions aren’t available for a package, you have several options:</p>
+
+<h4 id="1-create-a-declaration-file-in-your-project">1. Create a declaration file in your project:</h4>
+
+<p>Create a file named <code class="language-plaintext highlighter-rouge">types.d.ts</code> in your project root or a <code class="language-plaintext highlighter-rouge">types</code> directory:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// types.d.ts</span>
+<span class="kr">declare</span> <span class="kr">module</span> <span class="dl">'</span><span class="s1">untyped-package</span><span class="dl">'</span> <span class="p">{</span>
+  <span class="k">export</span> <span class="kd">function</span> <span class="nx">someFunction</span><span class="p">(</span><span class="nx">arg</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="k">export</span> <span class="kd">class</span> <span class="nx">SomeClass</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span> <span class="p">});</span>
+    <span class="nx">method</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="2-use-a-simpler-declaration-for-quick-fixes">2. Use a simpler declaration for quick fixes:</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// types.d.ts</span>
+<span class="kr">declare</span> <span class="kr">module</span> <span class="dl">'</span><span class="s1">untyped-package</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This tells TypeScript that the module exists but doesn’t provide any type information.</p>
+
+<h2 id="integrating-typescript-with-build-tools">Integrating TypeScript with Build Tools</h2>
+
+<h3 id="webpack">Webpack</h3>
+
+<p>Install necessary packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save-dev</span> ts-loader
+</code></pre></div></div>
+
+<p>Configure webpack.config.js:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">entry</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./src/index.ts</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">module</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">rules</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">tsx</span><span class="se">?</span><span class="sr">$/</span><span class="p">,</span>
+        <span class="na">use</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ts-loader</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">exclude</span><span class="p">:</span> <span class="sr">/node_modules/</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="na">resolve</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">extensions</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">.tsx</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.ts</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.js</span><span class="dl">'</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="na">output</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bundle.js</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">dist</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="babel">Babel</h3>
+
+<p>Install necessary packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save-dev</span> @babel/preset-typescript
+</code></pre></div></div>
+
+<p>Configure .babelrc:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"presets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"@babel/preset-env"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"@babel/preset-typescript"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="eslint">ESLint</h3>
+
+<p>Install necessary packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save-dev</span> @typescript-eslint/parser @typescript-eslint/eslint-plugin
+</code></pre></div></div>
+
+<p>Configure .eslintrc.js:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">parser</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@typescript-eslint/parser</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">@typescript-eslint</span><span class="dl">'</span><span class="p">],</span>
+  <span class="na">extends</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">'</span><span class="s1">eslint:recommended</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">plugin:@typescript-eslint/recommended</span><span class="dl">'</span>
+  <span class="p">],</span>
+  <span class="na">rules</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Your custom rules</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="practical-examples">Practical Examples</h2>
+
+<h3 id="setting-up-a-react-typescript-project">Setting Up a React TypeScript Project</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using Create React App</span>
+npx create-react-app my-app <span class="nt">--template</span> typescript
+
+<span class="c"># Or manually</span>
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> typescript @types/react @types/react-dom
+</code></pre></div></div>
+
+<p>Example tsconfig.json for React:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"es5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lib"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"dom"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dom.iterable"</span><span class="p">,</span><span class="w"> </span><span class="s2">"esnext"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"allowJs"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"esModuleInterop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"allowSyntheticDefaultImports"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strict"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceConsistentCasingInFileNames"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"noFallthroughCasesInSwitch"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"esnext"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"moduleResolution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"resolveJsonModule"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"isolatedModules"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"noEmit"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"jsx"</span><span class="p">:</span><span class="w"> </span><span class="s2">"react-jsx"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="setting-up-a-nodejs-express-typescript-project">Setting Up a Node.js Express TypeScript Project</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install dependencies</span>
+npm <span class="nb">install </span>express
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> typescript @types/node @types/express ts-node nodemon
+</code></pre></div></div>
+
+<p>Example tsconfig.json for Express:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">target</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">es2020</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">module</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">commonjs</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">outDir</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./dist</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">rootDir</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">strict</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">esModuleInterop</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">skipLibCheck</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">forceConsistentCasingInFileNames</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">include</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">src/**/*</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example package.json scripts:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node dist/index.js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nodemon src/index.ts"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tsc"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+
+<h3 id="cannot-find-module-errors">“Cannot find module” errors</h3>
+
+<p>If TypeScript can’t find a module:</p>
+
+<ol>
+  <li>Check if you’ve installed the package</li>
+  <li>Check if you’ve installed the types (<code class="language-plaintext highlighter-rouge">@types/package-name</code>)</li>
+  <li>Create a declaration file if types aren’t available</li>
+</ol>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// types.d.ts</span>
+<span class="kr">declare</span> <span class="kr">module</span> <span class="dl">'</span><span class="s1">problem-package</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="path-aliases-not-working">Path aliases not working</h3>
+
+<p>Ensure you’ve configured both TypeScript and your bundler:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tsconfig.json</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">baseUrl</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">paths</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">@/*</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">src/*</span><span class="dl">"</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For webpack, you’ll need to add:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// webpack.config.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="na">resolve</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">alias</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">'</span><span class="s1">@</span><span class="dl">'</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">src</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="type-errors-in-third-party-libraries">Type errors in third-party libraries</h3>
+
+<p>If you’re getting type errors from dependencies:</p>
+
+<ol>
+  <li>Update the type definitions: <code class="language-plaintext highlighter-rouge">npm update @types/package-name</code></li>
+  <li>Add specific files to <code class="language-plaintext highlighter-rouge">skipLibCheck</code> or use module augmentation to fix types</li>
+  <li>As a last resort, use <code class="language-plaintext highlighter-rouge">// @ts-ignore</code> comments for problematic lines</li>
+</ol>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<ol>
+  <li>
+    <p><strong>Start strict and loosen as needed</strong>: Begin with <code class="language-plaintext highlighter-rouge">"strict": true</code> and adjust individual settings if necessary.</p>
+  </li>
+  <li>
+    <p><strong>Use incremental compilation</strong>: Enable <code class="language-plaintext highlighter-rouge">"incremental": true</code> for faster builds.</p>
+  </li>
+  <li>
+    <p><strong>Organize imports</strong>: Use a consistent import style and consider tools like <code class="language-plaintext highlighter-rouge">eslint-plugin-import</code> to enforce it.</p>
+  </li>
+  <li>
+    <p><strong>Avoid <code class="language-plaintext highlighter-rouge">any</code></strong>: Use <code class="language-plaintext highlighter-rouge">unknown</code> instead of <code class="language-plaintext highlighter-rouge">any</code> when the type is truly unknown.</p>
+  </li>
+  <li>
+    <p><strong>Use path aliases</strong>: Configure path aliases to avoid deep relative imports.</p>
+  </li>
+  <li>
+    <p><strong>Keep tsconfig.json clean</strong>: Use extends to share common configurations:</p>
+  </li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">extends</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./tsconfig.base.json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Project-specific options</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p><strong>Version control your tsconfig.json</strong>: This file should be committed to your repository.</p>
+  </li>
+  <li>
+    <p><strong>Regularly update TypeScript</strong>: Stay current with the latest features and improvements.</p>
+  </li>
+</ol>
+
+<p>By understanding these configuration options and following these practices, you’ll be able to set up TypeScript effectively for any project and leverage its full power to write safer, more maintainable code.</p>
+
+<p>This roadmap provides a structured approach to mastering TypeScript, from foundational concepts to advanced techniques. By following these phases, you’ll build a solid understanding of TypeScript’s type system and leverage its full power to write safer, more maintainable code.</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2025/04/12/react-hook-and-custom-hooks-deepdive/">
+            React Hooks Unleashed - From Built-in Magic to Custom Superpowers
+            <small>12 Apr 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/04/10/redux-react-redux-begineer-intro/">
+            Redux Simplified - From Core Concepts to Modern Toolkit
+            <small>10 Apr 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/03/29/system-design-concepts-to-master/">
+            Top 30 System Design Concepts
+            <small>29 Mar 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>
