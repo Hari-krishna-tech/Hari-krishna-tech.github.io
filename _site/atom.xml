@@ -4,13 +4,1095 @@
  <title>Hari Krishna</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2025-04-24T00:12:18+05:30</updated>
+ <updated>2025-04-27T00:15:56+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Hari Krishna T</name>
    <email>harikrishna03902@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Understanding WebSocket - A Deep Dive</title>
+   <link href="http://localhost:4000/2025/04/26/websockets-deep-dive/"/>
+   <updated>2025-04-26T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2025/04/26/websockets-deep-dive</id>
+   <content type="html">&lt;div class=&quot;message&quot;&gt;
+
+
+In today&apos;s digital landscape, real-time communication has become essential for modern web applications. From chat applications to multiplayer games, the demand for instantaneous data exchange has never been higher. This comprehensive guide takes you on a journey from the fundamentals of HTTP to implementing scalable WebSocket applications.
+
+We&apos;ll start by understanding HTTP&apos;s evolution and its limitations, explore web servers&apos; inner workings, and then dive deep into WebSocket technology. Through practical examples and real-world scenarios, we&apos;ll build a foundation for implementing real-time features in your applications. Finally, we&apos;ll put theory into practice by designing a multiplayer game using WebSockets, demonstrating different architectural approaches and their trade-offs.
+
+This guide is structured to provide both theoretical knowledge and hands-on experience, making it valuable for developers at all levels who want to master real-time web communication.
+
+ &lt;h1&gt;What You&apos;ll Learn&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;HTTP fundamentals and evolution&lt;/li&gt;
+&lt;li&gt;Web server architecture and implementation&lt;/li&gt;
+&lt;li&gt;WebSocket protocol and its advantages&lt;/li&gt;
+&lt;li&gt;Scaling WebSocket applications&lt;/li&gt;
+&lt;li&gt;Real-time game design patterns&lt;/li&gt;
+&lt;li&gt;Security considerations and best practices&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;understanding-http-from-basics-to-http3&quot;&gt;Understanding HTTP: From Basics to HTTP/3&lt;/h1&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the internet. Let’s explore its evolution and core concepts.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-architecture&quot;&gt;Basic Architecture&lt;/h2&gt;
+
+&lt;h3 id=&quot;client-server-model&quot;&gt;Client-Server Model&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Client&lt;/strong&gt;: Browser, Python/JavaScript apps, or any HTTP request-making application&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Server&lt;/strong&gt;: Web servers like IIS, Apache Tomcat, Node.js, Python Tornado&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;http-request-components&quot;&gt;HTTP Request Components&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;URL (Uniform Resource Locator)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Identifies server location&lt;/li&gt;
+      &lt;li&gt;Specifies resource path&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Method Type&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;GET: Retrieve data&lt;/li&gt;
+      &lt;li&gt;POST: Submit data&lt;/li&gt;
+      &lt;li&gt;PUT: Update data&lt;/li&gt;
+      &lt;li&gt;DELETE: Remove data&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Headers&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Authentication tokens&lt;/li&gt;
+      &lt;li&gt;Cookies&lt;/li&gt;
+      &lt;li&gt;Host information&lt;/li&gt;
+      &lt;li&gt;Content types&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Body&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Actual data payload&lt;/li&gt;
+      &lt;li&gt;Optional (not used in GET requests)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;http-response-components&quot;&gt;HTTP Response Components&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Status Codes&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;200: Success&lt;/li&gt;
+      &lt;li&gt;201: Created&lt;/li&gt;
+      &lt;li&gt;400: Bad Request&lt;/li&gt;
+      &lt;li&gt;403: Forbidden&lt;/li&gt;
+      &lt;li&gt;404: Not Found&lt;/li&gt;
+      &lt;li&gt;500: Server Error&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Headers&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Content type&lt;/li&gt;
+      &lt;li&gt;Metadata&lt;/li&gt;
+      &lt;li&gt;Server information&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Body&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Requested data&lt;/li&gt;
+      &lt;li&gt;Response content&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;evolution-of-http&quot;&gt;Evolution of HTTP&lt;/h2&gt;
+
+&lt;h3 id=&quot;http10-1996&quot;&gt;HTTP/1.0 (1996)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;New TCP connection per request&lt;/li&gt;
+  &lt;li&gt;Connection closes after each request&lt;/li&gt;
+  &lt;li&gt;Inefficient for modern web applications&lt;/li&gt;
+  &lt;li&gt;High latency due to TCP handshakes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;http11&quot;&gt;HTTP/1.1&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Persistent TCP connections (keep-alive)&lt;/li&gt;
+  &lt;li&gt;Reduced latency&lt;/li&gt;
+  &lt;li&gt;Streaming with chunked transfer&lt;/li&gt;
+  &lt;li&gt;Pipelining (disabled by default)&lt;/li&gt;
+  &lt;li&gt;Better resource utilization&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;http2&quot;&gt;HTTP/2&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Key Improvements&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Header compression&lt;/li&gt;
+      &lt;li&gt;Multiplexing (multiple requests over single TCP)&lt;/li&gt;
+      &lt;li&gt;Server push capability&lt;/li&gt;
+      &lt;li&gt;SPDY protocol support&lt;/li&gt;
+      &lt;li&gt;Default HTTPS&lt;/li&gt;
+      &lt;li&gt;Protocol negotiation (NPN/ALPN)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;http3-http2-over-quic&quot;&gt;HTTP/3 (HTTP/2 over QUIC)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Features&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Uses QUIC instead of TCP&lt;/li&gt;
+      &lt;li&gt;Built on UDP with congestion control&lt;/li&gt;
+      &lt;li&gt;Retains HTTP/2 features&lt;/li&gt;
+      &lt;li&gt;Improved performance&lt;/li&gt;
+      &lt;li&gt;Better handling of connection losses&lt;/li&gt;
+      &lt;li&gt;Experimental status&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;https-working&quot;&gt;HTTPS Working&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Initiates TCP connection&lt;/li&gt;
+  &lt;li&gt;Performs TLS handshake&lt;/li&gt;
+  &lt;li&gt;Exchanges encrypted data&lt;/li&gt;
+  &lt;li&gt;Maintains secure communication&lt;/li&gt;
+  &lt;li&gt;Terminates connection with acknowledgment&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;osi-layer&quot;&gt;OSI Layer&lt;/h2&gt;
+&lt;p&gt;HTTP operates at Layer 7 (Application Layer) of the OSI model, handling data formatting and transfer protocols.&lt;/p&gt;
+
+&lt;p&gt;This evolution shows how HTTP has adapted to meet increasing demands for faster, more secure, and more efficient web communication.&lt;/p&gt;
+
+&lt;p&gt;Here’s a refined version of the Web Servers explanation in Markdown format:&lt;/p&gt;
+
+&lt;h1 id=&quot;understanding-web-servers&quot;&gt;Understanding Web Servers&lt;/h1&gt;
+
+&lt;h2 id=&quot;what-is-a-web-server&quot;&gt;What is a Web Server?&lt;/h2&gt;
+
+&lt;p&gt;A web server is a software system that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Serves web content (HTML, CSS, JS, JSON, etc.)&lt;/li&gt;
+  &lt;li&gt;Implements HTTP protocol&lt;/li&gt;
+  &lt;li&gt;Handles both static and dynamic content&lt;/li&gt;
+  &lt;li&gt;Hosts websites, web applications, and APIs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;types-of-content&quot;&gt;Types of Content&lt;/h2&gt;
+
+&lt;h3 id=&quot;static-content&quot;&gt;Static Content&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Same content for all users&lt;/li&gt;
+  &lt;li&gt;Files stored on server&lt;/li&gt;
+  &lt;li&gt;No processing required&lt;/li&gt;
+  &lt;li&gt;Example: Company “About” page&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dynamic-content&quot;&gt;Dynamic Content&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Content varies based on user/request&lt;/li&gt;
+  &lt;li&gt;Generated on-the-fly&lt;/li&gt;
+  &lt;li&gt;Requires processing&lt;/li&gt;
+  &lt;li&gt;Example: Social media feed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;web-server-architecture&quot;&gt;Web Server Architecture&lt;/h2&gt;
+
+&lt;h3 id=&quot;basic-operation&quot;&gt;Basic Operation&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Listens on standard ports:
+    &lt;ul&gt;
+      &lt;li&gt;Port 80 (HTTP)&lt;/li&gt;
+      &lt;li&gt;Port 443 (HTTPS)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Handles network requests&lt;/li&gt;
+  &lt;li&gt;Manages TCP connections&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;blocking-single-threaded-server-model&quot;&gt;Blocking Single-Threaded Server Model&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph LR
+    A[Client Request] --&amp;gt; B[TCP Connection]
+    B --&amp;gt; C[Socket Creation]
+    C --&amp;gt; D[Process Request]
+    D --&amp;gt; E[Send Response]
+    E --&amp;gt; F[Thread Released]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;characteristics&quot;&gt;Characteristics:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;One request processed at a time&lt;/li&gt;
+  &lt;li&gt;Blocks during I/O operations&lt;/li&gt;
+  &lt;li&gt;Maintains TCP socket in memory&lt;/li&gt;
+  &lt;li&gt;Limited concurrent handling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;modern-server-implementations&quot;&gt;Modern Server Implementations&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Multi-threaded Servers (e.g., Apache, Tomcat)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Spawns new thread per request&lt;/li&gt;
+      &lt;li&gt;Configurable thread limit&lt;/li&gt;
+      &lt;li&gt;Better concurrency&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Event-driven Servers (e.g., Node.js)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Single-threaded with event loop&lt;/li&gt;
+      &lt;li&gt;Non-blocking I/O&lt;/li&gt;
+      &lt;li&gt;Request queue management&lt;/li&gt;
+      &lt;li&gt;Efficient resource usage&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;popular-web-servers&quot;&gt;Popular Web Servers&lt;/h2&gt;
+
+&lt;h3 id=&quot;off-the-shelf-solutions&quot;&gt;Off-the-Shelf Solutions&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Apache HTTP Server&lt;/li&gt;
+  &lt;li&gt;Nginx&lt;/li&gt;
+  &lt;li&gt;IIS (Internet Information Services)&lt;/li&gt;
+  &lt;li&gt;Lighttpd&lt;/li&gt;
+  &lt;li&gt;Tomcat&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;custom-implementation-platforms&quot;&gt;Custom Implementation Platforms&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Node.js&lt;/li&gt;
+  &lt;li&gt;Python Tornado&lt;/li&gt;
+  &lt;li&gt;Express.js&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;example-setting-up-apache-server&quot;&gt;Example: Setting Up Apache Server&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install Apache&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;apache2
+
+&lt;span class=&quot;c&quot;&gt;# Start service&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start apache2
+
+&lt;span class=&quot;c&quot;&gt;# Check status&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status apache2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;example-simple-expressjs-server&quot;&gt;Example: Simple Express.js Server&lt;/h2&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;index.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Server running on port 8080&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;best-practices&quot;&gt;Best Practices&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Security&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Keep software updated&lt;/li&gt;
+      &lt;li&gt;Use HTTPS&lt;/li&gt;
+      &lt;li&gt;Implement proper authentication&lt;/li&gt;
+      &lt;li&gt;Configure firewalls&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Performance&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Enable caching&lt;/li&gt;
+      &lt;li&gt;Compress responses&lt;/li&gt;
+      &lt;li&gt;Optimize static content&lt;/li&gt;
+      &lt;li&gt;Monitor resource usage&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Scalability&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Use load balancers&lt;/li&gt;
+      &lt;li&gt;Implement containerization&lt;/li&gt;
+      &lt;li&gt;Configure auto-scaling&lt;/li&gt;
+      &lt;li&gt;Monitor metrics&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This overview covers the fundamentals of web servers, their implementation, and basic setup examples. Understanding these concepts is crucial for web development and system administration.&lt;/p&gt;
+
+&lt;h1 id=&quot;websockets-a-comprehensive-guide&quot;&gt;WebSockets: A Comprehensive Guide&lt;/h1&gt;
+
+&lt;h2 id=&quot;introduction-1&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;WebSocket is a bidirectional, full-duplex communication protocol built on top of HTTP/1.1, enabling real-time data exchange between clients and servers.&lt;/p&gt;
+
+&lt;h2 id=&quot;core-concepts&quot;&gt;Core Concepts&lt;/h2&gt;
+
+&lt;h3 id=&quot;protocol-overview&quot;&gt;Protocol Overview&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Built on HTTP/1.1&lt;/li&gt;
+  &lt;li&gt;Maintains persistent connections&lt;/li&gt;
+  &lt;li&gt;Stateful protocol&lt;/li&gt;
+  &lt;li&gt;Supports bidirectional communication&lt;/li&gt;
+  &lt;li&gt;Uses ws:// or wss:// (secure) protocol&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;connection-flow&quot;&gt;Connection Flow&lt;/h3&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Client                                             Server
+  |                                                 |
+  |           HTTP Upgrade Request                  |
+  |------------------------------------------------&amp;gt;
+  |                                                 |
+  |         101 Switching Protocols                 |
+  |&amp;lt;------------------------------------------------
+  |                                                 |
+  |        === WebSocket Connection Established === |
+  |                                                 |
+  |               Message 1                         |
+  |------------------------------------------------&amp;gt;
+  |                                                 |
+  |               Message 2                         |
+  |&amp;lt;------------------------------------------------
+  |                                                 |
+  |               Message 3                         |
+  |------------------------------------------------&amp;gt;
+  |                                                 |
+  |               Message 4                         |
+  |&amp;lt;------------------------------------------------
+  |                                                 |
+  |          Connection Close                       |
+  |------------------------------------------------&amp;gt;
+  |                                                 |
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;websocket-handshake-example&quot;&gt;WebSocket Handshake Example&lt;/h3&gt;
+&lt;div class=&quot;language-http highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;# Client Request
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;/chat&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;server.example.com&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Upgrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;websocket&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Upgrade&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Sec-WebSocket-Key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;xJJJHMbDL1EzLkh9GBhXDw==&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Sec-WebSocket-Protocol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;chat, superchat&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Sec-WebSocket-Version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://example.com&lt;/span&gt;
+
+# Server Response
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSMrcOsM1YUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;common-use-cases&quot;&gt;Common Use Cases&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Real-time Chat Applications&lt;/li&gt;
+  &lt;li&gt;Live Data Feeds&lt;/li&gt;
+  &lt;li&gt;Multiplayer Gaming&lt;/li&gt;
+  &lt;li&gt;Progress Monitoring&lt;/li&gt;
+  &lt;li&gt;Real-time Analytics&lt;/li&gt;
+  &lt;li&gt;Collaborative Tools&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;implementation-example&quot;&gt;Implementation Example&lt;/h2&gt;
+
+&lt;h3 id=&quot;server-implementation&quot;&gt;Server Implementation&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocketServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;websocket&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Create HTTP server&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpserver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Request received&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Initialize WebSocket server&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocketServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;httpServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpserver&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Handle connections&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  
+  &lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Connection opened&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Connection closed&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Received message: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;utf8Data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;httpserver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Server listening on port 8080&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;client-implementation&quot;&gt;Client Implementation&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Browser client code&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ws://localhost:8080&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onmessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Received: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Send periodic messages&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sendPeriodic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Message &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendPeriodic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;project-setup&quot;&gt;Project Setup&lt;/h2&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Initialize project&lt;/span&gt;
+npm init &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install dependencies&lt;/span&gt;
+npm i websocket
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;advantages-and-limitations&quot;&gt;Advantages and Limitations&lt;/h2&gt;
+
+&lt;h3 id=&quot;advantages&quot;&gt;Advantages&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Full-duplex communication&lt;/li&gt;
+  &lt;li&gt;Real-time data transfer&lt;/li&gt;
+  &lt;li&gt;HTTP compatible&lt;/li&gt;
+  &lt;li&gt;Firewall friendly&lt;/li&gt;
+  &lt;li&gt;Standard protocol support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;limitations&quot;&gt;Limitations&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Complex proxy handling&lt;/li&gt;
+  &lt;li&gt;Load balancing challenges&lt;/li&gt;
+  &lt;li&gt;Scaling difficulties&lt;/li&gt;
+  &lt;li&gt;Connection state management&lt;/li&gt;
+  &lt;li&gt;Resource intensive&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h2&gt;
+
+&lt;h3 id=&quot;when-to-consider-alternatives&quot;&gt;When to Consider Alternatives&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Long Polling&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;For less frequent updates&lt;/li&gt;
+      &lt;li&gt;Simpler implementation&lt;/li&gt;
+      &lt;li&gt;Better browser support&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Server-Sent Events&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;One-way server-to-client communication&lt;/li&gt;
+      &lt;li&gt;Simpler than WebSockets&lt;/li&gt;
+      &lt;li&gt;Native browser support&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;decision-criteria&quot;&gt;Decision Criteria&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Need for bidirectional communication&lt;/li&gt;
+  &lt;li&gt;Real-time requirements&lt;/li&gt;
+  &lt;li&gt;Scale requirements&lt;/li&gt;
+  &lt;li&gt;Browser support needs&lt;/li&gt;
+  &lt;li&gt;Infrastructure constraints&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;best-practices-1&quot;&gt;Best Practices&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Implement heartbeat mechanisms&lt;/li&gt;
+  &lt;li&gt;Handle reconnection gracefully&lt;/li&gt;
+  &lt;li&gt;Use secure WebSocket (wss://)&lt;/li&gt;
+  &lt;li&gt;Implement proper error handling&lt;/li&gt;
+  &lt;li&gt;Monitor connection health&lt;/li&gt;
+  &lt;li&gt;Consider message queuing for reliability&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;WebSockets provide powerful real-time communication capabilities but should be used judiciously based on specific application needs and infrastructure considerations. Consider alternatives for simpler use cases where full-duplex communication isn’t essential.&lt;/p&gt;
+
+&lt;h1 id=&quot;scaling-websockets-architecture&quot;&gt;Scaling WebSockets Architecture&lt;/h1&gt;
+
+&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Understanding how to scale stateful WebSocket connections using reverse proxies and pub/sub patterns.&lt;/p&gt;
+
+&lt;h2 id=&quot;architecture-diagram&quot;&gt;Architecture Diagram&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                                 ┌─────────────┐
+                                 │  WebSocket  │
+                          ┌─────►│  Server 1   │
+                          │      └─────────────┘
+┌──────────┐      ┌──────┴────┐ ┌─────────────┐     ┌─────────────┐
+│  Client  │──────►   Load    │ │  WebSocket  │     │    Redis    │
+│ Devices  │──────►  Balancer │─►│  Server 2   │────►│   Pub/Sub   │
+└──────────┘      └──────┬────┘ └─────────────┘     └─────────────┘
+                          │      ┌─────────────┐
+                          └─────►│  WebSocket  │
+                                │  Server 3    │
+                                └─────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;components&quot;&gt;Components&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-load-balancer&quot;&gt;1. Load Balancer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Receives initial WebSocket connection requests&lt;/li&gt;
+  &lt;li&gt;Performs HTTP upgrade for WebSocket connections&lt;/li&gt;
+  &lt;li&gt;Routes connections to appropriate WebSocket servers&lt;/li&gt;
+  &lt;li&gt;Maintains persistent connections&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-websocket-servers&quot;&gt;2. WebSocket Servers&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Handle client connections&lt;/li&gt;
+  &lt;li&gt;Process messages&lt;/li&gt;
+  &lt;li&gt;Publish messages to Redis&lt;/li&gt;
+  &lt;li&gt;Subscribe to relevant topics&lt;/li&gt;
+  &lt;li&gt;Broadcast messages to connected clients&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;3-redis-pubsub&quot;&gt;3. Redis Pub/Sub&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Central message broker&lt;/li&gt;
+  &lt;li&gt;Handles message distribution&lt;/li&gt;
+  &lt;li&gt;Enables cross-server communication&lt;/li&gt;
+  &lt;li&gt;Maintains message consistency&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;message-flow&quot;&gt;Message Flow&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Client Connection&lt;/strong&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Client → Load Balancer → WebSocket Server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Message Publication&lt;/strong&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Client → WebSocket Server → Redis Pub/Sub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Message Distribution&lt;/strong&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Redis Pub/Sub → All WebSocket Servers → Connected Clients
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;implementation-example-1&quot;&gt;Implementation Example&lt;/h2&gt;
+
+&lt;h3 id=&quot;load-balancer-configuration-haproxy&quot;&gt;Load Balancer Configuration (HAProxy)&lt;/h3&gt;
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;frontend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;websocket&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt; *:&lt;span class=&quot;m&quot;&gt;80&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forwardfor&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;default_backend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws_servers&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws_servers&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roundrobin&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forwardfor&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws1&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws2&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws3&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws3&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;websocket-server&quot;&gt;WebSocket Server&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Redis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Redis setup&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;publisher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// WebSocket server&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Handle connections&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;wss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Handle incoming messages&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Publish to Redis&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;publisher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;broadcast&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Subscribe to Redis channel&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;broadcast&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Broadcast to all connected clients&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;wss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clients&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readyState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OPEN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;advantages-1&quot;&gt;Advantages&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Horizontal scalability&lt;/li&gt;
+  &lt;li&gt;High availability&lt;/li&gt;
+  &lt;li&gt;Load distribution&lt;/li&gt;
+  &lt;li&gt;Message consistency&lt;/li&gt;
+  &lt;li&gt;Fault tolerance&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;considerations&quot;&gt;Considerations&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Session persistence&lt;/li&gt;
+  &lt;li&gt;Connection handling&lt;/li&gt;
+  &lt;li&gt;Message ordering&lt;/li&gt;
+  &lt;li&gt;Failover strategies&lt;/li&gt;
+  &lt;li&gt;Monitoring and logging&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This architecture provides a robust foundation for scaling WebSocket applications while maintaining real-time communication capabilities across multiple servers.&lt;/p&gt;
+
+&lt;h1 id=&quot;implementing-scalable-websockets-with-docker&quot;&gt;Implementing Scalable WebSockets with Docker&lt;/h1&gt;
+
+&lt;h2 id=&quot;project-structure&quot;&gt;Project Structure&lt;/h2&gt;
+
+&lt;h3 id=&quot;docker-compose-configuration&quot;&gt;Docker Compose Configuration&lt;/h3&gt;
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3&apos;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;lb&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;haproxy&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8080:8080&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./haproxy:/usr/local/etc/haproxy&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ws1&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;wsapp&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;APPID=1111&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ws2&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;wsapp&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;APPID=2222&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ws3&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;wsapp&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;APPID=3333&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ws4&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;wsapp&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;APPID=4444&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;rds&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;haproxy-configuration&quot;&gt;HAProxy Configuration&lt;/h3&gt;
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;frontend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt; *:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;use_backend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws1&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws2&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws3&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws4&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;/h3&gt;
+&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; node:13&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;WORKDIR&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; /home/node/app&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; app /home/node/app&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; npm run app&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;application-implementation&quot;&gt;Application Implementation&lt;/h2&gt;
+
+&lt;h3 id=&quot;websocket-server-nodejs&quot;&gt;WebSocket Server (Node.js)&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;websocket&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;redis&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;connections&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocketServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Redis Configuration&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6379&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;rds&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;publisher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6379&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;rds&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Redis Event Handlers&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Server &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; subscribed to livechat`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;publisher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;livechat&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;A message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Server &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; received message in channel &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;connections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Error broadcasting message:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;subscriber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;livechat&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// WebSocket Server Setup&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpserver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocketServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;httpServer&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpserver&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;httpserver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Server listening on port 8080&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;con&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;connections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Connection opened&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Connection closed&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; Received message &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;utf8Data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;publisher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;livechat&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;utf8Data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Connected to server &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;APPID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;client-implementation-1&quot;&gt;Client Implementation&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ws://localhost:8080&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onmessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onopen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;I am client!!!&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;secure-websocket-implementation-wss&quot;&gt;Secure WebSocket Implementation (WSS)&lt;/h2&gt;
+
+&lt;h3 id=&quot;haproxy-ssl-configuration&quot;&gt;HAProxy SSL Configuration&lt;/h3&gt;
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;frontend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt; *:&lt;span class=&quot;m&quot;&gt;80&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt; *:&lt;span class=&quot;m&quot;&gt;443&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ssl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;crt&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;haproxy&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;mywebsocketsite&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;pem&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;default_backend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wsbackend&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wsbackend&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;127&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;secure-websocket-client&quot;&gt;Secure WebSocket Client&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;wss://127.0.0.1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onmessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ssl-certificate-generation-guide&quot;&gt;SSL Certificate Generation Guide&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-chain-of-trust&quot;&gt;1. Chain of Trust&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Root CA (self-signed, trusted by browsers/OS)&lt;/li&gt;
+  &lt;li&gt;Intermediate CA(s) (signs end-entity certificates)&lt;/li&gt;
+  &lt;li&gt;Leaf certificate (your server certificate)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-generate-csr-configuration&quot;&gt;2. Generate CSR Configuration&lt;/h3&gt;
+&lt;div class=&quot;language-ini highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;[ req ]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;no&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;distinguished_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;dn&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;req_extensions&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;req_ext&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[ dn ]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;US&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;ST&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;California&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;San Francisco&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;O&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MyCompany&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;OU&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Dev&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;CN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;example.com&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[ req_ext ]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;subjectAltName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;@alt_names&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[ alt_names ]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;DNS.1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;example.com&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;DNS.2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;www.example.com&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;DNS.3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;api.example.com&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-certificate-generation-commands&quot;&gt;3. Certificate Generation Commands&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Generate private key&lt;/span&gt;
+openssl genpkey &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-algorithm&lt;/span&gt; RSA &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-pkeyopt&lt;/span&gt; rsa_keygen_bits:2048 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; server.key
+
+&lt;span class=&quot;c&quot;&gt;# Generate CSR&lt;/span&gt;
+openssl req &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-new&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-key&lt;/span&gt; server.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; server.csr &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-config&lt;/span&gt; csr.cnf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;4-certificate-validation-methods&quot;&gt;4. Certificate Validation Methods&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTTP-01: Token file in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.well-known/acme-challenge/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;DNS-01: TXT record in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_acme-challenge.&amp;lt;domain&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;TLS-ALPN-01: TLS listener on port 443&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;5-deployment-steps&quot;&gt;5. Deployment Steps&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Install certificates&lt;/li&gt;
+  &lt;li&gt;Configure web server&lt;/li&gt;
+  &lt;li&gt;Set up monitoring&lt;/li&gt;
+  &lt;li&gt;Implement auto-renewal&lt;/li&gt;
+  &lt;li&gt;Regular security audits&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;build-and-deploy&quot;&gt;Build and Deploy&lt;/h2&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Build WebSocket application&lt;/span&gt;
+docker build &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; wsapp &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Start the stack&lt;/span&gt;
+docker-compose up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This implementation provides a scalable, secure WebSocket infrastructure with load balancing and pub/sub capabilities.&lt;/p&gt;
+
+&lt;h1 id=&quot;multiplayer-game-design-with-websockets&quot;&gt;Multiplayer Game Design with WebSockets&lt;/h1&gt;
+
+&lt;h2 id=&quot;game-overview&quot;&gt;Game Overview&lt;/h2&gt;
+&lt;p&gt;A real-time multiplayer game where players compete to capture cells in a 9x9 grid within 30 seconds.&lt;/p&gt;
+
+&lt;h2 id=&quot;game-board-representation&quot;&gt;Game Board Representation&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Player 1                Player 2
+┌───┬───┬───┐          ┌───┬───┬───┐
+│ 1 │ 2 │ 3 │          │ 1 │ 2 │ 3 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 4 │[5]│ 6 │          │ 4 │[5]│ 6 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 7 │ 8 │ 9 │          │ 7 │ 8 │ 9 │
+└───┴───┴───┘          └───┴───┴───┘
+
+Player 3                Player 4
+┌───┬───┬───┐          ┌───┬───┬───┐
+│ 1 │ 2 │ 3 │          │ 1 │ 2 │ 3 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 4 │[5]│ 6 │          │ 4 │[5]│ 6 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 7 │ 8 │ 9 │          │[7]│ 8 │ 9 │
+└───┴───┴───┘          └───┴───┴───┘
+
+[5] = Red (Captured)
+[7] = Orange (Captured)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;core-features&quot;&gt;Core Features&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Game Creation&lt;/li&gt;
+  &lt;li&gt;Player Join&lt;/li&gt;
+  &lt;li&gt;Real-time Play&lt;/li&gt;
+  &lt;li&gt;Score Broadcasting&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;design-approaches&quot;&gt;Design Approaches&lt;/h2&gt;
+
+&lt;h3 id=&quot;design-1-stateful-architecture&quot;&gt;Design 1: Stateful Architecture&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌─────────┐    ┌────────────┐    ┌─────────────┐
+│ Players │───►│   Load     │───►│  Game Server │
+└─────────┘    │  Balancer  │    │  (Stateful) │
+               └────────────┘    └─────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;components-1&quot;&gt;Components&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Single game server per match&lt;/li&gt;
+  &lt;li&gt;In-memory state management&lt;/li&gt;
+  &lt;li&gt;Direct WebSocket connections&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;flow&quot;&gt;Flow&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Create Game&lt;/strong&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createGame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hashToServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Join Game&lt;/strong&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;joinGame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;loadBalancer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Game Play&lt;/strong&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;playMove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;gameState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;broadcast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;design-2-stateless-architecture&quot;&gt;Design 2: Stateless Architecture&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌─────────┐    ┌────────────┐    ┌─────────────┐
+│ Players │───►│   Load     │───►│ Any Game    │
+└─────────┘    │  Balancer  │    │   Server    │
+               └────────────┘    └─────┬───────┘
+                                      │
+                                ┌─────▼───────┐
+                                │  Pub/Sub    │
+                                │   System    │
+                                └─────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;components-2&quot;&gt;Components&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Multiple game servers&lt;/li&gt;
+  &lt;li&gt;Centralized state storage&lt;/li&gt;
+  &lt;li&gt;Pub/Sub messaging system&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;flow-1&quot;&gt;Flow&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Create Game&lt;/strong&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createGame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;initializeGameState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Join Game&lt;/strong&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;joinGame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;subscribeToGame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;connectToAnyServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Game Play&lt;/strong&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;playMove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;updateGameState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;publishUpdate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;comparison&quot;&gt;Comparison&lt;/h2&gt;
+
+&lt;h3 id=&quot;stateful-design&quot;&gt;Stateful Design&lt;/h3&gt;
+&lt;h4 id=&quot;pros&quot;&gt;Pros&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Lower latency&lt;/li&gt;
+  &lt;li&gt;Simpler implementation&lt;/li&gt;
+  &lt;li&gt;Direct state management&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;cons&quot;&gt;Cons&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Limited scalability&lt;/li&gt;
+  &lt;li&gt;No game recovery&lt;/li&gt;
+  &lt;li&gt;Server-bound sessions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;stateless-design&quot;&gt;Stateless Design&lt;/h3&gt;
+&lt;h4 id=&quot;pros-1&quot;&gt;Pros&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Horizontal scalability&lt;/li&gt;
+  &lt;li&gt;Fault tolerance&lt;/li&gt;
+  &lt;li&gt;Game state persistence&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;cons-1&quot;&gt;Cons&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Higher latency&lt;/li&gt;
+  &lt;li&gt;Complex implementation&lt;/li&gt;
+  &lt;li&gt;Additional infrastructure&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implementation-considerations&quot;&gt;Implementation Considerations&lt;/h2&gt;
+
+&lt;h3 id=&quot;state-management&quot;&gt;State Management&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;players&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;playerId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;cells&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;timeRemaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;waiting&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;active&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;completed&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;websocket-events&quot;&gt;WebSocket Events&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;capture&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;updateGameState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;broadcastState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score-broadcasting&quot;&gt;Score Broadcasting&lt;/h3&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;broadcastScore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;calculateScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clients&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This architecture provides a foundation for building a scalable, real-time multiplayer game using WebSockets.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion-1&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;Throughout this journey, we’ve evolved from understanding basic HTTP communications to implementing complex real-time applications using WebSockets. We’ve seen how WebSockets solve the limitations of traditional HTTP communication and enable truly interactive web experiences.&lt;/p&gt;
+
+&lt;p&gt;The progression from theory to practice has equipped us with:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Deep understanding of web communication protocols&lt;/li&gt;
+  &lt;li&gt;Practical knowledge of WebSocket implementation&lt;/li&gt;
+  &lt;li&gt;Architectural patterns for scaling real-time applications&lt;/li&gt;
+  &lt;li&gt;Security considerations and best practices&lt;/li&gt;
+  &lt;li&gt;Hands-on experience with real-time game design&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Whether you’re building a chat application, a collaborative tool, or a multiplayer game, the principles and patterns we’ve covered provide a solid foundation for your real-time application development needs.&lt;/p&gt;
+
+&lt;h3 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Experiment with different WebSocket libraries&lt;/li&gt;
+  &lt;li&gt;Implement the game design challenge&lt;/li&gt;
+  &lt;li&gt;Explore advanced scaling techniques&lt;/li&gt;
+  &lt;li&gt;Stay updated with WebSocket security best practices&lt;/li&gt;
+  &lt;li&gt;Consider contributing to open-source WebSocket projects&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Remember, the real-time web is constantly evolving, and WebSockets are just one piece of the puzzle. Keep exploring, experimenting, and building to stay at the forefront of web development.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Special thanks to Hussein Nasser for the original inspiration and technical insights that made this guide possible.&lt;/em&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>The Complete TypeScript Learning Roadmap</title>

@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Understanding WebSocket - A Deep Dive &middot; Hari Krishna
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2025/04/26/websockets-deep-dive/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/"
+      >Home</a
+    >
+
+                  
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/blog/"
+      >Blog</a
+    >
+            
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/projects/"
+      >Projects</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/timeline/"
+      >My Journey</a
+    >
+        
+    <a
+      class="sidebar-nav-item"
+      href="http://localhost:4000/work/"
+      >Work</a
+    >
+      
+
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Hari Krishna</a>
+            <small>Full Stack Developer</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Understanding WebSocket - A Deep Dive</h1>
+  <span class="post-date">26 Apr 2025</span>
+  <div class="message">
+
+
+In today's digital landscape, real-time communication has become essential for modern web applications. From chat applications to multiplayer games, the demand for instantaneous data exchange has never been higher. This comprehensive guide takes you on a journey from the fundamentals of HTTP to implementing scalable WebSocket applications.
+
+We'll start by understanding HTTP's evolution and its limitations, explore web servers' inner workings, and then dive deep into WebSocket technology. Through practical examples and real-world scenarios, we'll build a foundation for implementing real-time features in your applications. Finally, we'll put theory into practice by designing a multiplayer game using WebSockets, demonstrating different architectural approaches and their trade-offs.
+
+This guide is structured to provide both theoretical knowledge and hands-on experience, making it valuable for developers at all levels who want to master real-time web communication.
+
+ <h1>What You'll Learn</h1>
+<ul>
+<li>HTTP fundamentals and evolution</li>
+<li>Web server architecture and implementation</li>
+<li>WebSocket protocol and its advantages</li>
+<li>Scaling WebSocket applications</li>
+<li>Real-time game design patterns</li>
+<li>Security considerations and best practices</li>
+</ul>
+</div>
+
+<h1 id="understanding-http-from-basics-to-http3">Understanding HTTP: From Basics to HTTP/3</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p>HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the internet. Let’s explore its evolution and core concepts.</p>
+
+<h2 id="basic-architecture">Basic Architecture</h2>
+
+<h3 id="client-server-model">Client-Server Model</h3>
+<ul>
+  <li><strong>Client</strong>: Browser, Python/JavaScript apps, or any HTTP request-making application</li>
+  <li><strong>Server</strong>: Web servers like IIS, Apache Tomcat, Node.js, Python Tornado</li>
+</ul>
+
+<h2 id="http-request-components">HTTP Request Components</h2>
+
+<ol>
+  <li><strong>URL (Uniform Resource Locator)</strong>
+    <ul>
+      <li>Identifies server location</li>
+      <li>Specifies resource path</li>
+    </ul>
+  </li>
+  <li><strong>Method Type</strong>
+    <ul>
+      <li>GET: Retrieve data</li>
+      <li>POST: Submit data</li>
+      <li>PUT: Update data</li>
+      <li>DELETE: Remove data</li>
+    </ul>
+  </li>
+  <li><strong>Headers</strong>
+    <ul>
+      <li>Authentication tokens</li>
+      <li>Cookies</li>
+      <li>Host information</li>
+      <li>Content types</li>
+    </ul>
+  </li>
+  <li><strong>Body</strong>
+    <ul>
+      <li>Actual data payload</li>
+      <li>Optional (not used in GET requests)</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="http-response-components">HTTP Response Components</h2>
+
+<ol>
+  <li><strong>Status Codes</strong>
+    <ul>
+      <li>200: Success</li>
+      <li>201: Created</li>
+      <li>400: Bad Request</li>
+      <li>403: Forbidden</li>
+      <li>404: Not Found</li>
+      <li>500: Server Error</li>
+    </ul>
+  </li>
+  <li><strong>Headers</strong>
+    <ul>
+      <li>Content type</li>
+      <li>Metadata</li>
+      <li>Server information</li>
+    </ul>
+  </li>
+  <li><strong>Body</strong>
+    <ul>
+      <li>Requested data</li>
+      <li>Response content</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="evolution-of-http">Evolution of HTTP</h2>
+
+<h3 id="http10-1996">HTTP/1.0 (1996)</h3>
+<ul>
+  <li>New TCP connection per request</li>
+  <li>Connection closes after each request</li>
+  <li>Inefficient for modern web applications</li>
+  <li>High latency due to TCP handshakes</li>
+</ul>
+
+<h3 id="http11">HTTP/1.1</h3>
+<ul>
+  <li>Persistent TCP connections (keep-alive)</li>
+  <li>Reduced latency</li>
+  <li>Streaming with chunked transfer</li>
+  <li>Pipelining (disabled by default)</li>
+  <li>Better resource utilization</li>
+</ul>
+
+<h3 id="http2">HTTP/2</h3>
+<ul>
+  <li><strong>Key Improvements</strong>:
+    <ul>
+      <li>Header compression</li>
+      <li>Multiplexing (multiple requests over single TCP)</li>
+      <li>Server push capability</li>
+      <li>SPDY protocol support</li>
+      <li>Default HTTPS</li>
+      <li>Protocol negotiation (NPN/ALPN)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="http3-http2-over-quic">HTTP/3 (HTTP/2 over QUIC)</h3>
+<ul>
+  <li><strong>Features</strong>:
+    <ul>
+      <li>Uses QUIC instead of TCP</li>
+      <li>Built on UDP with congestion control</li>
+      <li>Retains HTTP/2 features</li>
+      <li>Improved performance</li>
+      <li>Better handling of connection losses</li>
+      <li>Experimental status</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="https-working">HTTPS Working</h2>
+<ol>
+  <li>Initiates TCP connection</li>
+  <li>Performs TLS handshake</li>
+  <li>Exchanges encrypted data</li>
+  <li>Maintains secure communication</li>
+  <li>Terminates connection with acknowledgment</li>
+</ol>
+
+<h2 id="osi-layer">OSI Layer</h2>
+<p>HTTP operates at Layer 7 (Application Layer) of the OSI model, handling data formatting and transfer protocols.</p>
+
+<p>This evolution shows how HTTP has adapted to meet increasing demands for faster, more secure, and more efficient web communication.</p>
+
+<p>Here’s a refined version of the Web Servers explanation in Markdown format:</p>
+
+<h1 id="understanding-web-servers">Understanding Web Servers</h1>
+
+<h2 id="what-is-a-web-server">What is a Web Server?</h2>
+
+<p>A web server is a software system that:</p>
+<ul>
+  <li>Serves web content (HTML, CSS, JS, JSON, etc.)</li>
+  <li>Implements HTTP protocol</li>
+  <li>Handles both static and dynamic content</li>
+  <li>Hosts websites, web applications, and APIs</li>
+</ul>
+
+<h2 id="types-of-content">Types of Content</h2>
+
+<h3 id="static-content">Static Content</h3>
+<ul>
+  <li>Same content for all users</li>
+  <li>Files stored on server</li>
+  <li>No processing required</li>
+  <li>Example: Company “About” page</li>
+</ul>
+
+<h3 id="dynamic-content">Dynamic Content</h3>
+<ul>
+  <li>Content varies based on user/request</li>
+  <li>Generated on-the-fly</li>
+  <li>Requires processing</li>
+  <li>Example: Social media feed</li>
+</ul>
+
+<h2 id="web-server-architecture">Web Server Architecture</h2>
+
+<h3 id="basic-operation">Basic Operation</h3>
+<ul>
+  <li>Listens on standard ports:
+    <ul>
+      <li>Port 80 (HTTP)</li>
+      <li>Port 443 (HTTPS)</li>
+    </ul>
+  </li>
+  <li>Handles network requests</li>
+  <li>Manages TCP connections</li>
+</ul>
+
+<h3 id="blocking-single-threaded-server-model">Blocking Single-Threaded Server Model</h3>
+
+<pre><code class="language-mermaid">graph LR
+    A[Client Request] --&gt; B[TCP Connection]
+    B --&gt; C[Socket Creation]
+    C --&gt; D[Process Request]
+    D --&gt; E[Send Response]
+    E --&gt; F[Thread Released]
+</code></pre>
+
+<h4 id="characteristics">Characteristics:</h4>
+<ul>
+  <li>One request processed at a time</li>
+  <li>Blocks during I/O operations</li>
+  <li>Maintains TCP socket in memory</li>
+  <li>Limited concurrent handling</li>
+</ul>
+
+<h3 id="modern-server-implementations">Modern Server Implementations</h3>
+
+<ol>
+  <li><strong>Multi-threaded Servers (e.g., Apache, Tomcat)</strong>
+    <ul>
+      <li>Spawns new thread per request</li>
+      <li>Configurable thread limit</li>
+      <li>Better concurrency</li>
+    </ul>
+  </li>
+  <li><strong>Event-driven Servers (e.g., Node.js)</strong>
+    <ul>
+      <li>Single-threaded with event loop</li>
+      <li>Non-blocking I/O</li>
+      <li>Request queue management</li>
+      <li>Efficient resource usage</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="popular-web-servers">Popular Web Servers</h2>
+
+<h3 id="off-the-shelf-solutions">Off-the-Shelf Solutions</h3>
+<ul>
+  <li>Apache HTTP Server</li>
+  <li>Nginx</li>
+  <li>IIS (Internet Information Services)</li>
+  <li>Lighttpd</li>
+  <li>Tomcat</li>
+</ul>
+
+<h3 id="custom-implementation-platforms">Custom Implementation Platforms</h3>
+<ul>
+  <li>Node.js</li>
+  <li>Python Tornado</li>
+  <li>Express.js</li>
+</ul>
+
+<h2 id="example-setting-up-apache-server">Example: Setting Up Apache Server</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install Apache</span>
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>apache2
+
+<span class="c"># Start service</span>
+<span class="nb">sudo </span>systemctl start apache2
+
+<span class="c"># Check status</span>
+<span class="nb">sudo </span>systemctl status apache2
+</code></pre></div></div>
+
+<h2 id="example-simple-expressjs-server">Example: Simple Express.js Server</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">express</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">path</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">/</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">"</span><span class="s2">index.html</span><span class="dl">"</span><span class="p">));</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server running on port 8080</span><span class="dl">"</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<ol>
+  <li><strong>Security</strong>
+    <ul>
+      <li>Keep software updated</li>
+      <li>Use HTTPS</li>
+      <li>Implement proper authentication</li>
+      <li>Configure firewalls</li>
+    </ul>
+  </li>
+  <li><strong>Performance</strong>
+    <ul>
+      <li>Enable caching</li>
+      <li>Compress responses</li>
+      <li>Optimize static content</li>
+      <li>Monitor resource usage</li>
+    </ul>
+  </li>
+  <li><strong>Scalability</strong>
+    <ul>
+      <li>Use load balancers</li>
+      <li>Implement containerization</li>
+      <li>Configure auto-scaling</li>
+      <li>Monitor metrics</li>
+    </ul>
+  </li>
+</ol>
+
+<p>This overview covers the fundamentals of web servers, their implementation, and basic setup examples. Understanding these concepts is crucial for web development and system administration.</p>
+
+<h1 id="websockets-a-comprehensive-guide">WebSockets: A Comprehensive Guide</h1>
+
+<h2 id="introduction-1">Introduction</h2>
+<p>WebSocket is a bidirectional, full-duplex communication protocol built on top of HTTP/1.1, enabling real-time data exchange between clients and servers.</p>
+
+<h2 id="core-concepts">Core Concepts</h2>
+
+<h3 id="protocol-overview">Protocol Overview</h3>
+<ul>
+  <li>Built on HTTP/1.1</li>
+  <li>Maintains persistent connections</li>
+  <li>Stateful protocol</li>
+  <li>Supports bidirectional communication</li>
+  <li>Uses ws:// or wss:// (secure) protocol</li>
+</ul>
+
+<h3 id="connection-flow">Connection Flow</h3>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client                                             Server
+  |                                                 |
+  |           HTTP Upgrade Request                  |
+  |------------------------------------------------&gt;
+  |                                                 |
+  |         101 Switching Protocols                 |
+  |&lt;------------------------------------------------
+  |                                                 |
+  |        === WebSocket Connection Established === |
+  |                                                 |
+  |               Message 1                         |
+  |------------------------------------------------&gt;
+  |                                                 |
+  |               Message 2                         |
+  |&lt;------------------------------------------------
+  |                                                 |
+  |               Message 3                         |
+  |------------------------------------------------&gt;
+  |                                                 |
+  |               Message 4                         |
+  |&lt;------------------------------------------------
+  |                                                 |
+  |          Connection Close                       |
+  |------------------------------------------------&gt;
+  |                                                 |
+
+</code></pre></div></div>
+
+<h3 id="websocket-handshake-example">WebSocket Handshake Example</h3>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># Client Request
+</span><span class="nf">GET</span> <span class="nn">/chat</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">server.example.com</span>
+<span class="na">Upgrade</span><span class="p">:</span> <span class="s">websocket</span>
+<span class="na">Connection</span><span class="p">:</span> <span class="s">Upgrade</span>
+<span class="na">Sec-WebSocket-Key</span><span class="p">:</span> <span class="s">xJJJHMbDL1EzLkh9GBhXDw==</span>
+<span class="na">Sec-WebSocket-Protocol</span><span class="p">:</span> <span class="s">chat, superchat</span>
+<span class="na">Sec-WebSocket-Version</span><span class="p">:</span> <span class="s">13</span>
+<span class="na">Origin</span><span class="p">:</span> <span class="s">http://example.com</span>
+
+# Server Response
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSMrcOsM1YUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat
+</code></pre></div></div>
+
+<h2 id="common-use-cases">Common Use Cases</h2>
+<ol>
+  <li>Real-time Chat Applications</li>
+  <li>Live Data Feeds</li>
+  <li>Multiplayer Gaming</li>
+  <li>Progress Monitoring</li>
+  <li>Real-time Analytics</li>
+  <li>Collaborative Tools</li>
+</ol>
+
+<h2 id="implementation-example">Implementation Example</h2>
+
+<h3 id="server-implementation">Server Implementation</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">http</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">WebSocketServer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket</span><span class="dl">"</span><span class="p">).</span><span class="nx">server</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+<span class="c1">// Create HTTP server</span>
+<span class="kd">const</span> <span class="nx">httpserver</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Request received</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Initialize WebSocket server</span>
+<span class="kd">const</span> <span class="nx">websocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocketServer</span><span class="p">({</span>
+  <span class="na">httpServer</span><span class="p">:</span> <span class="nx">httpserver</span>
+<span class="p">});</span>
+
+<span class="c1">// Handle connections</span>
+<span class="nx">websocket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">,</span> <span class="nx">request</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">connection</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+  
+  <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">open</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection opened</span><span class="dl">"</span><span class="p">));</span>
+  <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">close</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection closed</span><span class="dl">"</span><span class="p">));</span>
+  <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">,</span> <span class="nx">message</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Received message: </span><span class="p">${</span><span class="nx">message</span><span class="p">.</span><span class="nx">utf8Data</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">httpserver</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server listening on port 8080</span><span class="dl">"</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h3 id="client-implementation">Client Implementation</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Browser client code</span>
+<span class="kd">const</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">"</span><span class="s2">ws://localhost:8080</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">message</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Received: </span><span class="p">${</span><span class="nx">message</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Send periodic messages</span>
+<span class="kd">function</span> <span class="nx">sendPeriodic</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">`Message </span><span class="p">${</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">sendPeriodic</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="project-setup">Project Setup</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Initialize project</span>
+npm init <span class="nt">-y</span>
+
+<span class="c"># Install dependencies</span>
+npm i websocket
+</code></pre></div></div>
+
+<h2 id="advantages-and-limitations">Advantages and Limitations</h2>
+
+<h3 id="advantages">Advantages</h3>
+<ul>
+  <li>Full-duplex communication</li>
+  <li>Real-time data transfer</li>
+  <li>HTTP compatible</li>
+  <li>Firewall friendly</li>
+  <li>Standard protocol support</li>
+</ul>
+
+<h3 id="limitations">Limitations</h3>
+<ul>
+  <li>Complex proxy handling</li>
+  <li>Load balancing challenges</li>
+  <li>Scaling difficulties</li>
+  <li>Connection state management</li>
+  <li>Resource intensive</li>
+</ul>
+
+<h2 id="alternatives">Alternatives</h2>
+
+<h3 id="when-to-consider-alternatives">When to Consider Alternatives</h3>
+<ol>
+  <li><strong>Long Polling</strong>
+    <ul>
+      <li>For less frequent updates</li>
+      <li>Simpler implementation</li>
+      <li>Better browser support</li>
+    </ul>
+  </li>
+  <li><strong>Server-Sent Events</strong>
+    <ul>
+      <li>One-way server-to-client communication</li>
+      <li>Simpler than WebSockets</li>
+      <li>Native browser support</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="decision-criteria">Decision Criteria</h3>
+<ul>
+  <li>Need for bidirectional communication</li>
+  <li>Real-time requirements</li>
+  <li>Scale requirements</li>
+  <li>Browser support needs</li>
+  <li>Infrastructure constraints</li>
+</ul>
+
+<h2 id="best-practices-1">Best Practices</h2>
+<ol>
+  <li>Implement heartbeat mechanisms</li>
+  <li>Handle reconnection gracefully</li>
+  <li>Use secure WebSocket (wss://)</li>
+  <li>Implement proper error handling</li>
+  <li>Monitor connection health</li>
+  <li>Consider message queuing for reliability</li>
+</ol>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>WebSockets provide powerful real-time communication capabilities but should be used judiciously based on specific application needs and infrastructure considerations. Consider alternatives for simpler use cases where full-duplex communication isn’t essential.</p>
+
+<h1 id="scaling-websockets-architecture">Scaling WebSockets Architecture</h1>
+
+<h2 id="overview">Overview</h2>
+<p>Understanding how to scale stateful WebSocket connections using reverse proxies and pub/sub patterns.</p>
+
+<h2 id="architecture-diagram">Architecture Diagram</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                 ┌─────────────┐
+                                 │  WebSocket  │
+                          ┌─────►│  Server 1   │
+                          │      └─────────────┘
+┌──────────┐      ┌──────┴────┐ ┌─────────────┐     ┌─────────────┐
+│  Client  │──────►   Load    │ │  WebSocket  │     │    Redis    │
+│ Devices  │──────►  Balancer │─►│  Server 2   │────►│   Pub/Sub   │
+└──────────┘      └──────┬────┘ └─────────────┘     └─────────────┘
+                          │      ┌─────────────┐
+                          └─────►│  WebSocket  │
+                                │  Server 3    │
+                                └─────────────┘
+</code></pre></div></div>
+
+<h2 id="components">Components</h2>
+
+<h3 id="1-load-balancer">1. Load Balancer</h3>
+<ul>
+  <li>Receives initial WebSocket connection requests</li>
+  <li>Performs HTTP upgrade for WebSocket connections</li>
+  <li>Routes connections to appropriate WebSocket servers</li>
+  <li>Maintains persistent connections</li>
+</ul>
+
+<h3 id="2-websocket-servers">2. WebSocket Servers</h3>
+<ul>
+  <li>Handle client connections</li>
+  <li>Process messages</li>
+  <li>Publish messages to Redis</li>
+  <li>Subscribe to relevant topics</li>
+  <li>Broadcast messages to connected clients</li>
+</ul>
+
+<h3 id="3-redis-pubsub">3. Redis Pub/Sub</h3>
+<ul>
+  <li>Central message broker</li>
+  <li>Handles message distribution</li>
+  <li>Enables cross-server communication</li>
+  <li>Maintains message consistency</li>
+</ul>
+
+<h2 id="message-flow">Message Flow</h2>
+
+<ol>
+  <li><strong>Client Connection</strong>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client → Load Balancer → WebSocket Server
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Message Publication</strong>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client → WebSocket Server → Redis Pub/Sub
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Message Distribution</strong>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Redis Pub/Sub → All WebSocket Servers → Connected Clients
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="implementation-example-1">Implementation Example</h2>
+
+<h3 id="load-balancer-configuration-haproxy">Load Balancer Configuration (HAProxy)</h3>
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frontend</span> <span class="n">websocket</span>
+    <span class="n">bind</span> *:<span class="m">80</span>
+    <span class="n">mode</span> <span class="n">http</span>
+    <span class="n">option</span> <span class="n">http</span>-<span class="n">server</span>-<span class="n">close</span>
+    <span class="n">option</span> <span class="n">forwardfor</span>
+    <span class="n">timeout</span> <span class="n">client</span> <span class="m">30</span><span class="n">s</span>
+    <span class="n">default_backend</span> <span class="n">ws_servers</span>
+
+<span class="n">backend</span> <span class="n">ws_servers</span>
+    <span class="n">mode</span> <span class="n">http</span>
+    <span class="n">balance</span> <span class="n">roundrobin</span>
+    <span class="n">option</span> <span class="n">forwardfor</span>
+    <span class="n">option</span> <span class="n">http</span>-<span class="n">server</span>-<span class="n">close</span>
+    <span class="n">server</span> <span class="n">ws1</span> <span class="n">ws1</span>:<span class="m">8080</span> <span class="n">check</span>
+    <span class="n">server</span> <span class="n">ws2</span> <span class="n">ws2</span>:<span class="m">8080</span> <span class="n">check</span>
+    <span class="n">server</span> <span class="n">ws3</span> <span class="n">ws3</span>:<span class="m">8080</span> <span class="n">check</span>
+</code></pre></div></div>
+
+<h3 id="websocket-server">WebSocket Server</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">WebSocket</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">ws</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">redis</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Redis setup</span>
+<span class="kd">const</span> <span class="nx">publisher</span> <span class="o">=</span> <span class="nx">Redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">subscriber</span> <span class="o">=</span> <span class="nx">Redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">();</span>
+
+<span class="c1">// WebSocket server</span>
+<span class="kd">const</span> <span class="nx">wss</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">.</span><span class="nx">Server</span><span class="p">({</span> <span class="na">port</span><span class="p">:</span> <span class="mi">8080</span> <span class="p">});</span>
+
+<span class="c1">// Handle connections</span>
+<span class="nx">wss</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connection</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">ws</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Handle incoming messages</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Publish to Redis</span>
+        <span class="nx">publisher</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="dl">'</span><span class="s1">broadcast</span><span class="dl">'</span><span class="p">,</span> <span class="nx">message</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Subscribe to Redis channel</span>
+<span class="nx">subscriber</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">broadcast</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">subscriber</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Broadcast to all connected clients</span>
+    <span class="nx">wss</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">client</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="nx">WebSocket</span><span class="p">.</span><span class="nx">OPEN</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="advantages-1">Advantages</h2>
+<ol>
+  <li>Horizontal scalability</li>
+  <li>High availability</li>
+  <li>Load distribution</li>
+  <li>Message consistency</li>
+  <li>Fault tolerance</li>
+</ol>
+
+<h2 id="considerations">Considerations</h2>
+<ol>
+  <li>Session persistence</li>
+  <li>Connection handling</li>
+  <li>Message ordering</li>
+  <li>Failover strategies</li>
+  <li>Monitoring and logging</li>
+</ol>
+
+<p>This architecture provides a robust foundation for scaling WebSocket applications while maintaining real-time communication capabilities across multiple servers.</p>
+
+<h1 id="implementing-scalable-websockets-with-docker">Implementing Scalable WebSockets with Docker</h1>
+
+<h2 id="project-structure">Project Structure</h2>
+
+<h3 id="docker-compose-configuration">Docker Compose Configuration</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">lb</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">haproxy</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./haproxy:/usr/local/etc/haproxy</span>
+  <span class="na">ws1</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wsapp</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">APPID=1111</span>
+  <span class="na">ws2</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wsapp</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">APPID=2222</span>
+  <span class="na">ws3</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wsapp</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">APPID=3333</span>
+  <span class="na">ws4</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wsapp</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">APPID=4444</span>
+  <span class="na">rds</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">redis</span>
+</code></pre></div></div>
+
+<h3 id="haproxy-configuration">HAProxy Configuration</h3>
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frontend</span> <span class="n">http</span>
+    <span class="n">bind</span> *:<span class="m">8080</span>
+    <span class="n">mode</span> <span class="n">http</span>
+    <span class="n">timeout</span> <span class="n">client</span> <span class="m">1000</span><span class="n">s</span>
+    <span class="n">use_backend</span> <span class="n">all</span>
+
+<span class="n">backend</span> <span class="n">all</span>
+    <span class="n">mode</span> <span class="n">http</span>
+    <span class="n">timeout</span> <span class="n">server</span> <span class="m">1000</span><span class="n">s</span>
+    <span class="n">timeout</span> <span class="n">connect</span> <span class="m">1000</span><span class="n">s</span>
+    <span class="n">server</span> <span class="n">s1</span> <span class="n">ws1</span>:<span class="m">8080</span>
+    <span class="n">server</span> <span class="n">s2</span> <span class="n">ws2</span>:<span class="m">8080</span>
+    <span class="n">server</span> <span class="n">s3</span> <span class="n">ws3</span>:<span class="m">8080</span>
+    <span class="n">server</span> <span class="n">s4</span> <span class="n">ws4</span>:<span class="m">8080</span>
+</code></pre></div></div>
+
+<h3 id="dockerfile">Dockerfile</h3>
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> node:13</span>
+<span class="k">WORKDIR</span><span class="s"> /home/node/app</span>
+<span class="k">COPY</span><span class="s"> app /home/node/app</span>
+<span class="k">RUN </span>npm <span class="nb">install</span>
+<span class="k">CMD</span><span class="s"> npm run app</span>
+</code></pre></div></div>
+
+<h2 id="application-implementation">Application Implementation</h2>
+
+<h3 id="websocket-server-nodejs">WebSocket Server (Node.js)</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">http</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">http</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ws</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">websocket</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">redis</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">redis</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">APPID</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">APPID</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">connections</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">const</span> <span class="nx">WebSocketServer</span> <span class="o">=</span> <span class="nx">ws</span><span class="p">.</span><span class="nx">server</span><span class="p">;</span>
+
+<span class="c1">// Redis Configuration</span>
+<span class="kd">const</span> <span class="nx">subscriber</span> <span class="o">=</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span>
+    <span class="na">port</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+    <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">rds</span><span class="dl">'</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">publisher</span> <span class="o">=</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span>
+    <span class="na">port</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+    <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">rds</span><span class="dl">'</span>
+<span class="p">});</span>
+
+<span class="c1">// Redis Event Handlers</span>
+<span class="nx">subscriber</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">subscribe</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">count</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Server </span><span class="p">${</span><span class="nx">APPID</span><span class="p">}</span><span class="s2"> subscribed to livechat`</span><span class="p">);</span>
+    <span class="nx">publisher</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="dl">"</span><span class="s2">livechat</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">A message</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">subscriber</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Server </span><span class="p">${</span><span class="nx">APPID</span><span class="p">}</span><span class="s2"> received message in channel </span><span class="p">${</span><span class="nx">channel</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+        <span class="nx">connections</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">c</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">APPID</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">:</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">));</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error broadcasting message:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">subscriber</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">"</span><span class="s2">livechat</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">// WebSocket Server Setup</span>
+<span class="kd">const</span> <span class="nx">httpserver</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">websocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocketServer</span><span class="p">({</span>
+    <span class="dl">"</span><span class="s2">httpServer</span><span class="dl">"</span><span class="p">:</span> <span class="nx">httpserver</span>
+<span class="p">});</span>
+
+<span class="nx">httpserver</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server listening on port 8080</span><span class="dl">"</span><span class="p">));</span>
+
+<span class="nx">websocket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">,</span> <span class="nx">request</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">con</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+    <span class="nx">connections</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">con</span><span class="p">);</span>
+
+    <span class="nx">con</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">open</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection opened</span><span class="dl">"</span><span class="p">));</span>
+    <span class="nx">con</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">close</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection closed</span><span class="dl">"</span><span class="p">));</span>
+    <span class="nx">con</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">,</span> <span class="nx">message</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">APPID</span><span class="p">}</span><span class="s2"> Received message </span><span class="p">${</span><span class="nx">message</span><span class="p">.</span><span class="nx">utf8Data</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+        <span class="nx">publisher</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="dl">"</span><span class="s2">livechat</span><span class="dl">"</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">utf8Data</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">con</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">`Connected to server </span><span class="p">${</span><span class="nx">APPID</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span> <span class="mi">5000</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="client-implementation-1">Client Implementation</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">"</span><span class="s2">ws://localhost:8080</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">message</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">"</span><span class="s2">I am client!!!</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="secure-websocket-implementation-wss">Secure WebSocket Implementation (WSS)</h2>
+
+<h3 id="haproxy-ssl-configuration">HAProxy SSL Configuration</h3>
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frontend</span> <span class="n">ws</span>
+    <span class="n">mode</span> <span class="n">http</span>
+    <span class="n">timeout</span> <span class="n">client</span> <span class="m">10</span><span class="n">s</span>
+    <span class="n">bind</span> *:<span class="m">80</span>
+    <span class="n">bind</span> *:<span class="m">443</span> <span class="n">ssl</span> <span class="n">crt</span> /<span class="n">Users</span>/<span class="n">username</span>/<span class="n">haproxy</span>/<span class="n">mywebsocketsite</span>.<span class="n">pem</span>
+    <span class="n">default_backend</span> <span class="n">wsbackend</span>
+
+<span class="n">backend</span> <span class="n">wsbackend</span>
+    <span class="n">mode</span> <span class="n">http</span>
+    <span class="n">server</span> <span class="n">s1</span> <span class="m">127</span>.<span class="m">0</span>.<span class="m">0</span>.<span class="m">1</span>:<span class="m">8080</span>
+    <span class="n">timeout</span> <span class="n">connect</span> <span class="m">10</span><span class="n">s</span>
+    <span class="n">timeout</span> <span class="n">server</span> <span class="m">100</span><span class="n">s</span>
+</code></pre></div></div>
+
+<h3 id="secure-websocket-client">Secure WebSocket Client</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">"</span><span class="s2">wss://127.0.0.1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">message</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="ssl-certificate-generation-guide">SSL Certificate Generation Guide</h2>
+
+<h3 id="1-chain-of-trust">1. Chain of Trust</h3>
+<ul>
+  <li>Root CA (self-signed, trusted by browsers/OS)</li>
+  <li>Intermediate CA(s) (signs end-entity certificates)</li>
+  <li>Leaf certificate (your server certificate)</li>
+</ul>
+
+<h3 id="2-generate-csr-configuration">2. Generate CSR Configuration</h3>
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[ req ]</span>
+<span class="py">prompt</span> <span class="p">=</span> <span class="s">no</span>
+<span class="py">distinguished_name</span> <span class="p">=</span> <span class="s">dn</span>
+<span class="py">req_extensions</span> <span class="p">=</span> <span class="s">req_ext</span>
+
+<span class="nn">[ dn ]</span>
+<span class="py">C</span> <span class="p">=</span> <span class="s">US</span>
+<span class="py">ST</span> <span class="p">=</span> <span class="s">California</span>
+<span class="py">L</span> <span class="p">=</span> <span class="s">San Francisco</span>
+<span class="py">O</span> <span class="p">=</span> <span class="s">MyCompany</span>
+<span class="py">OU</span> <span class="p">=</span> <span class="s">Dev</span>
+<span class="py">CN</span> <span class="p">=</span> <span class="s">example.com</span>
+
+<span class="nn">[ req_ext ]</span>
+<span class="py">subjectAltName</span> <span class="p">=</span> <span class="s">@alt_names</span>
+
+<span class="nn">[ alt_names ]</span>
+<span class="py">DNS.1</span> <span class="p">=</span> <span class="s">example.com</span>
+<span class="py">DNS.2</span> <span class="p">=</span> <span class="s">www.example.com</span>
+<span class="py">DNS.3</span> <span class="p">=</span> <span class="s">api.example.com</span>
+</code></pre></div></div>
+
+<h3 id="3-certificate-generation-commands">3. Certificate Generation Commands</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Generate private key</span>
+openssl genpkey <span class="se">\</span>
+  <span class="nt">-algorithm</span> RSA <span class="se">\</span>
+  <span class="nt">-pkeyopt</span> rsa_keygen_bits:2048 <span class="se">\</span>
+  <span class="nt">-out</span> server.key
+
+<span class="c"># Generate CSR</span>
+openssl req <span class="se">\</span>
+  <span class="nt">-new</span> <span class="se">\</span>
+  <span class="nt">-key</span> server.key <span class="se">\</span>
+  <span class="nt">-out</span> server.csr <span class="se">\</span>
+  <span class="nt">-config</span> csr.cnf
+</code></pre></div></div>
+
+<h3 id="4-certificate-validation-methods">4. Certificate Validation Methods</h3>
+<ul>
+  <li>HTTP-01: Token file in <code class="language-plaintext highlighter-rouge">.well-known/acme-challenge/</code></li>
+  <li>DNS-01: TXT record in <code class="language-plaintext highlighter-rouge">_acme-challenge.&lt;domain&gt;</code></li>
+  <li>TLS-ALPN-01: TLS listener on port 443</li>
+</ul>
+
+<h3 id="5-deployment-steps">5. Deployment Steps</h3>
+<ol>
+  <li>Install certificates</li>
+  <li>Configure web server</li>
+  <li>Set up monitoring</li>
+  <li>Implement auto-renewal</li>
+  <li>Regular security audits</li>
+</ol>
+
+<h2 id="build-and-deploy">Build and Deploy</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Build WebSocket application</span>
+docker build <span class="nt">-t</span> wsapp <span class="nb">.</span>
+
+<span class="c"># Start the stack</span>
+docker-compose up
+</code></pre></div></div>
+
+<p>This implementation provides a scalable, secure WebSocket infrastructure with load balancing and pub/sub capabilities.</p>
+
+<h1 id="multiplayer-game-design-with-websockets">Multiplayer Game Design with WebSockets</h1>
+
+<h2 id="game-overview">Game Overview</h2>
+<p>A real-time multiplayer game where players compete to capture cells in a 9x9 grid within 30 seconds.</p>
+
+<h2 id="game-board-representation">Game Board Representation</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Player 1                Player 2
+┌───┬───┬───┐          ┌───┬───┬───┐
+│ 1 │ 2 │ 3 │          │ 1 │ 2 │ 3 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 4 │[5]│ 6 │          │ 4 │[5]│ 6 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 7 │ 8 │ 9 │          │ 7 │ 8 │ 9 │
+└───┴───┴───┘          └───┴───┴───┘
+
+Player 3                Player 4
+┌───┬───┬───┐          ┌───┬───┬───┐
+│ 1 │ 2 │ 3 │          │ 1 │ 2 │ 3 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 4 │[5]│ 6 │          │ 4 │[5]│ 6 │
+├───┼───┼───┤          ├───┼───┼───┤
+│ 7 │ 8 │ 9 │          │[7]│ 8 │ 9 │
+└───┴───┴───┘          └───┴───┴───┘
+
+[5] = Red (Captured)
+[7] = Orange (Captured)
+</code></pre></div></div>
+
+<h2 id="core-features">Core Features</h2>
+<ol>
+  <li>Game Creation</li>
+  <li>Player Join</li>
+  <li>Real-time Play</li>
+  <li>Score Broadcasting</li>
+</ol>
+
+<h2 id="design-approaches">Design Approaches</h2>
+
+<h3 id="design-1-stateful-architecture">Design 1: Stateful Architecture</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────┐    ┌────────────┐    ┌─────────────┐
+│ Players │───►│   Load     │───►│  Game Server │
+└─────────┘    │  Balancer  │    │  (Stateful) │
+               └────────────┘    └─────────────┘
+</code></pre></div></div>
+
+<h4 id="components-1">Components</h4>
+<ul>
+  <li>Single game server per match</li>
+  <li>In-memory state management</li>
+  <li>Direct WebSocket connections</li>
+</ul>
+
+<h4 id="flow">Flow</h4>
+<ol>
+  <li><strong>Create Game</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">createGame</span><span class="p">(</span><span class="nx">gameId</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">hashToServer</span><span class="p">(</span><span class="nx">gameId</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Join Game</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">joinGame</span><span class="p">(</span><span class="nx">gameId</span><span class="p">,</span> <span class="nx">player</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">loadBalancer</span><span class="p">.</span><span class="nx">getServer</span><span class="p">(</span><span class="nx">gameId</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">server</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">player</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Game Play</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">playMove</span><span class="p">(</span><span class="nx">gameId</span><span class="p">,</span> <span class="nx">player</span><span class="p">,</span> <span class="nx">cell</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">gameState</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">player</span><span class="p">,</span> <span class="nx">cell</span><span class="p">);</span>
+  <span class="nx">broadcast</span><span class="p">(</span><span class="nx">gameState</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="design-2-stateless-architecture">Design 2: Stateless Architecture</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────┐    ┌────────────┐    ┌─────────────┐
+│ Players │───►│   Load     │───►│ Any Game    │
+└─────────┘    │  Balancer  │    │   Server    │
+               └────────────┘    └─────┬───────┘
+                                      │
+                                ┌─────▼───────┐
+                                │  Pub/Sub    │
+                                │   System    │
+                                └─────────────┘
+</code></pre></div></div>
+
+<h4 id="components-2">Components</h4>
+<ul>
+  <li>Multiple game servers</li>
+  <li>Centralized state storage</li>
+  <li>Pub/Sub messaging system</li>
+</ul>
+
+<h4 id="flow-1">Flow</h4>
+<ol>
+  <li><strong>Create Game</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">createGame</span><span class="p">(</span><span class="nx">gameId</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">initializeGameState</span><span class="p">(</span><span class="nx">gameId</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Join Game</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">joinGame</span><span class="p">(</span><span class="nx">gameId</span><span class="p">,</span> <span class="nx">player</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">subscribeToGame</span><span class="p">(</span><span class="nx">gameId</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">connectToAnyServer</span><span class="p">(</span><span class="nx">player</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Game Play</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">playMove</span><span class="p">(</span><span class="nx">gameId</span><span class="p">,</span> <span class="nx">player</span><span class="p">,</span> <span class="nx">cell</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">updateGameState</span><span class="p">(</span><span class="nx">gameId</span><span class="p">,</span> <span class="nx">player</span><span class="p">,</span> <span class="nx">cell</span><span class="p">);</span>
+  <span class="nx">publishUpdate</span><span class="p">(</span><span class="nx">gameId</span><span class="p">,</span> <span class="nx">gameState</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="comparison">Comparison</h2>
+
+<h3 id="stateful-design">Stateful Design</h3>
+<h4 id="pros">Pros</h4>
+<ul>
+  <li>Lower latency</li>
+  <li>Simpler implementation</li>
+  <li>Direct state management</li>
+</ul>
+
+<h4 id="cons">Cons</h4>
+<ul>
+  <li>Limited scalability</li>
+  <li>No game recovery</li>
+  <li>Server-bound sessions</li>
+</ul>
+
+<h3 id="stateless-design">Stateless Design</h3>
+<h4 id="pros-1">Pros</h4>
+<ul>
+  <li>Horizontal scalability</li>
+  <li>Fault tolerance</li>
+  <li>Game state persistence</li>
+</ul>
+
+<h4 id="cons-1">Cons</h4>
+<ul>
+  <li>Higher latency</li>
+  <li>Complex implementation</li>
+  <li>Additional infrastructure</li>
+</ul>
+
+<h2 id="implementation-considerations">Implementation Considerations</h2>
+
+<h3 id="state-management">State Management</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">gameState</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="na">players</span><span class="p">:</span> <span class="nb">Map</span><span class="o">&lt;</span><span class="nx">playerId</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">cells</span><span class="p">:</span> <span class="nx">number</span><span class="p">[],</span>
+        <span class="na">score</span><span class="p">:</span> <span class="nx">number</span>
+    <span class="p">}</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="na">timeRemaining</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span>
+    <span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">waiting</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">active</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">completed</span><span class="dl">'</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="websocket-events">WebSocket Events</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ws</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">capture</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">player</span><span class="p">,</span> <span class="nx">cell</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+    <span class="nx">updateGameState</span><span class="p">(</span><span class="nx">player</span><span class="p">,</span> <span class="nx">cell</span><span class="p">);</span>
+    <span class="nx">broadcastState</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="score-broadcasting">Score Broadcasting</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">broadcastScore</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">scores</span> <span class="o">=</span> <span class="nx">calculateScores</span><span class="p">();</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">client</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">score</span><span class="dl">'</span><span class="p">,</span> <span class="na">data</span><span class="p">:</span> <span class="nx">scores</span> <span class="p">}));</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This architecture provides a foundation for building a scalable, real-time multiplayer game using WebSockets.</p>
+
+<h3 id="conclusion-1">Conclusion</h3>
+
+<p>Throughout this journey, we’ve evolved from understanding basic HTTP communications to implementing complex real-time applications using WebSockets. We’ve seen how WebSockets solve the limitations of traditional HTTP communication and enable truly interactive web experiences.</p>
+
+<p>The progression from theory to practice has equipped us with:</p>
+<ul>
+  <li>Deep understanding of web communication protocols</li>
+  <li>Practical knowledge of WebSocket implementation</li>
+  <li>Architectural patterns for scaling real-time applications</li>
+  <li>Security considerations and best practices</li>
+  <li>Hands-on experience with real-time game design</li>
+</ul>
+
+<p>Whether you’re building a chat application, a collaborative tool, or a multiplayer game, the principles and patterns we’ve covered provide a solid foundation for your real-time application development needs.</p>
+
+<h3 id="next-steps">Next Steps</h3>
+<ul>
+  <li>Experiment with different WebSocket libraries</li>
+  <li>Implement the game design challenge</li>
+  <li>Explore advanced scaling techniques</li>
+  <li>Stay updated with WebSocket security best practices</li>
+  <li>Consider contributing to open-source WebSocket projects</li>
+</ul>
+
+<p>Remember, the real-time web is constantly evolving, and WebSockets are just one piece of the puzzle. Keep exploring, experimenting, and building to stay at the forefront of web development.</p>
+
+<p><em>Special thanks to Hussein Nasser for the original inspiration and technical insights that made this guide possible.</em></p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2025/04/23/the-complete-typescript-learning-roadmap/">
+            The Complete TypeScript Learning Roadmap
+            <small>23 Apr 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/04/12/react-hook-and-custom-hooks-deepdive/">
+            React Hooks Unleashed - From Built-in Magic to Custom Superpowers
+            <small>12 Apr 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2025/04/10/redux-react-redux-begineer-intro/">
+            Redux Simplified - From Core Concepts to Modern Toolkit
+            <small>10 Apr 2025</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>
