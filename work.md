@@ -11,56 +11,33 @@ I am a Full Stack Developer with a strong focus on building efficient, scalable 
 ## Work Experience
 
 **Mindsprint, Chennai, India**  
-**Junior Engineer - Digital Support** (Jun 2024 - Present)
+**Junior Engineer** (Jun 2024 - Present)
 
-- Supporting 2 major applications serving thousands of users across multiple countries, maintaining high service availability and performance
-- Analyzing and troubleshooting complex technical issues across diverse tech stacks including React, Angular, Spring Boot, React Native, and Android Native
-- Utilizing monitoring tools like Kibana and Dynatrace to identify root causes and performance bottlenecks
-- Implementing immediate fixes for minor issues and providing comprehensive analysis to development teams for major resolution requirements
-- Working with database systems including MySQL and PostgreSQL for data-related investigations and optimizations
-- Contributing to CI/CD pipeline management with Jenkins to ensure smooth deployment cycles
-- Learned: Advanced debugging techniques, cross-platform troubleshooting, performance optimization, and multi-technology integration patterns
+- Primarily worked on backend development using Spring Boot, designing and maintaining REST APIs, handling business logic, and resolving complex production issues; contributed to frontend fixes across React, Angular, React Native, and Android Native when required
+- Managed and optimized relational databases (MySQL, PostgreSQL, MSSQL), improving query performance and data reliability, while supporting CI/CD pipelines using Jenkins to enable consistent and timely deployments
+- Debugged and analyzed distributed microservices, handled service integrations, API failures, data flow issues, and performed root cause analysis to ensure reliable communication and stability across integrated systems
 
 ## Projects
 
 **GatherSpace** (Creator)
 
-- Developed a cutting-edge virtual workspace platform that blends traditional collaboration tools with metaverse-like interaction
-- Implemented WebRTC for real-time audio/video communication with proximity-based interactions
-- Created an intuitive virtual environment where users can move freely and interact with colleagues naturally
-- Built with a focus on creating spontaneous collaboration opportunities in remote work environments
-- Learning: Real-time communication systems, spatial audio implementation, interactive canvas development
+- GatherSpace delivers a customizable 2D virtual environment where users create and share personalized spaces for real-time interactions—built with React, Spring Boot, MySQL, and WebSockets to ensure responsive UI and minimal-latency communication.
+- Features enterprise-grade security through JWT-based authentication with separate access and refresh tokens—protecting user data while maintaining an intuitive platform where friends can connect, work.
 
-**Habit Loop** (Creator)
+**T3 Chat – Unified Chat Across Multiple AI Models** (Creator)
 
-- Built a complete habit tracking Android application using Kotlin and Jetpack Compose
-- Implemented MVVM architecture pattern with Room database for efficient local-first data storage
-- Created features for habit creation, streak tracking, detailed monitoring, and customizable themes
-- Developed data import/export functionality using JSON for seamless backup and portability
-- Learning: Modern Android development with Compose, local-first application architecture, data persistence strategies
+- Developed T3 Chat, a full-stack chat platform using Next.js, NextRouter and PostgreSQL, integrating multiple LLMs via their respective SDKs for seamless, unified interaction without switching interfaces.
+- Implemented secure authentication with Google OAuth 2.0 and OpenID Connect, enabling efficient session management and user identity protection.
 
-**JsonCraft** (Creator)
+**Code Cli (Coding Agent)** (Creator)
 
-- Created a comprehensive utility application for data format manipulation and visualization
-- Built tools for converting between JSON, XML, YAML, and CSV with intuitive visualization
-- Implemented type generation features to convert JSON into TypeScript types, Python classes, Go structs, and Java interfaces
-- Developed JSON schema generator for API documentation and validation
-- Learning: Cross-format data manipulation, abstract syntax tree processing, code generation techniques
-
-**AI Application** (In Progress)
-
-- Currently developing an application leveraging AI capabilities (details to be updated)
-- Learning: AI integration patterns, machine learning implementation, practical AI application development
+- Built a terminal-based AI coding assistant in TypeScript that integrates with LLMs (e.g., DeepSeek) to autonomously read, write, edit code, execute shell commands, and navigate codebases via natural language.
+- Designed a modular agent architecture with tool orchestration, REPL interface, extensible LLM provider support, and built-in safety mechanisms like sandboxed file access and command validation.
 
 ## Technical Skills
 
-**Frontend**: React, Angular, Jetpack Compose, React Native
-**Backend**: Spring Boot, Node.js
-**Mobile**: Android (Kotlin), React Native
-**Databases**: MySQL, PostgreSQL, Room (Android)
-**DevOps**: Jenkins, CI/CD pipelines
-**Monitoring**: Kibana, Dynatrace
-**Languages**: Java, Kotlin, JavaScript, TypeScript
+- **Web Development**: Spring Boot, Java, Hibernate, RESTful APIs, Microservices, MySQL, PostgreSQL, MS SQL, MongoDB, Elasticsearch, React, TypeScript
+- **Cloud/DevOps**: AWS (S3, VM), Azure, Docker, Kubernetes/Jenkins (basic)
 
 ## Professional Philosophy
 
@@ -75,8 +52,8 @@ Throughout my projects and work experience, I've demonstrated this philosophy by
 
 ## Contact
 
-- **Email**: harikrishna03902@gmail.com
-- **GitHub**: [Hari-krishna-tech](https://github.com/Hari-krishna-tech)
-- **LinkedIn**: [Hari Krishna](https://www.linkedin.com/in/hari-krishna-b731601b1/)
+- **Email**: harikrishna03092@gmail.com
+- **GitHub**: [harikrishna](https://github.com/harikrishna)
+- **LinkedIn**: [harikrishna](https://www.linkedin.com/in/harikrishna)
 
 [Download Resume](/public/Resume.pdf)

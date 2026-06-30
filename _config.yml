@@ -1,7 +1,7 @@
 # Setup
 title: Hari Krishna
-tagline: "Full Stack Developer"
-description: "I am a Passionate Full Stack Developer, This is my personal blog and portfolio where I share my thoughts and ideas."
+tagline: "Software Developer"
+description: "I am a Passionate Software Developer. This is my personal blog and portfolio where I share my thoughts and ideas."
 url: https://hari-krishna-tech.github.io
 baseurl: ""
 paginate: 5
@@ -10,12 +10,12 @@ permalink: pretty
 # About/contact
 author:
   name: Hari Krishna T
-  url: https://www.linkedin.com/in/hari-krishna-b731601b1/
-  email: harikrishna03902@gmail.com
+  url: https://www.linkedin.com/in/harikrishna/
+  email: harikrishna03092@gmail.com
 
 # Social media
-github_username: sugan0tech
-linkedin_username: https://www.linkedin.com/in/hari-krishna-b731601b1/
+github_username: harikrishna
+linkedin_username: https://www.linkedin.com/in/harikrishna/
 
 # Gems
 plugins:

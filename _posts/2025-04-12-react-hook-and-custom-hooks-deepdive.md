@@ -287,6 +287,7 @@ export default App;
 
 Here's a more complete example showing how to create and use a context with state:
 
+{% raw %}
 ```jsx
 // 1. Create a context provider
 import React, { createContext, useState } from 'react';
@@ -330,6 +331,8 @@ function ChildComponent() {
 
 export default ChildComponent;
 ```
+{% endraw %}
+
 
 ## Putting It All Together
 

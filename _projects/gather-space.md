@@ -1,17 +1,11 @@
 ---
-ayout: project
+layout: project
 title: GatherSpace
 date: 2025-02-15
-description: A cutting-edge virtual workspace that blends traditional collaboration tools with metaverse-like interaction, allowing teams to work, meet, and communicate naturally in a shared digital environment with proximity-based communication.
-github_link: https://github.com/GatherSpace
-tags:
-  [
-    virtual-workspace,
-    collaboration-tool,
-    metaverse,
-    real-time-communication,
-    interactive,
-  ]
+description: A customizable 2D virtual environment where users create and share personalized spaces for real-time interactions—built with React, Spring Boot, MySQL, and WebSockets.
+github_link: https://github.com/harikrishna/GatherSpace
+tech_stack: ["React", "Spring Boot", "MySQL", "WebSockets"]
+tags: [virtual-workspace, collaboration-tool, real-time]
 ---
 
 <p class="message">
@@ -176,7 +170,7 @@ GatherSpace has significantly impacted how distributed teams collaborate, with e
 The platform continues to evolve based on user feedback, with new features focused on enhancing accessibility, improving resource integration, and expanding customization options.
 
 <div class="project-links">
-  <a href="https://github.com/GatherSpacee" class="github-link">View on GitHub</a>
+  <a href="https://github.com/harikrishna/GatherSpace" class="github-link">View on GitHub</a>
   <a href="https://gatherspace.app" class="demo-link">Live Demo</a>
 </div>
 <div class="project-meta">

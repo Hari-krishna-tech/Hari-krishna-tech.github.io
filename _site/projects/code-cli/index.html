@@ -9,12 +9,12 @@
 
   <title>
     
-      404: Page not found &middot; Hari Krishna
+      Code Cli – Terminal-based AI Coding Agent &middot; Hari Krishna
     
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/404.html">
+  <link rel="canonical" href="http://localhost:4000/projects/code-cli/">
   
 
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
@@ -97,8 +97,48 @@
       </div>
 
       <div class="container content">
-        <h1 id="404-page-not-found">404: Page not found</h1>
-<p>Sorry, we’ve misplaced that URL or it’s pointing to something that doesn’t exist. <a href="http://localhost:4000">Head back home</a> to try finding it again.</p>
+        <div class="page">
+  <h1 class="page-title">Code Cli – Terminal-based AI Coding Agent</h1>
+  <p class="message">
+  Code Cli is an autonomous, terminal-based AI coding assistant built in TypeScript, helping developers read, write, refactor, and execute commands directly from the console.
+</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Code Cli bridges the gap between AI code generation and local project workflows. Rather than copying and pasting snippets from web-based chat tools, Code Cli interfaces directly with your filesystem and terminal using a secure, sandboxed orchestration model. It can navigate directories, modify files, run tests, and debug issues dynamically.</p>
+
+<h2 id="technical-implementation">Technical Implementation</h2>
+
+<h3 id="core-architecture">Core Architecture</h3>
+
+<ul>
+  <li><strong>TypeScript &amp; Node.js</strong>: High-performance, type-safe command-line application structure.</li>
+  <li><strong>LLM Integration</strong>: Extensible provider interface supporting DeepSeek and other LLM APIs via REST and stream adapters.</li>
+  <li><strong>Tool Orchestration</strong>: A custom-designed agent loop that parses LLM intent, maps it to local system tools, and feeds the execution outputs back into the context.</li>
+  <li><strong>Safety Mechanisms</strong>: Built-in command validation filters and sandboxed filesystem checks to prevent unauthorized commands or recursive file damage.</li>
+</ul>
+
+<h2 id="key-features">Key Features</h2>
+
+<ul>
+  <li><strong>Natural Language Workspace Command</strong>: Tell the CLI what you want to build, edit, or search, and it will execute the sequence autonomously.</li>
+  <li><strong>Interactive REPL Interface</strong>: A clean console prompting layer for continuous agent dialog and review.</li>
+  <li><strong>Extensible LLM Adapters</strong>: Easily swap underlying models depending on the task complexity and speed requirements.</li>
+  <li><strong>Terminal Execution &amp; Feedback</strong>: The agent runs builds, runs linters, and reads compile errors to self-correct code implementation.</li>
+</ul>
+
+<div class="project-links">
+  <a href="https://github.com/harikrishna/code-cli" class="github-link">View on GitHub</a>
+</div>
+<div class="project-meta">
+  <span class="tech-badge">TypeScript</span>
+  <span class="tech-badge">Node.js</span>
+  <span class="tech-badge">DeepSeek API</span>
+  <span class="tech-badge">Agent Orchestration</span>
+  <span class="date-badge">June 2025</span>
+</div>
+
+</div>
 
       </div>
     </div>
